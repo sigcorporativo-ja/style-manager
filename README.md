@@ -1,1 +1,1 @@
-# M.plugin.StyleManager
+# StyleManager
