@@ -200,29 +200,31 @@ export class ClusterBinding extends Binding {
     }
 
     //generator function
-    function* range(n, m, lastRange) {
+    const range = (n, m, lastRange) => {
+      const ranges = [];
       let max = lastRange;
-      let index = n;
-      while (index < m) {
+      for (let i = n; i < m; i++) {
         let min = max + 1;
         max = min + 200;
-        yield {
-          id: index,
+        const obj = {
+          id: i,
           min: min,
           max: max,
           fill: chroma.random().hex(),
           stroke: chroma.random().hex()
         };
-        index++;
+        ranges.push(obj);
       }
+      return ranges;
     };
 
     // generates
     let lastRange = options["ranges"].slice(-1)[0]["max"];
     options["pages"] = [];
-    for (let num of range(options["ranges"].length + 1, ClusterBinding.NUMBER_RANGES, lastRange)) {
-      options["pages"].push(num);
-    }
+    const ranges = range(options["ranges"].length + 1, ClusterBinding.NUMBER_RANGES, lastRange);
+    ranges.forEach((element, index) => {
+      options["pages"].push(element);
+    });
     return options;
   }
 }
