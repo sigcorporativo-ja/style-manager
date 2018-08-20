@@ -39,3 +39,4 @@ capaVectorial.on(M.evt.LOAD, function() {
      myMap.addPlugin(mp);
 });
 ```  
+[Ejemplo funcional](http://jsfiddle.net/sigcJunta/nyrxteha/)
