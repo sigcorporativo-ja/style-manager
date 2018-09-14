@@ -675,7 +675,7 @@ export class SimpleBinding extends Binding {
       icon: {
         src: "",
         form: "",
-        size: undefined,
+        size: [40, 40],
         anchor: [0, 0],
         scale: 1,
         offset: [0, 0],

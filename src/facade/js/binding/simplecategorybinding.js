@@ -3,23 +3,10 @@ import {
 }
 from './binding';
 
-export class SimpleCategoryBinding extends Binding {
-  constructor(html, htmlParent, styleType, styleParams, layer, binding) {
+export class SimpleBinding extends Binding {
+  constructor(html, htmlParent, styleType, styleParams, layer, controller) {
     super(html, htmlParent, styleType, styleParams, layer);
-    this.fill_ = false;
-    this.stroke_ = false;
-    this.label_ = false;
-    this.form_ = false;
-    this.icon_ = false;
-    if (styleParams != null) {
-      this.fill_ = styleParams.getOptions().fill != undefined;
-      this.stroke_ = styleParams.getOptions().stroke != undefined;
-      this.label_ = styleParams.getOptions().label != undefined;
-      this.icon_ = styleParams.get("icon.src") != undefined;
-      this.form_ = styleParams.get("icon.form") != undefined;
-    }
-
-    this.binding_ = binding;
+    this.controller_ = controller;
   }
 
   /**
@@ -36,27 +23,16 @@ export class SimpleCategoryBinding extends Binding {
     return this;
   }
 
-  getOptions() {
-    return {
-      fill: this.fill_,
-      stroke: this.stroke_,
-      label: this.label_,
-      form: this.form_,
-      icon: this.icon_
-    };
-  }
-
   /**
    * This function sets the geometry of binding class.
    * @function
    * @param {string}
-   * @return {SimpleCategoryBinding}
+   * @return {SimpleBinding}
    */
   setGeometry(geometry) {
-    if (SimpleCategoryBinding.GEOMETRIES.includes(geometry)) {
+    if (SimpleBinding.GEOMETRIES.includes(geometry)) {
       this.geometry_ = geometry;
-    }
-    else {
+    } else {
       this.geometry_ = 'point';
     }
     return this;
@@ -77,13 +53,61 @@ export class SimpleCategoryBinding extends Binding {
    */
   refreshTemplate() {
     let geometry = this.getGeometry();
-    let hiddenGeometries = SimpleCategoryBinding.GEOMETRIES.filter(section => section !== geometry);
+    let hiddenGeometries = SimpleBinding.GEOMETRIES.filter(section => section !== geometry);
 
     hiddenGeometries.forEach(geometry => {
       this.querySelectorAllForEach(`[data-geometry="${geometry}"]`, node => node.classList.add('m-hidden'));
     });
     this.querySelectorAllForEach(`[data-geometry="${geometry}"]`, node => node.classList.remove('m-hidden'));
+    this.refreshOptionsButtons();
     this.addLabelPathListener();
+  }
+
+  /**
+   * This function refresh the html options buttons template.
+   * @function
+   */
+  refreshOptionsButtons() {
+    let options = SimpleBinding.OPTIONS_POINT_SUBMENU;
+
+    if (this.getGeometry() !== "point") {
+      options = SimpleBinding.OPTIONS_SUBMENU;
+    }
+
+    this.addOptionsButtons(options, () => {
+      this.compatibleSectionListener("icon", "form");
+      this.compatibleSectionListener("form", "icon");
+    });
+  }
+
+  /**
+   * This function sets the layer of a binding class.
+   * @function
+   */
+  addOptionsButtons(options, callback = null) {
+    let parentHtml = this.getParentTemplate().querySelector("[data-buttons-option]");
+    this.hideAllOptionsSections();
+    this.addTemplate('buttonoptions.html', parentHtml, {
+      buttonsParams: options
+    }, () => {
+      options.forEach(option => {
+        this.toggleCheckOptionSection(option.id);
+        this.activateOptionSection(option.id);
+        if (typeof callback === "function") {
+          callback();
+        }
+      });
+      this.activateOptionsStyle();
+      this.addEventCheckFromSubmenu();
+    });
+  }
+
+  addEventCheckFromSubmenu() {
+    this.querySelectorAllForEachParent("[data-buttons-option] input", input => {
+      input.addEventListener("change", () => {
+        this.controller_.selectPanel("stylesimple");
+      });
+    });
   }
 
   /**
@@ -121,18 +145,6 @@ export class SimpleCategoryBinding extends Binding {
         }
       }
 
-    }
-  }
-
-  showCompatibleSections() {
-    this.binding_.enableOption("form");
-    this.binding_.enableOption("icon");
-    if (this.icon_ === true) {
-      this.binding_.disableOption("form");
-    }
-
-    if (this.form_ === true) {
-      this.binding_.disableOption("icon");
     }
   }
 
@@ -288,7 +300,9 @@ export class SimpleCategoryBinding extends Binding {
     let fontFamily = this.querySelector("[data-font-family]").value;
     let font = `${fontSize}px ${fontFamily}`;
 
-    let iconOpts = this.icon === true ? styleOpts["options"].src : styleOpts["options"].form;
+
+    let icon = document.querySelector("[data-apply='icon']").checked;
+    let iconOpts = icon === true ? styleOpts["options"].src : styleOpts["options"].form;
 
     let labelOpt;
     if (styleOpts["options"]["label"] != null && styleOpts["options"]["label"]["text"] != null) {
@@ -354,7 +368,7 @@ export class SimpleCategoryBinding extends Binding {
    */
   isChecked(option) {
     let checked = false;
-    let input = this.getParentTemplate().parentElement.querySelector(`[data-buttons-option-category] input[data-apply='${option}'`);
+    let input = this.getParentTemplate().querySelector(`[data-buttons-option] input[data-apply='${option}'`);
     if (input != null) {
       checked = input.checked;
     }
@@ -403,14 +417,12 @@ export class SimpleCategoryBinding extends Binding {
    * @param {string}
    */
   compatibleSectionListener(optionEnable, optionDisable) {
-    let clickable = this.querySelectorParent(`[data-buttons-option] input[data-apply="${optionEnable}"]+label`);
     let input = this.querySelectorParent(`[data-buttons-option] input[data-apply="${optionEnable}"]`);
-    if (clickable != null) {
-      clickable.addEventListener("click", () => {
-        if (input.checked === false) {
+    if (input != null) {
+      input.addEventListener("change", () => {
+        if (input.checked === true) {
           this.disableOption(optionDisable);
-        }
-        else {
+        } else {
           this.enableOption(optionDisable);
         }
       });
@@ -451,13 +463,13 @@ export class SimpleCategoryBinding extends Binding {
    *
    */
   getOptionsTemplate() {
-    let options = SimpleCategoryBinding.DEFAULT_OPTIONS_STYLE;
+    let options = SimpleBinding.DEFAULT_OPTIONS_STYLE;
     if (this.style_ != null) {
       if (this.style_.get("fill.pattern") != null) {
         options["patternflag"] = true;
       }
       options = M.utils.extends({}, this.style_.getOptions());
-      options = M.utils.extends(options, SimpleCategoryBinding.DEFAULT_OPTIONS_STYLE);
+      options = M.utils.extends(options, SimpleBinding.DEFAULT_OPTIONS_STYLE);
     }
 
     // transform color options to hex color for value inputs color
@@ -476,18 +488,18 @@ export class SimpleCategoryBinding extends Binding {
     let formValues = Object.values(M.style.form).filter(name => name != null);
 
     //transform array options to data template option
-    options["patternlist"] = SimpleCategoryBinding.arrayDataToTemplate(options["fill"]["pattern"]["name"], patternValids, patternValids);
-    options["linecapstroke"] = SimpleCategoryBinding.arrayDataToTemplate(options["stroke"]["linecap"], ["butt", "square", "round"], ["Extremo", "Cuadrado", "Redondeado"]);
-    options["linejoinstroke"] = SimpleCategoryBinding.arrayDataToTemplate(options["stroke"]["linejoin"], ["bevel", "miter", "round"], ["Bisel", "Inglete", "Redondeado"]);
-    options["linecaplabelstroke"] = SimpleCategoryBinding.arrayDataToTemplate(options["label"]["stroke"]["linecap"], ["butt", "square", "round"], ["Extremo", "Cuadrado", "Redondeado"]);
-    options["linejoinlabelstroke"] = SimpleCategoryBinding.arrayDataToTemplate(options["label"]["stroke"]["linejoin"], ["bevel", "miter", "round"], ["Bisel", "Inglete", "Redondeado"]);
-    options["alignlist"] = SimpleCategoryBinding.arrayDataToTemplate(options["label"]["align"], alignValues, alignValues);
-    options["baselinelist"] = SimpleCategoryBinding.arrayDataToTemplate(options["label"]["baseline"], baselineValues, baselineValues);
-    options["formlist"] = SimpleCategoryBinding.arrayDataToTemplate(options["icon"]["form"], formValues, formValues);
+    options["patternlist"] = SimpleBinding.arrayDataToTemplate(options["fill"]["pattern"]["name"], patternValids, patternValids);
+    options["linecapstroke"] = SimpleBinding.arrayDataToTemplate(options["stroke"]["linecap"], ["butt", "square", "round"], ["Extremo", "Cuadrado", "Redondeado"]);
+    options["linejoinstroke"] = SimpleBinding.arrayDataToTemplate(options["stroke"]["linejoin"], ["bevel", "miter", "round"], ["Bisel", "Inglete", "Redondeado"]);
+    options["linecaplabelstroke"] = SimpleBinding.arrayDataToTemplate(options["label"]["stroke"]["linecap"], ["butt", "square", "round"], ["Extremo", "Cuadrado", "Redondeado"]);
+    options["linejoinlabelstroke"] = SimpleBinding.arrayDataToTemplate(options["label"]["stroke"]["linejoin"], ["bevel", "miter", "round"], ["Bisel", "Inglete", "Redondeado"]);
+    options["alignlist"] = SimpleBinding.arrayDataToTemplate(options["label"]["align"], alignValues, ["Izquierda", "Centro", "Derecha", "Justificado"]);
+    options["baselinelist"] = SimpleBinding.arrayDataToTemplate(options["label"]["baseline"], baselineValues, ["Arriba", "Centro", "Abajo", "Alfabetico", "Colgando", "Ideografico"]);
+    options["formlist"] = SimpleBinding.arrayDataToTemplate(options["icon"]["form"], formValues, formValues);
     if (this.layer_ != null) {
       let labelTextValues = Object.keys(this.getFeaturesAttributes());
       let labelTextSelected = options["label"] != null ? options["label"]["text"] : "";
-      options["featuresAttr"] = SimpleCategoryBinding.arrayDataToTemplate(labelTextSelected, labelTextValues.map(name => `{{${name}}}`), labelTextValues);
+      options["featuresAttr"] = SimpleBinding.arrayDataToTemplate(labelTextSelected, labelTextValues.map(name => `{{${name}}}`), labelTextValues);
     }
 
 
@@ -502,91 +514,28 @@ export class SimpleCategoryBinding extends Binding {
     return this.imgId_;
   }
 
-  set fill(bool) {
-    this.fill_ = bool;
-  }
-
-  set stroke(bool) {
-    this.stroke_ = bool;
-  }
-
-  set label(bool) {
-    this.label_ = bool;
-  }
-
-  set form(bool) {
-    this.form_ = bool;
-  }
-
-  set icon(bool) {
-    this.icon_ = bool;
-  }
-
-  get fill() {
-    return this.fill_;
-  }
-
-  get stroke() {
-    return this.stroke_;
-  }
-
-  get label() {
-    return this.label_;
-  }
-
-  get form() {
-    return this.form_;
-  }
-
-  get icon() {
-    return this.icon_;
-  }
-
   toggleDisplaySubmenu(flag) {
     let buttonOptions = this.getParentTemplate().querySelector("[data-buttons-option]");
     let funct = flag === true ? "add" : "remove";
     buttonOptions.classList[funct]("m-hidden");
   }
 
-  addLegendListener() {
-    this.querySelectorAllForEach("input,select,div.m-boxes", element => {
-      if (element instanceof HTMLDivElement) {
-        element.addEventListener("click", () => {
-          this.refreshLegend(element);
-        });
-      }
-      else {
-        if (element instanceof HTMLSelectElement) {
-          element.addEventListener("change", () => {
-            this.refreshLegend(element);
-          });
-        }
-        else {
-          element.addEventListener("input", () => {
-            this.refreshLegend(element);
-          });
-        }
-      }
-    });
-  }
-
   /**
    * @function
    * @param {function}
    */
-  refreshLegend(element, flag) {
+  refreshLegend(element, flag = false) {
     let id = this.imgId_;
     let style = this.generateStyle();
     if (flag === true) {
       style = this.style_;
     }
     if (style != null) {
-      this.style_ = style;
       style = style.clone();
       if (style instanceof M.style.Point) {
-        style.set('radius', SimpleCategoryBinding.RADIUS_OPTION);
+        style.set('radius', SimpleBinding.RADIUS_OPTION);
         if (style.get("icon.radius") != null) {
-          style.set("icon.radius", SimpleCategoryBinding.ICON_RADIUS_OPTION);
+          style.set("icon.radius", SimpleBinding.ICON_RADIUS_OPTION);
         }
       }
       let img = this.htmlParent_.querySelector(`img[id='img-${id}']`);
@@ -613,11 +562,6 @@ export class SimpleCategoryBinding extends Binding {
    */
   static get ICON_RADIUS_OPTION() {
     return 10;
-  }
-
-  get style() {
-
-    return this.style_;
   }
 
   /**
@@ -733,7 +677,7 @@ export class SimpleCategoryBinding extends Binding {
       icon: {
         src: "",
         form: "",
-        size: undefined,
+        size: [40, 40],
         anchor: [0, 0],
         scale: 1,
         offset: [0, 0],
