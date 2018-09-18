@@ -300,8 +300,9 @@ export class SimpleBinding extends Binding {
     let fontFamily = this.querySelector("[data-font-family]").value;
     let font = `${fontSize}px ${fontFamily}`;
 
-    let icon = document.querySelector("[data-apply='icon']").checked;
-    let iconOpts = icon === true ? styleOpts["options"].src : styleOpts["options"].form;
+    let icon = document.querySelector("[data-apply='icon']");
+    let iconOpts = icon !== null && icon.checked === true ?
+      styleOpts["options"].src : styleOpts["options"].form;
 
     let labelOpt;
     if (styleOpts["options"]["label"] != null && styleOpts["options"]["label"]["text"] != null) {
