@@ -92,6 +92,8 @@ class StyleManager extends M.Plugin {
       return string.toLowerCase();
     });
 
+    // patch: mapea 5 api change
+    M.utils.extends = M.utils.extendsObj;
   }
 
   /**
