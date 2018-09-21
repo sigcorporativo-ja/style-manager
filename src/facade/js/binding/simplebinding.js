@@ -493,8 +493,8 @@ export class SimpleBinding extends Binding {
     options["linejoinstroke"] = SimpleBinding.arrayDataToTemplate(options["stroke"]["linejoin"], ["bevel", "miter", "round"], ["Bisel", "Inglete", "Redondeado"]);
     options["linecaplabelstroke"] = SimpleBinding.arrayDataToTemplate(options["label"]["stroke"]["linecap"], ["butt", "square", "round"], ["Extremo", "Cuadrado", "Redondeado"]);
     options["linejoinlabelstroke"] = SimpleBinding.arrayDataToTemplate(options["label"]["stroke"]["linejoin"], ["bevel", "miter", "round"], ["Bisel", "Inglete", "Redondeado"]);
-    options["alignlist"] = SimpleBinding.arrayDataToTemplate(options["label"]["align"], alignValues, ["Izquierda", "Centro", "Derecha", "Justificado"]);
-    options["baselinelist"] = SimpleBinding.arrayDataToTemplate(options["label"]["baseline"], baselineValues, ["Arriba", "Centro", "Abajo", "Alfabetico", "Colgando", "Ideografico"]);
+    options["alignlist"] = SimpleBinding.arrayDataToTemplate(options["label"]["align"], alignValues, ["Centro", "Justificado", "Izquierda", "Derecha"]);
+    options["baselinelist"] = SimpleBinding.arrayDataToTemplate(options["label"]["baseline"], baselineValues, ["Alfabetico", "Abajo", "Colgando", "Ideografico", "Arriba", "Centro", ]);
     options["formlist"] = SimpleBinding.arrayDataToTemplate(options["icon"]["form"], formValues, formValues);
     if (this.layer_ != null) {
       let labelTextValues = Object.keys(this.getFeaturesAttributes());
