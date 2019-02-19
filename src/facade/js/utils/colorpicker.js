@@ -1,4 +1,4 @@
-import namespace from 'util/decorator';
+import namespace from 'mapea-util/decorator';
 
 @namespace("M.plugin.stylemanager")
 export class ColorPickerPolyfill {

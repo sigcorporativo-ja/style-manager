@@ -1,4 +1,4 @@
-import namespace from 'util/decorator';
+import namespace from 'mapea-util/decorator';
 import StyleManagerControl from './stylemanagerControl.js';
 import {
   ColorPickerPolyfill
