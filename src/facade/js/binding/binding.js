@@ -1,3 +1,4 @@
+import attributestemplate from 'templates/attributestemplate';
 export class Binding {
 
   constructor(html, htmlParent, styleType, style, layer) {
@@ -22,9 +23,11 @@ export class Binding {
    * @return {Promise}
    */
   compileTemplate(htmlName, options) {
-    return M.template.compile(htmlName, {
-      'jsop': true,
-      vars: options
+    return new Promise((resolve) => {
+      const html = M.template.compileSync(htmlName, {
+        vars: options
+      });
+      resolve(html);
     });
   }
 
@@ -363,14 +366,13 @@ export class Binding {
         };
       });
       let selectElement = this.getTemplate().querySelector("[data-options='attributeName']");
-      this.compileTemplate("attributestemplate.html", {
+      this.compileTemplate(attributestemplate, {
         attributes: attributeNames
       }).then(html => {
         selectElement.innerHTML = html.innerHTML;
         if (attributeNames.length === 0) {
           this.deactivateBinding();
-        }
-        else {
+        } else {
           this.activateBinding();
         }
       });
@@ -509,13 +511,11 @@ export class Binding {
     if (keyLength === 1) { // base case
       if (M.utils.isArray(value)) {
         value = [...value];
-      }
-      else if (M.utils.isObject(value)) {
+      } else if (M.utils.isObject(value)) {
         value = Object.assign({}, value);
       }
       obj[key] = value;
-    }
-    else if (keyLength > 1) { // recursive case
+    } else if (keyLength > 1) { // recursive case
       if (M.utils.isNullOrEmpty(obj[key])) {
         obj[key] = {};
       }

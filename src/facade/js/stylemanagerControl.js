@@ -1,9 +1,8 @@
-import namespace from 'mapea-util/decorator';
+import stylemanager from 'templates/stylemanager';
 import StyleManagerImplControl from 'impl/stylemanagerControl';
 import BindingController from './bindingcontroller';
 
-@namespace("M.control")
-export class StyleManagerControl extends M.Control {
+export default class StyleManagerControl extends M.Control {
 
   /**
    * @classdesc
@@ -16,12 +15,12 @@ export class StyleManagerControl extends M.Control {
    */
   constructor(layer) {
     // 1. checks if the implementation can create PluginControl
-    if (M.utils.isUndefined(M.impl.control.StyleManagerControl)) {
+    if (M.utils.isUndefined(StyleManagerImplControl)) {
       M.exception('La implementación usada no puede crear controles PluginControl');
     }
 
     // 2. implementation of this control
-    let impl = new M.impl.control.StyleManagerControl();
+    let impl = new StyleManagerImplControl();
     super(impl, "StyleManager");
     this.layer_ = layer;
   }
@@ -37,23 +36,22 @@ export class StyleManagerControl extends M.Control {
     this.facadeMap_ = map;
     let layers = map.getWFS().concat(map.getKML().concat(map.getLayers().filter(layer => layer.type === "GeoJSON")));
     return new Promise((success, fail) => {
-      M.template.compile('stylemanager.html', {
+      const html = M.template.compileSync(stylemanager, {
         'jsonp': true,
         vars: {
           layers: layers
         }
-      }).then((html) => {
-        let htmlSelect = html.querySelector('#m-stylemanager-select');
-        let container = html.querySelector('.m-stylemanager-container-select');
-        this.bindinController_ = new M.plugin.stylemanager.BindingController(container);
-        this.addSelectListener(htmlSelect, html);
-        this.subscribeAddedLayer(htmlSelect);
-        this.addApplyBtnListener(html);
-        this.addClearBtnListener(html);
-        this.renderOptionsLayerParam(htmlSelect, html, layers);
+      })
+      let htmlSelect = html.querySelector('#m-stylemanager-select');
+      let container = html.querySelector('.m-stylemanager-container-select');
+      this.bindinController_ = new BindingController(container);
+      this.addSelectListener(htmlSelect, html);
+      this.subscribeAddedLayer(htmlSelect);
+      this.addApplyBtnListener(html);
+      this.addClearBtnListener(html);
+      this.renderOptionsLayerParam(htmlSelect, html, layers);
 
-        success(html);
-      });
+      success(html);
     });
   }
 
@@ -190,8 +188,7 @@ export class StyleManagerControl extends M.Control {
       if (features.length === 0) {
         M.dialog.error('La capa no tiene features o aún no se han cargado.', 'Error');
         htmlSelect.selectedIndex = 0;
-      }
-      else {
+      } else {
         this.bindinController_.change(this.layer_);
         this.showBoxes(html);
         this.addOpenAttribute(html);
@@ -232,8 +229,7 @@ export class StyleManagerControl extends M.Control {
       this.layer_.clearStyle();
       let style = this.bindinController_.getStyle();
       this.layer_.setStyle(style);
-    }
-    else {
+    } else {
       M.dialog.info("Tiene que elegir una capa.", "Elija capa");
     }
   }
@@ -247,8 +243,7 @@ export class StyleManagerControl extends M.Control {
   clearStyle() {
     if (this.layer_ instanceof M.layer.Vector) {
       this.layer_.clearStyle();
-    }
-    else {
+    } else {
       M.dialog.info("Tiene que elegir una capa.", "Elija capa");
     }
   }

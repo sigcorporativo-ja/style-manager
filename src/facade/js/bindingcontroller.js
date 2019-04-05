@@ -1,4 +1,10 @@
-import namespace from 'mapea-util/decorator';
+import stylesimple from 'templates/stylesimple';
+import styleproportional from 'templates/styleproportional';
+import stylecluster from 'templates/stylecluster';
+import stylechoropleth from 'templates/stylechoropleth';
+import stylecategory from 'templates/stylecategory';
+import styleheatmap from 'templates/styleheatmap';
+import stylechart from 'templates/stylechart';
 import {
   SimpleBinding
 }
@@ -28,8 +34,9 @@ import {
 }
 from './binding/chartbinding';
 
-@namespace("M.plugin.stylemanager")
-export class BindingController {
+
+
+export default class BindingController {
   constructor(htmlParent) {
     this.layer_ = null;
     this.activePanel_ = null;
@@ -45,9 +52,7 @@ export class BindingController {
 
       if (style instanceof styleType) {
         styleBinding = style;
-      }
-
-      else if (style instanceof M.style.Composite) {
+      } else if (style instanceof M.style.Composite) {
         let styles = style.getStyles();
         styleBinding = styles.find(style => style instanceof styleType);
       }
@@ -58,13 +63,13 @@ export class BindingController {
   renderViews(layer) {
 
     this.bindings_ = {};
-    this.bindings_['stylesimple'] = new SimpleBinding('stylesimple.html', this.html_, 'stylesimple', this.getStyles(layer, M.style.Simple), layer, this);
-    this.bindings_['styleproportional'] = new ProportionalBinding('styleproportional.html', this.html_, 'styleproportional', this.getStyles(layer, M.style.Proportional), layer);
-    this.bindings_['stylecluster'] = new ClusterBinding('stylecluster.html', this.html_, 'stylecluster', this.getStyles(layer, M.style.Cluster), layer);
-    this.bindings_['stylechoropleth'] = new ChoroplethBinding('stylechoropleth.html', this.html_, 'stylechoropleth', this.getStyles(layer, M.style.Choropleth), layer);
-    this.bindings_['stylecategory'] = new CategoryBinding('stylecategory.html', this.html_, 'stylecategory', this.getStyles(layer, M.style.Category), layer, this);
-    this.bindings_['styleheatmap'] = new HeatmapBinding('styleheatmap.html', this.html_, 'styleheatmap', this.getStyles(layer, M.style.Heatmap), layer);
-    this.bindings_['stylechart'] = new ChartBinding('stylechart.html', this.html_, 'stylechart', this.getStyles(layer, M.style.Chart), layer);
+    this.bindings_['stylesimple'] = new SimpleBinding(stylesimple, this.html_, 'stylesimple', this.getStyles(layer, M.style.Simple), layer, this);
+    this.bindings_['styleproportional'] = new ProportionalBinding(styleproportional, this.html_, 'styleproportional', this.getStyles(layer, M.style.Proportional), layer);
+    this.bindings_['stylecluster'] = new ClusterBinding(stylecluster, this.html_, 'stylecluster', this.getStyles(layer, M.style.Cluster), layer);
+    this.bindings_['stylechoropleth'] = new ChoroplethBinding(stylechoropleth, this.html_, 'stylechoropleth', this.getStyles(layer, M.style.Choropleth), layer);
+    this.bindings_['stylecategory'] = new CategoryBinding(stylecategory, this.html_, 'stylecategory', this.getStyles(layer, M.style.Category), layer, this);
+    this.bindings_['styleheatmap'] = new HeatmapBinding(styleheatmap, this.html_, 'styleheatmap', this.getStyles(layer, M.style.Heatmap), layer);
+    this.bindings_['stylechart'] = new ChartBinding(stylechart, this.html_, 'stylechart', this.getStyles(layer, M.style.Chart), layer);
     this.bindings_["stylesimple"].getCompilePromise().then(() => {
       this.addSelectOnChangeListener();
     });
@@ -100,8 +105,7 @@ export class BindingController {
     this.activePanel_.setActivated(true);
     if (style === "stylesimple") {
       this.bindings_["stylesimple"].toggleDisplaySubmenu(false);
-    }
-    else {
+    } else {
       this.bindings_["stylesimple"].toggleDisplaySubmenu(true);
     }
   }
@@ -298,8 +302,7 @@ export class BindingController {
     this.getKeysBindings().forEach(binding => {
       if (styles.includes(binding)) {
         this.bindLayer(binding);
-      }
-      else {
+      } else {
         this.disablePanel(binding);
       }
     });
@@ -346,8 +349,7 @@ export class BindingController {
   showCompatiblePanel(style) {
     if (this.selectedPanels_.includes(style)) {
       this.removeSelectedPanel(style);
-    }
-    else {
+    } else {
       this.addSelectedPanel(style);
     }
     this.setCompatibleStylePanels(style);
@@ -395,11 +397,9 @@ export class BindingController {
     let style;
     if (this.getSelectedPanels().length === 0) {
       M.dialog.info("Debe elegir al menos un estilo", "Elija estilo");
-    }
-    else if (this.getSelectedPanels().length === 1) {
+    } else if (this.getSelectedPanels().length === 1) {
       style = this.getSelectedPanels()[0].generateStyle();
-    }
-    else {
+    } else {
       let mainStyle = this.getMainStyle();
       let styles = this.getIndividualStyles();
       mainStyle.add(styles);
@@ -499,7 +499,8 @@ export class BindingController {
   static get GEOMETRY_COMPATIBLE_OPTIONS() {
     return {
       "point": ['styleproportional', 'stylecluster', 'stylechoropleth', 'stylecategory',
-                 'styleheatmap', 'stylechart', 'stylesimple'],
+        'styleheatmap', 'stylechart', 'stylesimple'
+      ],
       "line": ['stylechoropleth', 'stylecategory', 'stylesimple'],
       "polygon": ['stylechoropleth', 'stylecategory', 'stylesimple', "styleproportional"]
     };
@@ -513,23 +514,17 @@ export class BindingController {
     let name = "";
     if (style instanceof M.style.Simple) {
       name = "stylesimple";
-    }
-    else if (style instanceof M.style.Cluster) {
+    } else if (style instanceof M.style.Cluster) {
       name = "stylecluster";
-    }
-    else if (style instanceof M.style.Heatmap) {
+    } else if (style instanceof M.style.Heatmap) {
       name = "styleheatmap";
-    }
-    else if (style instanceof M.style.Choropleth) {
+    } else if (style instanceof M.style.Choropleth) {
       name = "stylechoropleth";
-    }
-    else if (style instanceof M.style.Category) {
+    } else if (style instanceof M.style.Category) {
       name = "stylecategory";
-    }
-    else if (style instanceof M.style.Chart) {
+    } else if (style instanceof M.style.Chart) {
       name = "stylechart";
-    }
-    else if (style instanceof M.style.Proportional) {
+    } else if (style instanceof M.style.Proportional) {
       name = "styleproportional";
     }
     return name;

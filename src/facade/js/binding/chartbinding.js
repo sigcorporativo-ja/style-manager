@@ -1,3 +1,6 @@
+import variablechart from 'templates/variablechart';
+import paginationchart from 'templates/paginationchart';
+import attributeschart from 'templates/attributeschart';
 import {
   Binding
 }
@@ -23,6 +26,7 @@ export class ChartBinding extends Binding {
     this.renderAttributes();
     return this;
   }
+
   /**
    * @function
    * @param {string}
@@ -54,18 +58,15 @@ export class ChartBinding extends Binding {
     if (attribute !== "") {
       if (this.variables_.includes(attribute)) {
         M.dialog.info("El atributo ya ha sido agregado.", "Nombre de variable repetida");
-      }
-      else {
+      } else {
         let allowedAttrs = this.layer_.getFeatures()[0].getAttributes();
         if (allowedAttrs.hasOwnProperty(attribute)) {
           this.addAttributeFromParamenter(attribute);
-        }
-        else {
+        } else {
           M.dialog.info("No existe ninguna variable con ese nombre.", "Nombre de variable incorrecto.");
         }
       }
-    }
-    else {
+    } else {
       M.dialog.info("No está permitido introducir una cadena vacía.", "Nombre de variable vacía.");
 
     }
@@ -128,7 +129,7 @@ export class ChartBinding extends Binding {
         label = variable.label;
       }
     }
-    this.compileTemplate("variablechart.html", {
+    this.compileTemplate(variablechart, {
       attribute: attribute,
       legend: legend,
       label: label
@@ -202,7 +203,7 @@ export class ChartBinding extends Binding {
     });
 
     let parent = this.querySelector("[data-pagination]");
-    this.compileTemplate("paginationchart.html", {
+    this.compileTemplate(paginationchart, {
       ranges: options
     }).then(html => {
       parent.innerHTML = html.innerHTML;
@@ -268,8 +269,7 @@ export class ChartBinding extends Binding {
       let types = element.dataset["type"].split(",");
       if (!types.includes(type)) {
         element.classList.add("m-hidden");
-      }
-      else {
+      } else {
         element.classList.remove("m-hidden");
       }
     });
@@ -302,7 +302,7 @@ export class ChartBinding extends Binding {
       return !isNaN(parseFloat(attributes[key]));
     });
 
-    this.compileTemplate('attributeschart.html', {
+    this.compileTemplate(attributeschart, {
       attributes: keys
     }).then(html => {
       this.querySelector("[data-attribute]").innerHTML = html.innerHTML;

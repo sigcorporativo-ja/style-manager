@@ -1,3 +1,4 @@
+import * as chroma from 'chroma-js';
 import {
   Binding
 }
@@ -55,8 +56,7 @@ export class SimpleCategoryBinding extends Binding {
   setGeometry(geometry) {
     if (SimpleCategoryBinding.GEOMETRIES.includes(geometry)) {
       this.geometry_ = geometry;
-    }
-    else {
+    } else {
       this.geometry_ = 'point';
     }
     return this;
@@ -409,8 +409,7 @@ export class SimpleCategoryBinding extends Binding {
       clickable.addEventListener("click", () => {
         if (input.checked === false) {
           this.disableOption(optionDisable);
-        }
-        else {
+        } else {
           this.enableOption(optionDisable);
         }
       });
@@ -554,14 +553,12 @@ export class SimpleCategoryBinding extends Binding {
         element.addEventListener("click", () => {
           this.refreshLegend(element);
         });
-      }
-      else {
+      } else {
         if (element instanceof HTMLSelectElement) {
           element.addEventListener("change", () => {
             this.refreshLegend(element);
           });
-        }
-        else {
+        } else {
           element.addEventListener("input", () => {
             this.refreshLegend(element);
           });
@@ -628,13 +625,13 @@ export class SimpleCategoryBinding extends Binding {
     return [{
       id: "fill",
       name: "Relleno"
-     }, {
+    }, {
       id: "stroke",
       name: "Trazo"
-     }, {
+    }, {
       id: "label",
       name: "Etiqueta"
-      }, {
+    }, {
       id: "icon",
       name: "Icono"
     }, {
@@ -651,13 +648,13 @@ export class SimpleCategoryBinding extends Binding {
     return [{
       id: "fill",
       name: "Relleno"
-     }, {
+    }, {
       id: "stroke",
       name: "Trazo"
-     }, {
+    }, {
       id: "label",
       name: "Etiqueta"
-      }];
+    }];
   }
 
   /**

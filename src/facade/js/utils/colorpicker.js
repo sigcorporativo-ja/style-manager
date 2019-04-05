@@ -1,6 +1,3 @@
-import namespace from 'mapea-util/decorator';
-
-@namespace("M.plugin.stylemanager")
 export class ColorPickerPolyfill {
   static apply(window) {
     var document = window.document,
@@ -63,8 +60,7 @@ export class ColorPickerPolyfill {
           // test if browser has native support for color input
           try {
             this.hasNativeColorSupport = !!(document.createElement('input').type = 'color');
-          }
-          catch (e) {};
+          } catch (e) {};
 
           // no native support...
           if (!this.hasNativeColorSupport) {
@@ -89,8 +85,7 @@ export class ColorPickerPolyfill {
           // destroy one input or all the plugin if no input id
           if (typeof inputId === 'string') {
             this.off(this.inputs[inputId]);
-          }
-          else {
+          } else {
             // remove helper object
             document.body.removeChild(document.getElementById('colorHelperObj'));
             // remove input events and styles

@@ -1,18 +1,15 @@
-import namespace from 'mapea-util/decorator';
+/**
+ * @module M/plugin/StyleManager
+ */
+import 'css/stylemanager.css';
 import StyleManagerControl from './stylemanagerControl.js';
 import {
   ColorPickerPolyfill
 }
 from './utils/colorpicker';
-import css from 'assets/css/stylemanager.css';
-import fonts from 'assets/fonts/sigc.eot';
-import fonts2 from 'assets/fonts/sigc.woff';
-import fonts3 from 'assets/fonts/sigc.svg';
-import fonts4 from 'assets/fonts/sigc.ttf';
 import 'templates/categorystyles.html';
 
-@namespace("M.plugin")
-class StyleManager extends M.Plugin {
+export default class StyleManager extends M.Plugin {
 
   /**
    * @classdesc
@@ -105,9 +102,9 @@ class StyleManager extends M.Plugin {
    * @api stable
    */
   addTo(map) {
-    this.controls_.push(new M.control.StyleManagerControl(this.layer_));
+    this.controls_.push(new StyleManagerControl(this.layer_));
     this.map_ = map;
-    this.panel_ = new M.ui.Panel(M.plugin.StyleManager.NAME, {
+    this.panel_ = new M.ui.Panel(StyleManager.NAME, {
       'collapsible': true,
       'className': 'm-stylemanager',
       'collapsedButtonClass': 'g-sigc-palette',
