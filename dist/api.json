@@ -1,6 +1,6 @@
 {
   "url": {
-    "name": "stylemanager",
+    "name": "StyleManager",
     "separator": "*"
   },
   "constructor": "M.plugin.StyleManager",
@@ -9,5 +9,16 @@
       "scripts": "stylemanager-2.0.0.ol.js",
       "styles": "stylemanager-2.0.0.min.css"
     }
+  },
+  "metadata": {
+    "name": "StyleManager",
+    "description": "Edición de estilos de capas",
+    "text": "Plugin de Mapea para la gestión de la simbología de las capas vectoriales del mapa.",
+    "version": "1.0.0",
+    "date": "",
+    "author": "",
+    "org": "",
+    "tags": "mapea,plugin",
+    "icon": "./facade/assets/icons/icons.svg"
   }
 }
