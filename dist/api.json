@@ -6,8 +6,8 @@
   "constructor": "M.plugin.StyleManager",
   "files": {
     "ol": {
-      "scripts": "stylemanager-2.0.0.ol.js",
-      "styles": "stylemanager-2.0.0.min.css"
+      "scripts": "stylemanager-2.0.0.ol.min.js",
+      "styles": "stylemanager.min-2.0.0.css"
     }
   },
   "metadata": {
