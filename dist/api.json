@@ -15,9 +15,9 @@
     "description": "Edición de estilos de capas",
     "text": "Plugin de Mapea para la gestión de la simbología de las capas vectoriales del mapa.",
     "version": "1.0.0",
-    "date": "",
+    "date": "Jun 26, 2019",
     "author": "",
-    "org": "",
+    "org": "Consejeria de Hacienda y Administración Pública",
     "tags": "mapea,plugin",
     "icon": "./facade/assets/icons/icons.svg"
   }
