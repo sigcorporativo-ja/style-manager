@@ -134,8 +134,12 @@ export default class StyleManagerControl extends M.Control {
    */
   subscribeAddedLayer(htmlSelect) {
     this.facadeMap_.on(M.evt.ADDED_LAYER, (layers) => {
-
-      layers.filter(layer => layer instanceof M.layer.Vector).forEach(layer => this.addLayerOption(htmlSelect, layer.name));
+      if (Array.isArray(layers)) {
+        layers.filter(layer => layer instanceof M.layer.Vector).forEach(layer => this.addLayerOption(htmlSelect, layer.name));
+      } else if (layers instanceof M.layer.Vector) {
+        const _layer = { ...layers };
+        this.addLayerOption(htmlSelect, _layer);
+      }
     });
   }
 
