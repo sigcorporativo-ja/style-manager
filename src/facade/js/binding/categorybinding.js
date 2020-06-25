@@ -1,3 +1,8 @@
+import buttonoptions2 from 'templates/buttonoptions2';
+import simpleoptions from 'templates/simpleoptions';
+import stylesimple from 'templates/stylesimple';
+import attributestemplate from 'templates/attributestemplate';
+import categorystyles from 'templates/categorystyles';
 import {
   Binding
 }
@@ -91,7 +96,7 @@ export class CategoryBinding extends Binding {
    */
   addOptionsButtons(options, callback = null) {
     let parentHtml = this.getParentTemplate().querySelector("[data-buttons-option-category]");
-    this.addTemplate('buttonoptions2.html', parentHtml, {
+    this.addTemplate(buttonoptions2, parentHtml, {
       buttonsParams: options
     }, (html) => {
       if (typeof callback === "function") {
@@ -126,8 +131,7 @@ export class CategoryBinding extends Binding {
       input.addEventListener("change", () => {
         if (input.checked === true) {
           this.disableOption(optionDisable);
-        }
-        else {
+        } else {
           this.enableOption(optionDisable);
         }
       });
@@ -178,13 +182,13 @@ export class CategoryBinding extends Binding {
     return [{
       id: "fill",
       name: "Relleno"
-     }, {
+    }, {
       id: "stroke",
       name: "Trazo"
-     }, {
+    }, {
       id: "label",
       name: "Etiqueta"
-      }, {
+    }, {
       id: "icon",
       name: "Icono"
     }, {
@@ -201,13 +205,13 @@ export class CategoryBinding extends Binding {
     return [{
       id: "fill",
       name: "Relleno"
-     }, {
+    }, {
       id: "stroke",
       name: "Trazo"
-     }, {
+    }, {
       id: "label",
       name: "Etiqueta"
-      }];
+    }];
   }
 
   /**
@@ -269,7 +273,7 @@ export class CategoryBinding extends Binding {
    */
   addCategoriesView(values, attributeExists) {
     let parent = this.querySelector("[data-options='values']");
-    this.compileTemplate('categorystyles.html', {
+    this.compileTemplate(categorystyles, {
       values: values,
       attributeExists: attributeExists
     }).then(html => {
@@ -292,7 +296,7 @@ export class CategoryBinding extends Binding {
     let categoriesStyle = this.style_ == null ? null : this.style_.getCategories();
     values.forEach(value => {
       let categoryStyle = categoriesStyle == null ? null : categoriesStyle[value.name];
-      this.styleCategories_[value.name] = new SimpleCategoryBinding('simpleoptions.html', this.htmlTemplate_, "stylesimple", categoryStyle, this.layer_, this);
+      this.styleCategories_[value.name] = new SimpleCategoryBinding(simpleoptions, this.htmlTemplate_, "stylesimple", categoryStyle, this.layer_, this);
       this.styleCategories_[value.name].compilePromise_.then(() => {
         this.styleCategories_[value.name].refreshLegend(value.name, true);
       });
@@ -301,7 +305,7 @@ export class CategoryBinding extends Binding {
     });
 
     let otherCategory = categoriesStyle == null ? null : categoriesStyle["other"];
-    this.styleCategories_["other"] = new SimpleCategoryBinding('stylesimple.html', this.htmlTemplate_, "stylesimple", otherCategory, this.layer_, this);
+    this.styleCategories_["other"] = new SimpleCategoryBinding(stylesimple, this.htmlTemplate_, "stylesimple", otherCategory, this.layer_, this);
     this.styleCategories_["other"].compilePromise_.then(() => {
       this.styleCategories_["other"].refreshLegend("other", true);
     });
@@ -332,15 +336,14 @@ export class CategoryBinding extends Binding {
         };
       });
       let selectElement = this.getTemplate().querySelector("[data-options='attributeName']");
-      this.compileTemplate("attributestemplate.html", {
+      this.compileTemplate(attributestemplate, {
         attributes: attributeNames
       }).then(html => {
         selectElement.innerHTML = html.innerHTML;
         this.renderAttributeOptions(true);
         if (attributeNames.length === 0) {
           this.deactivateBinding();
-        }
-        else {
+        } else {
           this.activateBinding();
         }
       });
@@ -457,8 +460,7 @@ export class CategoryBinding extends Binding {
       options.forEach(option => this.hideSection(option.id));
       this.showSection(id);
       this.activeSection(id);
-    }
-    else {
+    } else {
       if (this.selectedCategory_ != null) {
         this.selectedCategory_[id] = false;
       }

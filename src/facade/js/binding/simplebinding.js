@@ -1,8 +1,9 @@
+import * as chroma from 'chroma-js';
+import buttonoptions from 'templates/buttonoptions';
 import {
   Binding
 }
 from './binding';
-
 export class SimpleBinding extends Binding {
   constructor(html, htmlParent, styleType, styleParams, layer, controller) {
     super(html, htmlParent, styleType, styleParams, layer);
@@ -87,7 +88,7 @@ export class SimpleBinding extends Binding {
   addOptionsButtons(options, callback = null) {
     let parentHtml = this.getParentTemplate().querySelector("[data-buttons-option]");
     this.hideAllOptionsSections();
-    this.addTemplate('buttonoptions.html', parentHtml, {
+    this.addTemplate(buttonoptions, parentHtml, {
       buttonsParams: options
     }, () => {
       options.forEach(option => {
@@ -572,13 +573,13 @@ export class SimpleBinding extends Binding {
     return [{
       id: "fill",
       name: "Relleno"
-     }, {
+    }, {
       id: "stroke",
       name: "Trazo"
-     }, {
+    }, {
       id: "label",
       name: "Etiqueta"
-      }, {
+    }, {
       id: "icon",
       name: "Icono"
     }, {
@@ -595,13 +596,13 @@ export class SimpleBinding extends Binding {
     return [{
       id: "fill",
       name: "Relleno"
-     }, {
+    }, {
       id: "stroke",
       name: "Trazo"
-     }, {
+    }, {
       id: "label",
       name: "Etiqueta"
-      }];
+    }];
   }
 
   /**

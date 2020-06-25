@@ -1,7 +1,4 @@
-import namespace from 'mapea-util/decorator';
-
-@namespace("M.impl.control")
-export class StyleManagerControl extends M.impl.Control {
+export default class StyleManagerControl extends M.impl.Control {
   /**
    * @classdesc
    * Main constructor of the StyleManagerControl.

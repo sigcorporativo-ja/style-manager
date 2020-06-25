@@ -1,3 +1,4 @@
+import * as chroma from 'chroma-js';
 import {
   Binding
 }
@@ -49,8 +50,7 @@ export class ClusterBinding extends Binding {
         styleOpts["options"]["label"] = {};
         styleOpts["options"]["label"]["color"] = value;
 
-      }
-      else {
+      } else {
         styleOpts["options"][prop] = value;
       }
 
@@ -251,14 +251,12 @@ ClusterBinding.DEFAULT_OPTIONS_STYLE = {
   },
   maxFeaturesToSelect: 20,
   distanceSelectFeatures: 15,
-  ranges: [
-    {
-      min: 2,
-      max: 30,
-      fill: "#ff00ff",
-      stroke: "#00fef0",
-      width: 2,
-      opacity: 1
-    }
-  ]
+  ranges: [{
+    min: 2,
+    max: 30,
+    fill: "#ff00ff",
+    stroke: "#00fef0",
+    width: 2,
+    opacity: 1
+  }]
 };
