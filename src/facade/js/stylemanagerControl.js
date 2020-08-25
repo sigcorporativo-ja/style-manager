@@ -158,7 +158,7 @@ export default class StyleManagerControl extends M.Control {
    */
   addLayerOption(htmlSelect, name) {
     if (name != "cluster_cover") {
-      if (this.isNotAdded(name) === true) {
+      if (this.isNotAdded(name, htmlSelect) === true) {
         let htmlOption = document.createElement("option");
         htmlOption.setAttribute("name", name);
         htmlOption.innerText = name;
@@ -170,9 +170,9 @@ export default class StyleManagerControl extends M.Control {
   /**
    * @function
    */
-  isNotAdded(layerName) {
-    let layers = this.facadeMap_.getLayers().filter(layer => layer instanceof M.layer.Vector);
-    return layers.find(layer => layer.name === layerName) == null;
+  isNotAdded(layerName, htmlSelect) {
+    const aChildren = [...htmlSelect.children];
+    return !aChildren.some(o => o.innerHTML === layerName);
   }
 
   /**
@@ -250,5 +250,17 @@ export default class StyleManagerControl extends M.Control {
     } else {
       M.dialog.info("Tiene que elegir una capa.", "Elija capa");
     }
+  }
+
+  /**
+   * This function compares controls
+   *
+   * @public
+   * @function
+   * @param {M.Control} control to compare
+   * @api stable
+   */
+  equals(control) {
+    return control instanceof StyleManagerControl;
   }
 }
