@@ -14,13 +14,8 @@
   }],
   "files": {
     "ol": {
-<<<<<<< HEAD
-      "scripts": "stylemanager-2.0.0.ol.js",
-      "styles": "stylemanager-2.0.0.ol.min.css"
-=======
       "scripts": "stylemanager-2.0.2.ol.js",
       "styles": "stylemanager-2.0.2.ol.min.css"
->>>>>>> develop
     }
   },
   "metadata": {
