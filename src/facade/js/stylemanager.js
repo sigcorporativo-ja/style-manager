@@ -39,11 +39,6 @@ export default class StyleManager extends M.Plugin {
     this.controls_ = [];
 
     /**
-     * add your variables
-     *
-     */
-
-    /**
      * @private
      * @type {M.ui.Panel}
      */
@@ -89,7 +84,6 @@ export default class StyleManager extends M.Plugin {
       return string.toLowerCase();
     });
 
-    // patch: mapea 5 api change
     M.utils.extends = M.utils.extendsObj;
   }
 
@@ -118,13 +112,11 @@ export default class StyleManager extends M.Plugin {
    * TODO
    */
   destroy() {
-    this.panel_.removeControls(this.controls_);
-    this.panel_ = null;
-    this.controls_ = [];
-    this.map_ = null;
+    this.map_.removeControls(this.controls_);
+    [this.control_, this.panel_, this.map_] = [null, null, null];
   }
 
-  static get NAME() {
+  get name() {
     return "stylemanager";
   }
 }
