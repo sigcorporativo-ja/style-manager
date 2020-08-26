@@ -386,7 +386,7 @@ export class Binding {
    * @returns {Binding}
    */
   filterAttributesFeature(type) {
-    let attributes = this.getFeaturesAttributes();
+    let attributes = this.getAllFeaturesAttributes();
     let attributeNames = Object.keys(attributes);
     switch (type) {
       case "string":
@@ -409,6 +409,23 @@ export class Binding {
    */
   getFeaturesAttributes() {
     return this.layer_.getFeatures()[0].getAttributes();
+  }
+
+  /**
+   * This function search all attributes of each feature.
+   * @function
+   * @param {M.layer.Vector}
+   * @returns {Binding}
+   */
+  getAllFeaturesAttributes() {
+    let allFeatures = this.getFeaturesAttributes();
+    this.layer_.getFeatures().reverse().forEach(fs => {
+      Object.keys(fs.getAttributes()).forEach((k, v) => {
+        // Keep a value if the next is null so we can check attribute type later.
+        if (v != null && allFeatures[k] == null) allFeatures[k] = v;
+      });
+    });
+    return allFeatures;
   }
 
   /**
