@@ -44,7 +44,8 @@
           <span>Tipo:</span>
           <select data-style-options="fill.pattern.name">
             {{#each patternlist}}
-            <option value="{{#lowercase this.name}}{{/lowercase}}" {{#eq this.name this.selected}} selected {{/eq}}>{{this.name}}</option>
+            <option value="{{#lowercase this.name}}{{/lowercase}}" {{#eq this.name this.selected}} selected {{/eq}}>
+              {{this.name}}</option>
             {{/each}}
           </select>
         </div>
@@ -63,7 +64,8 @@
 
         <div class="style-col-2">
           <span>Espacio:</span>
-          <input value="{{fill.pattern.spacing}}" type="number" min="1" max="100" data-style-options="fill.pattern.spacing">
+          <input value="{{fill.pattern.spacing}}" type="number" min="1" max="100"
+            data-style-options="fill.pattern.spacing">
         </div>
       </div>
 
@@ -105,7 +107,8 @@
       <div class="group-row">
         <div class="style-col-1">
           <span>Linedash:</span>
-          <input value="{{#get 0 stroke.linedash}}{{/get}}" type="number" data-target="stroke.linedash" data-style-options="stroke.linedash">
+          <input value="{{#get 0 stroke.linedash}}{{/get}}" type="number" data-target="stroke.linedash"
+            data-style-options="stroke.linedash">
           <span class="empty">&nbsp;</span>
           <input value="{{#get 1 stroke.linedash}}{{/get}}" type="number" data-id="stroke.linedash">
         </div>
@@ -121,21 +124,21 @@
         <div class="style-col-1">
           <span>Line Cap</span>
           <select data-style-options="stroke.linecap">
-          <option value="">Ninguno</option>
-          {{#each linecapstroke}}
-          <option value="{{this.name}}" {{#eq this.name this.selected}}selected{{/eq}}>{{this.name}}</option>
-          {{/each}}
-        </select>
+            <option value="">Ninguno</option>
+            {{#each linecapstroke}}
+            <option value="{{this.name}}" {{#eq this.name this.selected}}selected{{/eq}}>{{this.name}}</option>
+            {{/each}}
+          </select>
         </div>
 
         <div class="style-col-2">
           <span>Line Join:</span>
           <select data-style-options="stroke.linejoin">
-          <option value="">Ninguno</option>
-          {{#each linejoinstroke}}
-          <option value="{{this.name}}" {{#eq this.name this.selected}}selected{{/eq}}> {{this.name}}</option>
-          {{/each}}
-        </select>
+            <option value="">Ninguno</option>
+            {{#each linejoinstroke}}
+            <option value="{{this.name}}" {{#eq this.name this.selected}}selected{{/eq}}> {{this.name}}</option>
+            {{/each}}
+          </select>
         </div>
 
       </div>
@@ -165,10 +168,10 @@
         <div class="style-col-1">
           <span>Fuente:</span>
           <select data-font-family>
-          <option value="serif">Serif</option>
-          <option value="sans-serif">Sans-Serif</option>
-          <option value="mono">Mono</option>
-        </select>
+            <option value="serif">Serif</option>
+            <option value="sans-serif">Sans-Serif</option>
+            <option value="mono">Mono</option>
+          </select>
         </div>
         <div class="style-col-2">
           <span>Tamaño:</span>
@@ -180,18 +183,18 @@
         <div class="style-col-1">
           <span>Alineación horizontal:</span>
           <select data-style-options="label.align">
-          {{#each alignlist}}
+            {{#each alignlist}}
             <option value="{{this.id}}" {{#eq this.id this.selected}}selected{{/eq}}>{{this.name}}</option>
-          {{/each}}
+            {{/each}}
           </select>
         </div>
 
         <div class="style-col-2">
           <span>Alineación vertical:</span>
           <select data-style-options="label.baseline">
-          {{#each baselinelist}}
+            {{#each baselinelist}}
             <option value="{{this.id}}" {{#eq this.id this.selected}}selected{{/eq}}>{{this.name}}</option>
-          {{/each}}
+            {{/each}}
           </select>
         </div>
 
@@ -215,12 +218,14 @@
 
         <div class="style-col-1">
           <span>Escala:</span>
-          <input value="{{label.scale}}" type="number" max="3" min="0" step="0.1" value="2" data-style-options="label.scale">
+          <input value="{{label.scale}}" type="number" max="3" min="0" step="0.1" value="2"
+            data-style-options="label.scale">
         </div>
 
         <div class="style-col-2">
           <span>Offset:</span>
-          <input value="{{#get 0 label.offset}}{{/get}}" type="number" data-target="label.offset" data-style-options="label.offset">
+          <input value="{{#get 0 label.offset}}{{/get}}" type="number" data-target="label.offset"
+            data-style-options="label.offset">
           <span class="empty">&nbsp;</span>
           <input value="{{#get 1 label.offset}}{{/get}}" type="number" data-id="label.offset">
         </div>
@@ -238,7 +243,8 @@
 
         <div class="style-col-2">
           <span>Ancho Mínimo:</span>
-          <input value="{{label.minwidth}}" type="number" min="1" max="200" value="10" data-style-options="label.minwidth" data-textpath {{#unless label.path}}disabled{{/unless}}>
+          <input value="{{label.minwidth}}" type="number" min="1" max="200" value="10"
+            data-style-options="label.minwidth" data-textpath {{#unless label.path}}disabled{{/unless}}>
         </div>
 
       </div>
@@ -247,16 +253,17 @@
 
         <div class="style-col-1 input-reverse">
           <span>Suavizar</span>
-          <input {{#if label.smooth}}checked{{/if}} type="checkbox" data-style-options="label.smooth" data-textpath {{#unless label.path}}disabled{{/unless}}>
+          <input {{#if label.smooth}}checked{{/if}} type="checkbox" data-style-options="label.smooth" data-textpath
+            {{#unless label.path}}disabled{{/unless}}>
         </div>
 
         <div class=style-col-2>
           <span>Desbordar:</span>
           <select data-style-options="label.textoverflow" data-textpath {{#unless label.path}}disabled{{/unless}}>
-          <option value="hidden">Oculto</option>
-          <option value="visible">Visible</option>
-          <option value="ellipsis">Puntos suspensivos</option>
-        </select>
+            <option value="hidden">Oculto</option>
+            <option value="visible">Visible</option>
+            <option value="ellipsis">Puntos suspensivos</option>
+          </select>
         </div>
 
       </div>
@@ -267,7 +274,7 @@
 
         <div class="style-col-1 input-reverse">
           <span>Trazo</span>
-          <input type="checkbox" data-apply="label.stroke" {{#neq label.stroke.color 'no-color'}}checked{{/neq}}>
+          <input type="checkbox" data-apply="label.stroke" {{#neq label.stroke.color 'no-color' }}checked{{/neq}}>
         </div>
 
       </div>
@@ -275,12 +282,14 @@
 
         <div class="style-col-1">
           <span>Color:</span>
-          <input type="color" data-style-options="label.stroke.color" {{#neq label.stroke.color 'no-color'}}value="{{label.stroke.color}}" {{/neq}}>
+          <input type="color" data-style-options="label.stroke.color" {{#neq label.stroke.color 'no-color'
+            }}value="{{label.stroke.color}}" {{/neq}}>
         </div>
 
         <div class="style-col-2">
           <span>Ancho:</span>
-          <input value="{{label.stroke.width}}" type="number" value="2" max="15" min="1" data-style-options="label.stroke.width">
+          <input value="{{label.stroke.width}}" type="number" value="2" max="15" min="1"
+            data-style-options="label.stroke.width">
         </div>
 
       </div>
@@ -289,7 +298,8 @@
 
         <div class="style-col-1">
           <span>Line Dash:</span>
-          <input value="{{#get 0 label.stroke.linedash}}{{/get}}" type="number" data-target="label.stroke.linedash" data-style-options="label.stroke.linedash" data-format="array">
+          <input value="{{#get 0 label.stroke.linedash}}{{/get}}" type="number" data-target="label.stroke.linedash"
+            data-style-options="label.stroke.linedash" data-format="array">
           <span class="empty">&nbsp;</span>
           <input value="{{#get 1 label.stroke.linedash}}{{/get}}" type="number" data-id="label.stroke.linedash">
         </div>
@@ -337,9 +347,11 @@
         </div>
         <div class="style-col-2">
           <span>Tamaño:</span>
-          <input {{#if icon.size}}value="{{#get 0 icon.size}}{{/get}}" {{/if}} type="number" min="1" data-undefined data-target="size" data-style-options="src.size">
+          <input {{#if icon.size}}value="{{#get 0 icon.size}}{{/get}}" {{/if}} type="number" min="1" data-undefined
+            data-target="size" data-style-options="src.size">
           <span class="empty">&nbsp;</span>
-          <input {{#if icon.size}}value="{{#get 1 icon.size}}{{/get}}" {{/if}} type="number" min="1" data-undefined data-id="size">
+          <input {{#if icon.size}}value="{{#get 1 icon.size}}{{/get}}" {{/if}} type="number" min="1" data-undefined
+            data-id="size">
         </div>
       </div>
 
@@ -353,7 +365,8 @@
       <div data-pointicon class="group-row">
         <div class="style-col-1">
           <span>Anclaje:</span>
-          <input value="{{#get 0 icon.anchor}}{{/get}}" type="number" data-target="anchor" data-style-options="src.anchor" step="0.1">
+          <input value="{{#get 0 icon.anchor}}{{/get}}" type="number" data-target="anchor"
+            data-style-options="src.anchor" step="0.1">
           <span class="empty">&nbsp;</span>
           <input value="{{#get 1 icon.anchor}}{{/get}}" type="number" data-id="anchor" step="0.1">
         </div>
@@ -368,7 +381,8 @@
 
         <div class="style-col-1">
           <span>Offset:</span>
-          <input value="{{#get 0 icon.offset}}{{/get}}" type="number" data-target="icon-offset" data-style-options="src.offset">
+          <input value="{{#get 0 icon.offset}}{{/get}}" type="number" data-target="icon-offset"
+            data-style-options="src.offset">
           <span class="empty">&nbsp;</span>
           <input value="{{#get 1 icon.offset}}{{/get}}" type="number" data-id="icon-offset" />
         </div>
@@ -416,23 +430,256 @@
         <div class="style-col-1">
           <span>Forma:</span>
           <select data-style-options="form.form">
-          {{#each formlist}}
-          <option value="{{this.id}}"{{#eq this.id this.selected}}selected{{/eq}}>{{this.name}}</option>
-          {{/each}}
-        </select>
+            {{#each formlist}}
+            <option value="{{this.id}}" {{#eq this.id this.selected}}selected{{/eq}}>{{this.name}}</option>
+            {{/each}}
+          </select>
         </div>
 
         <div class="style-col-2">
-          <span>Fuente:</span>
+          <span>Familia:</span>
           <select data-style-options="form.class">
-          <option value="">None</option>
-          <option value="g-cartografia-alerta" selected>Alerta</option>
-          <option value="g-cartografia-escala">Escala</option>
-          <option value="g-cartografia-cancelar">Cancelar</option>
-          <option value="g-cartografia-bandera">Bandera</option>
-          <option value="g-cartografia-brujula">Brujula</option>
-          <option value="g-cartografia-editar">Editar</option>
-        </select>
+            <option value="" selected>None</option>
+            <option value="g-cartografia">G-Cartografía</option>
+            <option value="fa">Font Awesome</option>
+          </select>
+          <button id="select-icon" class="g-cartografia-info"></button>
+          <div class="style-grid-container">
+            <div class="style-grid-item g-cartografia-alerta"></div>
+            <div class="style-grid-item g-cartografia-ayuda"></div>
+            <div class="style-grid-item g-cartografia-bandera"></div>
+            <div class="style-grid-item g-cartografia-brujula"></div>
+            <div class="style-grid-item g-cartografia-cancelar"></div>
+            <div class="style-grid-item g-cartografia-cancelar2"></div>
+            <div class="style-grid-item g-cartografia-capas"></div>
+            <div class="style-grid-item g-cartografia-capas2"></div>
+            <div class="style-grid-item g-cartografia-check"></div>
+            <div class="style-grid-item g-cartografia-check2"></div>
+            <div class="style-grid-item g-cartografia-check3"></div>
+            <div class="style-grid-item g-cartografia-check4"></div>
+            <div class="style-grid-item g-cartografia-check5"></div>
+            <div class="style-grid-item g-cartografia-comentarios"></div>
+            <div class="style-grid-item g-cartografia-descargar"></div>
+            <div class="style-grid-item g-cartografia-editar"></div>
+            <div class="style-grid-item g-cartografia-editar2"></div>
+            <div class="style-grid-item g-cartografia-escala"></div>
+            <div class="style-grid-item g-cartografia-escala2"></div>
+            <div class="style-grid-item g-cartografia-escala3"></div>
+            <div class="style-grid-item g-cartografia-flecha"></div>
+            <div class="style-grid-item g-cartografia-flecha-abajo"></div>
+            <div class="style-grid-item g-cartografia-flecha-abajo2"></div>
+            <div class="style-grid-item g-cartografia-flecha-arriba"></div>
+            <div class="style-grid-item g-cartografia-flecha-arriba2"></div>
+            <div class="style-grid-item g-cartografia-flecha-derecha"></div>
+            <div class="style-grid-item g-cartografia-flecha-derecha2"></div>
+            <div class="style-grid-item g-cartografia-flecha-derecha3"></div>
+            <div class="style-grid-item g-cartografia-flecha-deshacer"></div>
+            <div class="style-grid-item g-cartografia-flecha-izquierda"></div>
+            <div class="style-grid-item g-cartografia-flecha-izquierda2"></div>
+            <div class="style-grid-item g-cartografia-flecha-izquierda3"></div>
+            <div class="style-grid-item g-cartografia-flecha-link"></div>
+            <div class="style-grid-item g-cartografia-flechas-mover"></div>
+            <div class="style-grid-item g-cartografia-gps"></div>
+            <div class="style-grid-item g-cartografia-gps2"></div>
+            <div class="style-grid-item g-cartografia-gps3"></div>
+            <div class="style-grid-item g-cartografia-gps4"></div>
+            <div class="style-grid-item g-cartografia-guardar"></div>
+            <div class="style-grid-item g-cartografia-herramienta"></div>
+            <div class="style-grid-item g-cartografia-impresora"></div>
+            <div class="style-grid-item g-cartografia-info"></div>
+            <div class="style-grid-item g-cartografia-linea"></div>
+            <div class="style-grid-item g-cartografia-lineas"></div>
+            <div class="style-grid-item g-cartografia-lista"></div>
+            <div class="style-grid-item g-cartografia-localizacion"></div>
+            <div class="style-grid-item g-cartografia-localizacion2"></div>
+            <div class="style-grid-item g-cartografia-localizacion3"></div>
+            <div class="style-grid-item g-cartografia-localizacion4"></div>
+            <div class="style-grid-item g-cartografia-mano"></div>
+            <div class="style-grid-item g-cartografia-mano2"></div>
+            <div class="style-grid-item g-cartografia-mapa"></div>
+            <div class="style-grid-item g-cartografia-mas"></div>
+            <div class="style-grid-item g-cartografia-mas2"></div>
+            <div class="style-grid-item g-cartografia-medir-area"></div>
+            <div class="style-grid-item g-cartografia-medir-linea"></div>
+            <div class="style-grid-item g-cartografia-menos"></div>
+            <div class="style-grid-item g-cartografia-menos2"></div>
+            <div class="style-grid-item g-cartografia-menu"></div>
+            <div class="style-grid-item g-cartografia-mundo"></div>
+            <div class="style-grid-item g-cartografia-mundo2"></div>
+            <div class="style-grid-item g-cartografia-opciones"></div>
+            <div class="style-grid-item g-cartografia-papelera"></div>
+            <div class="style-grid-item g-cartografia-pin"></div>
+            <div class="style-grid-item g-cartografia-pin-nuevo"></div>
+            <div class="style-grid-item g-cartografia-pin2"></div>
+            <div class="style-grid-item g-cartografia-pin3"></div>
+            <div class="style-grid-item g-cartografia-pin4"></div>
+            <div class="style-grid-item g-cartografia-poligono"></div>
+            <div class="style-grid-item g-cartografia-posicion"></div>
+            <div class="style-grid-item g-cartografia-posicion2"></div>
+            <div class="style-grid-item g-cartografia-posicion3"></div>
+            <div class="style-grid-item g-cartografia-posicion4"></div>
+            <div class="style-grid-item g-cartografia-posicion5"></div>
+            <div class="style-grid-item g-cartografia-posicion6"></div>
+            <div class="style-grid-item g-cartografia-posicion7"></div>
+            <div class="style-grid-item g-cartografia-prismaticos"></div>
+            <div class="style-grid-item g-cartografia-regla"></div>
+            <div class="style-grid-item g-cartografia-reglas"></div>
+            <div class="style-grid-item g-cartografia-ruta"></div>
+            <div class="style-grid-item g-cartografia-spinner"></div>
+            <div class="style-grid-item g-cartografia-subir"></div>
+            <div class="style-grid-item g-cartografia-tamano"></div>
+            <div class="style-grid-item g-cartografia-temperatura"></div>
+            <div class="style-grid-item g-cartografia-texto"></div>
+            <div class="style-grid-item g-cartografia-usuario"></div>
+            <div class="style-grid-item g-cartografia-usuario2"></div>
+            <div class="style-grid-item g-cartografia-zoom"></div>
+            <div class="style-grid-item g-cartografia-zoom-extension"></div>
+            <div class="style-grid-item g-cartografia-zoom-mas"></div>
+            <div class="style-grid-item g-cartografia-zoom-menos"></div>
+            <div class="style-grid-item g-cartografia-pin5"></div>
+            <div class="style-grid-item g-cartografia-pin-nuevo2"></div>
+            <div class="style-grid-item g-cartografia-pin-seleccionado"></div>
+            <div class="style-grid-item g-cartografia-brujula-norte"></div>
+            <div class="style-grid-item fa fa-glass"></div>
+            <div class="style-grid-item fa fa-music"></div>
+            <div class="style-grid-item fa fa-search"></div>
+            <div class="style-grid-item fa fa-envelope-o"></div>
+            <div class="style-grid-item fa fa-heart"></div>
+            <div class="style-grid-item fa fa-star"></div>
+            <div class="style-grid-item fa fa-star-o"></div>
+            <div class="style-grid-item fa fa-user"></div>
+            <div class="style-grid-item fa fa-film"></div>
+            <div class="style-grid-item fa fa-th-large"></div>
+            <div class="style-grid-item fa fa-th"></div>
+            <div class="style-grid-item fa fa-th-list"></div>
+            <div class="style-grid-item fa fa-check"></div>
+            <div class="style-grid-item fa fa-remove"></div>
+            <div class="style-grid-item fa fa-close"></div>
+            <div class="style-grid-item fa fa-times"></div>
+            <div class="style-grid-item fa fa-search-plus"></div>
+            <div class="style-grid-item fa fa-search-minus"></div>
+            <div class="style-grid-item fa fa-power-off"></div>
+            <div class="style-grid-item fa fa-signal"></div>
+            <div class="style-grid-item fa fa-gear"></div>
+            <div class="style-grid-item fa fa-cog"></div>
+            <div class="style-grid-item fa fa-trash-o"></div>
+            <div class="style-grid-item fa fa-home"></div>
+            <div class="style-grid-item fa fa-file-o"></div>
+            <div class="style-grid-item fa fa-clock-o"></div>
+            <div class="style-grid-item fa fa-road"></div>
+            <div class="style-grid-item fa fa-download"></div>
+            <div class="style-grid-item fa fa-arrow-circle-o-down"></div>
+            <div class="style-grid-item fa fa-arrow-circle-o-up"></div>
+            <div class="style-grid-item fa fa-inbox"></div>
+            <div class="style-grid-item fa fa-play-circle-o"></div>
+            <div class="style-grid-item fa fa-rotate-right"></div>
+            <div class="style-grid-item fa fa-repeat"></div>
+            <div class="style-grid-item fa fa-refresh"></div>
+            <div class="style-grid-item fa fa-list-alt"></div>
+            <div class="style-grid-item fa fa-lock"></div>
+            <div class="style-grid-item fa fa-flag"></div>
+            <div class="style-grid-item fa fa-headphones"></div>
+            <div class="style-grid-item fa fa-volume-off"></div>
+            <div class="style-grid-item fa fa-volume-down"></div>
+            <div class="style-grid-item fa fa-volume-up"></div>
+            <div class="style-grid-item fa fa-qrcode"></div>
+            <div class="style-grid-item fa fa-barcode"></div>
+            <div class="style-grid-item fa fa-tag"></div>
+            <div class="style-grid-item fa fa-tags"></div>
+            <div class="style-grid-item fa fa-book"></div>
+            <div class="style-grid-item fa fa-bookmark"></div>
+            <div class="style-grid-item fa fa-print"></div>
+            <div class="style-grid-item fa fa-camera"></div>
+            <div class="style-grid-item fa fa-font"></div>
+            <div class="style-grid-item fa fa-bold"></div>
+            <div class="style-grid-item fa fa-italic"></div>
+            <div class="style-grid-item fa fa-text-height"></div>
+            <div class="style-grid-item fa fa-text-width"></div>
+            <div class="style-grid-item fa fa-align-left"></div>
+            <div class="style-grid-item fa fa-align-center"></div>
+            <div class="style-grid-item fa fa-align-right"></div>
+            <div class="style-grid-item fa fa-align-justify"></div>
+            <div class="style-grid-item fa fa-list"></div>
+            <div class="style-grid-item fa fa-dedent"></div>
+            <div class="style-grid-item fa fa-outdent"></div>
+            <div class="style-grid-item fa fa-indent"></div>
+            <div class="style-grid-item fa fa-video-camera"></div>
+            <div class="style-grid-item fa fa-photo"></div>
+            <div class="style-grid-item fa fa-image"></div>
+            <div class="style-grid-item fa fa-picture-o"></div>
+            <div class="style-grid-item fa fa-pencil"></div>
+            <div class="style-grid-item fa fa-map-marker"></div>
+            <div class="style-grid-item fa fa-adjust"></div>
+            <div class="style-grid-item fa fa-tint"></div>
+            <div class="style-grid-item fa fa-edit"></div>
+            <div class="style-grid-item fa fa-pencil-square-o"></div>
+            <div class="style-grid-item fa fa-share-square-o"></div>
+            <div class="style-grid-item fa fa-check-square-o"></div>
+            <div class="style-grid-item fa fa-arrows"></div>
+            <div class="style-grid-item fa fa-step-backward"></div>
+            <div class="style-grid-item fa fa-fast-backward"></div>
+            <div class="style-grid-item fa fa-backward"></div>
+            <div class="style-grid-item fa fa-play"></div>
+            <div class="style-grid-item fa fa-pause"></div>
+            <div class="style-grid-item fa fa-stop"></div>
+            <div class="style-grid-item fa fa-forward"></div>
+            <div class="style-grid-item fa fa-fast-forward"></div>
+            <div class="style-grid-item fa fa-step-forward"></div>
+            <div class="style-grid-item fa fa-eject"></div>
+            <div class="style-grid-item fa fa-chevron-left"></div>
+            <div class="style-grid-item fa fa-chevron-right"></div>
+            <div class="style-grid-item fa fa-plus-circle"></div>
+            <div class="style-grid-item fa fa-minus-circle"></div>
+            <div class="style-grid-item fa fa-times-circle"></div>
+            <div class="style-grid-item fa fa-check-circle"></div>
+            <div class="style-grid-item fa fa-question-circle"></div>
+            <div class="style-grid-item fa fa-info-circle"></div>
+            <div class="style-grid-item fa fa-crosshairs"></div>
+            <div class="style-grid-item fa fa-times-circle-o"></div>
+            <div class="style-grid-item fa fa-check-circle-o"></div>
+            <div class="style-grid-item fa fa-ban"></div>
+            <div class="style-grid-item fa fa-arrow-left"></div>
+            <div class="style-grid-item fa fa-arrow-right"></div>
+            <div class="style-grid-item fa fa-arrow-up"></div>
+            <div class="style-grid-item fa fa-arrow-down"></div>
+            <div class="style-grid-item fa fa-mail-forward"></div>
+            <div class="style-grid-item fa fa-share"></div>
+            <div class="style-grid-item fa fa-expand"></div>
+            <div class="style-grid-item fa fa-compress"></div>
+            <div class="style-grid-item fa fa-plus"></div>
+            <div class="style-grid-item fa fa-minus"></div>
+            <div class="style-grid-item fa fa-asterisk"></div>
+            <div class="style-grid-item fa fa-exclamation-circle"></div>
+            <div class="style-grid-item fa fa-gift"></div>
+            <div class="style-grid-item fa fa-leaf"></div>
+            <div class="style-grid-item fa fa-fire"></div>
+            <div class="style-grid-item fa fa-eye"></div>
+            <div class="style-grid-item fa fa-eye-slash"></div>
+            <div class="style-grid-item fa fa-warning"></div>
+            <div class="style-grid-item fa fa-exclamation-triangle"></div>
+            <div class="style-grid-item fa fa-plane"></div>
+            <div class="style-grid-item fa fa-calendar"></div>
+            <div class="style-grid-item fa fa-random"></div>
+            <div class="style-grid-item fa fa-comment"></div>
+            <div class="style-grid-item fa fa-magnet"></div>
+            <div class="style-grid-item fa fa-chevron-up"></div>
+            <div class="style-grid-item fa fa-chevron-down"></div>
+            <div class="style-grid-item fa fa-retweet"></div>
+            <div class="style-grid-item fa fa-shopping-cart"></div>
+            <div class="style-grid-item fa fa-folder"></div>
+            <div class="style-grid-item fa fa-folder-open"></div>
+            <div class="style-grid-item fa fa-arrows-v"></div>
+            <div class="style-grid-item fa fa-arrows-h"></div>
+            <div class="style-grid-item fa fa-bar-t-o"></div>
+            <div class="style-grid-item fa fa-bar-t"></div>
+            <div class="style-grid-item fa fa-twitter-square"></div>
+            <div class="style-grid-item fa fa-facebook-square"></div>
+            <div class="style-grid-item fa fa-camera-retro"></div>
+            <div class="style-grid-item fa fa-key"></div>
+            <div class="style-grid-item fa fa-gears"></div>
+            <div class="style-grid-item fa fa-cogs"></div>
+            <div class="style-grid-item fa fa-comments"></div>
+          </div>
         </div>
 
       </div>
@@ -470,7 +717,8 @@
 
         <div class="style-col-1">
           <span>Offset:</span>
-          <input value="{{#get 0 icon.offset}}{{/get}}" type="number" data-target="form-offset" data-style-options="form.offset">
+          <input value="{{#get 0 icon.offset}}{{/get}}" type="number" data-target="form-offset"
+            data-style-options="form.offset">
           <span class="empty">&nbsp;</span>
           <input value="{{#get 1 icon.offset}}{{/get}}" type="number" data-id="form-offset" />
         </div>

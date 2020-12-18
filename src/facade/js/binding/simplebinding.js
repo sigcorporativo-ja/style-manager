@@ -1,9 +1,6 @@
 import * as chroma from 'chroma-js';
 import buttonoptions from 'templates/buttonoptions';
-import {
-  Binding
-}
-from './binding';
+import { Binding } from './binding';
 export class SimpleBinding extends Binding {
   constructor(html, htmlParent, styleType, styleParams, layer, controller) {
     super(html, htmlParent, styleType, styleParams, layer);
@@ -147,6 +144,57 @@ export class SimpleBinding extends Binding {
       }
 
     }
+    let iconSelect = this.querySelector("#select-icon");
+    iconSelect.replaceWith(iconSelect.cloneNode(true));
+    iconSelect = this.querySelector("#select-icon");
+    iconSelect.addEventListener('click', this.eventOpenIconSelector);
+    let iconDialog = document.querySelector(".style-grid-container");
+    iconDialog.addEventListener('click', this.eventSelectIcon);
+    let familySelect = this.querySelector("[data-style-options='form.class']");
+    familySelect.addEventListener('change', this.changeFamilyFont);
+  }
+
+  /**
+   * @function
+   */
+  eventOpenIconSelector(ev) {
+    let iconDialog = document.querySelector(".style-grid-container");
+    if (iconDialog.classList.toString() === 'style-grid-container active') { iconDialog.classList.remove('active'); }
+    else { iconDialog.classList.add('active'); }
+  }
+
+  /**
+   * @function
+   */
+  eventSelectIcon(ev) {
+    if (!ev.target.classList.contains('selected') && ev.target.classList.contains('style-grid-item')) {
+      let selected = document.querySelector('.style-grid-item.selected');
+      if (selected) { selected.classList.remove('selected'); }
+      ev.target.classList.add("selected");
+      let iconSelected = ev.target.classList.toString().replace('selected', '').replace('style-grid-item', '').trim();
+      document.querySelector("[data-style-options='form.class']").dataset.icon = iconSelected.replace('fa', '').trim();
+      document.querySelector('#select-icon').classList = iconSelected;
+    }
+  }
+
+  /**
+   * @function
+   */
+  changeFamilyFont(ev) {
+    if (ev.target.value === '') {
+      document.querySelector('#select-icon').style.display = 'none';
+      document.querySelector(".style-grid-container").classList.remove('active');
+    } else {
+      document.querySelector('#select-icon').style.display = 'inherit';
+    }
+    let childs = document.querySelectorAll(`.style-grid-item`);
+    childs.forEach(elem => {
+      elem.style.display = "none";
+    });
+    let childsSelected = document.querySelectorAll(`.style-grid-item[class*='${ev.target.value}']`);
+    childsSelected.forEach(elem => {
+      elem.style.display = "inherit";
+    });
   }
 
   /**
@@ -265,6 +313,9 @@ export class SimpleBinding extends Binding {
     this.querySelectorAllForEach('[data-style-options]', element => {
       let path = element.dataset["styleOptions"];
       let value = element.value;
+      if (path == "form.class" && value !== '') {
+        value = this.querySelector("[data-style-options='form.class']").dataset.icon;
+      }
       if (element.type === "checkbox") {
         value = element.checked;
       }
@@ -495,7 +546,7 @@ export class SimpleBinding extends Binding {
     options["linecaplabelstroke"] = SimpleBinding.arrayDataToTemplate(options["label"]["stroke"]["linecap"], ["butt", "square", "round"], ["Extremo", "Cuadrado", "Redondeado"]);
     options["linejoinlabelstroke"] = SimpleBinding.arrayDataToTemplate(options["label"]["stroke"]["linejoin"], ["bevel", "miter", "round"], ["Bisel", "Inglete", "Redondeado"]);
     options["alignlist"] = SimpleBinding.arrayDataToTemplate(options["label"]["align"], alignValues, ["Centro", "Justificado", "Izquierda", "Derecha"]);
-    options["baselinelist"] = SimpleBinding.arrayDataToTemplate(options["label"]["baseline"], baselineValues, ["Alfabetico", "Abajo", "Colgando", "Ideografico", "Arriba", "Centro", ]);
+    options["baselinelist"] = SimpleBinding.arrayDataToTemplate(options["label"]["baseline"], baselineValues, ["Alfabetico", "Abajo", "Colgando", "Ideografico", "Arriba", "Centro",]);
     options["formlist"] = SimpleBinding.arrayDataToTemplate(options["icon"]["form"], formValues, formValues);
     if (this.layer_ != null) {
       let labelTextValues = Object.keys(this.getFeaturesAttributes());
