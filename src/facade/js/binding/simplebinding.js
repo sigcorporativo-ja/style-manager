@@ -114,6 +114,25 @@ export class SimpleBinding extends Binding {
    */
   activateOptionsStyle() {
     let style = this.style_;
+    let iconSelect = this.querySelector("#select-icon");
+    iconSelect.replaceWith(iconSelect.cloneNode(true));
+    iconSelect = this.querySelector("#select-icon");
+    iconSelect.addEventListener('click', this.eventOpenIconSelector);
+    let iconDialog = document.querySelector(".style-grid-container");
+    iconDialog.addEventListener('click', this.eventSelectIcon);
+    let familySelect = this.querySelector("[data-style-options='form.class']");
+    familySelect.addEventListener('change', this.changeFamilyFont);
+    let famSelector = this.querySelector(".style-col-2 > select[data-style-options = 'form.class']");
+    let fmSIcon = famSelector.dataset.icon;
+    if (fmSIcon !== '') {
+      let fmSIconArray = fmSIcon.split('-');
+      let fam = fmSIconArray[0] == 'g' ? 'g-cartografia' : fmSIconArray[0] == 'fa' ? 'fa' : '';
+      famSelector.querySelector(`option[value="${fam}"]`).selected = true;
+      famSelector.dispatchEvent(new Event('change'));
+      document.querySelector('#select-icon').classList = (fam == 'fa' ? 'fa ' : '') + fmSIcon;
+      document.querySelector(`.style-grid-item${fam == 'fa' ? '.fa' : ''}.${fmSIcon}`).classList.add('selected');
+    }
+
     if (style != null) {
       let options = style.getOptions();
       if (options["fill"] != null) {
@@ -138,20 +157,18 @@ export class SimpleBinding extends Binding {
         }
 
         if (options["icon"].hasOwnProperty("form")) {
+
           this.checkOptionSection("form");
           this.disableOption("icon");
+        }
+
+        if (options["icon"].hasOwnProperty("class")) {
+          familySelect.value = options["icon"]["class"];
         }
       }
 
     }
-    let iconSelect = this.querySelector("#select-icon");
-    iconSelect.replaceWith(iconSelect.cloneNode(true));
-    iconSelect = this.querySelector("#select-icon");
-    iconSelect.addEventListener('click', this.eventOpenIconSelector);
-    let iconDialog = document.querySelector(".style-grid-container");
-    iconDialog.addEventListener('click', this.eventSelectIcon);
-    let familySelect = this.querySelector("[data-style-options='form.class']");
-    familySelect.addEventListener('change', this.changeFamilyFont);
+
   }
 
   /**
@@ -265,7 +282,7 @@ export class SimpleBinding extends Binding {
    * This function sets the layer of a binding class.
    * @function
    * @param {M.layer.Vector}
-   * @returns {Binding}
+   * @returns {Binding}   
    */
   activateOption(option) {
     let label = this.querySelectorParent(`[data-buttons-option] input[data-apply="${option}"]+label`);
@@ -355,6 +372,7 @@ export class SimpleBinding extends Binding {
     let icon = document.querySelector("[data-apply='icon']");
     let iconOpts = icon !== null && icon.checked === true ?
       styleOpts["options"].src : styleOpts["options"].form;
+    iconOpts.rotate = !iconOpts.rotate;
 
     let labelOpt;
     if (styleOpts["options"]["label"] != null && styleOpts["options"]["label"]["text"] != null) {
@@ -531,7 +549,7 @@ export class SimpleBinding extends Binding {
     options["label"]["stroke"]["color"] = options["label"]["stroke"]["color"] === "no-color" ? "no-color" : chroma(options["label"]["stroke"]["color"]).hex();
     options["fill"]["pattern"]["color"] = chroma(options["fill"]["pattern"]["color"]).hex();
     options["icon"]["fill"] = chroma(options["icon"]["fill"]).hex();
-    options["icon"]["gradientcolor"] = chroma(options["icon"]["gradientcolor"]).hex();
+    options["icon"]["color"] = chroma(options["icon"]["color"]).hex();
     // --
 
     let patternValids = Object.keys(M.style.pattern).filter(name => name != "ICON" && name != "IMAGE");
@@ -733,11 +751,13 @@ export class SimpleBinding extends Binding {
         anchor: [0, 0],
         scale: 1,
         offset: [0, 0],
+        rotate: false,
         rotation: 0,
         opacity: 1,
         form: "CIRCLE",
+        class: "g-cartografia-info",
         fill: "#ffffff",
-        gradientcolor: "#e07e18"
+        color: "#e07e18"
       }
     };
   }

@@ -117,7 +117,7 @@ export default class StyleManagerControl extends M.Control {
     buttonClear.addEventListener('click', this.clearStyle.bind(this));
   }
 
-  /**
+  /** 
    * @public
    * @function
    * @param {HTMLElement} html to add the plugin

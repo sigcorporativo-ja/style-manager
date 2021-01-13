@@ -442,7 +442,7 @@
       <div data-pointfont class="group-row">
 
         <div class="style-col-1">
-          <span>Color:</span>
+          <span>bkColor:</span>
           <input type="color" data-style-options="form.fill" value="{{icon.fill}}">
         </div>
 
@@ -461,7 +461,7 @@
 
         <div class="style-col-2">
           <span>Familia:</span>
-          <select data-style-options="form.class">
+          <select data-style-options="form.class" data-icon="{{icon.class}}">
             <option value="" selected>None</option>
             <option value="g-cartografia">G-Cartografía</option>
             <option value="fa">Font Awesome</option>
@@ -705,77 +705,68 @@
           </div>
         </div>
 
-        <button id="select-icon">Seleccionar Icono</button>
-        <div class="style-grid-container">
-          <div class="style-grid-item g-cartografia-alerta"></div>
-          <div class="style-grid-item g-cartografia-escala"></div>
-          <div class="style-grid-item g-cartografia-bandera"></div>
-          <div class="style-grid-item g-cartografia-brujula"></div>
-          <div class="style-grid-item g-cartografia-editar"></div>
+      </div>
+
+      <div data-pointfont class="group-row">
+
+        <div class="style-col-1">
+          <span>Radio:</span>
+          <input type="number" min="1" max="100" value="20" data-style-options="form.radius" value="{{icon.radius}}">
+        </div>
+
+        <div class="style-col-2">
+          <span>Tamaño icono:</span>
+          <input type="number" step="0.1" min=0 max=100 data-style-options="form.fontsize" value="{{icon.fontsize}}">
+        </div>
+
+
+      </div>
+
+      <div data-pointfont class="group-row">
+
+        <div class="style-col-1 input-reverse">
+          <span>Gradiente</span>
+          <input type="checkbox" data-style-options="form.gradient" {{#if icon.gradient}}checked{{/if}}>
+        </div>
+
+        <div class="style-col-2">
+          <span>Color de icono:</span>
+          <input type="color" data-style-options="form.color" value="{{icon.color}}">
         </div>
       </div>
 
-    </div>
+      <!-- Common -->
+      <div data-common-icon class="group-row">
 
-    <div data-pointfont class="group-row">
+        <div class="style-col-1">
+          <span>Offset:</span>
+          <input value="{{#get 0 icon.offset}}{{/get}}" type="number" data-target="form-offset"
+            data-style-options="form.offset">
+          <span class="empty">&nbsp;</span>
+          <input value="{{#get 1 icon.offset}}{{/get}}" type="number" data-id="form-offset" />
+        </div>
 
-      <div class="style-col-1">
-        <span>Radio</span>
-        <input type="number" min="1" max="100" value="20" data-style-options="form.radius" value="{{icon.radius}}">
+        <div class="style-col-2">
+          <span>Opacidad:</span>
+          <input value="{{icon.opacity}}" type="number" step="0.1" min=0 max=1 data-style-options="form.opacity">
+        </div>
       </div>
 
-      <div class="style-col-2">
-        <span>Tamaño:</span>
-        <input type="number" step="0.1" min=0 max=100 data-style-options="form.fontsize" value="{{icon.fontsize}}">
-      </div>
+      <div data-common-icon class="group-row">
 
+        <div class="style-col-1 input-reverse">
+          <span>Deshabilitar rotación de icono con el mapa</span>
+          <input {{#if icon.rotate}}checked {{/if}} type="checkbox" data-style-options="form.rotate">
+        </div>
 
-    </div>
+        <div class="style-col-2">
+          <span>Rotación:</span>
+          <input value="{{icon.rotation}}" type="number" min=0 max=360 data-style-options="form.rotation">
+        </div>
 
-    <div data-pointfont class="group-row">
-
-      <div class="style-col-1 input-reverse">
-        <span>Gradiente</span>
-        <input type="checkbox" data-style-options="form.gradient" {{#if icon.gradient}}checked{{/if}}>
-      </div>
-
-      <div class="style-col-2">
-        <span>Trazo:</span>
-        <input type="color" data-style-options="form.gradientcolor" value="{{icon.gradientcolor}}">
-      </div>
-    </div>
-
-    <!-- Common -->
-    <div data-common-icon class="group-row">
-
-      <div class="style-col-1">
-        <span>Offset:</span>
-        <input value="{{#get 0 icon.offset}}{{/get}}" type="number" data-target="form-offset"
-          data-style-options="form.offset">
-        <span class="empty">&nbsp;</span>
-        <input value="{{#get 1 icon.offset}}{{/get}}" type="number" data-id="form-offset" />
-      </div>
-
-      <div class="style-col-2">
-        <span>Opacidad:</span>
-        <input value="{{icon.opacity}}" type="number" step="0.1" min=0 max=1 data-style-options="form.opacity">
-      </div>
-    </div>
-
-    <div data-common-icon class="group-row">
-
-      <div class="style-col-1 input-reverse">
-        <span>Rotar</span>
-        <input {{#if icon.rotate}}checked {{/if}} type="checkbox" data-style-options="form.rotate">
-      </div>
-
-      <div class="style-col-2">
-        <span>Rotación:</span>
-        <input value="{{icon.rotation}}" type="number" min=0 max=360 data-style-options="form.rotation">
       </div>
 
     </div>
-
   </div>
 </div>
 </div>
