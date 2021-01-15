@@ -372,8 +372,7 @@ export class SimpleBinding extends Binding {
     let icon = document.querySelector("[data-apply='icon']");
     let iconOpts = icon !== null && icon.checked === true ?
       styleOpts["options"].src : styleOpts["options"].form;
-    iconOpts.rotate = !iconOpts.rotate;
-
+      
     let labelOpt;
     if (styleOpts["options"]["label"] != null && styleOpts["options"]["label"]["text"] != null) {
       labelOpt = styleOpts["options"]["label"];
