@@ -50,8 +50,8 @@ export default class StyleManagerControl extends M.Control {
       this.addApplyBtnListener(html);
       this.addClearBtnListener(html);
       this.renderOptionsLayerParam(htmlSelect, html, layers);
-
       success(html);
+      this.loadFonts(html);
     });
   }
 
@@ -90,6 +90,8 @@ export default class StyleManagerControl extends M.Control {
   addOpenAttribute(html) {
     let containerSelect = html.querySelector(".m-stylemanager-container-select");
     containerSelect.setAttribute("open-select", "");
+
+
   }
 
   /**
@@ -101,6 +103,7 @@ export default class StyleManagerControl extends M.Control {
   addApplyBtnListener(html) {
     let buttonApply = html.querySelector("[data-apply-style]");
     buttonApply.addEventListener('click', this.applyStyle.bind(this));
+
   }
 
   /**
@@ -114,7 +117,7 @@ export default class StyleManagerControl extends M.Control {
     buttonClear.addEventListener('click', this.clearStyle.bind(this));
   }
 
-  /**
+  /** 
    * @public
    * @function
    * @param {HTMLElement} html to add the plugin
@@ -251,7 +254,159 @@ export default class StyleManagerControl extends M.Control {
       M.dialog.info("Tiene que elegir una capa.", "Elija capa");
     }
   }
+  /**
+   * @function
+   */
+  loadFonts() {
+    M.style.Font.addSymbol({
+      "font": "FontAwesome",
+      "name": "FontAwesome",
+      "copyright": "SIL OFL 1.1",
+      "prefix": "fa"
+    }, {
+      "fa-glass": "\uf000",
+      "fa-music": "\uf001",
+      "fa-search": "\uf002",
+      "fa-envelope-o": "\uf003",
+      "fa-heart": "\uf004",
+      "fa-star": "\uf005",
+      "fa-star-o": "\uf006",
+      "fa-user": "\uf007",
+      "fa-film": "\uf008",
+      "fa-th-large": "\uf009",
+      "fa-th": "\uf00a",
+      "fa-th-list": "\uf00b",
+      "fa-check": "\uf00c",
+      "fa-remove": "\uf00d",
+      "fa-close": "\uf00d",
+      "fa-times": "\uf00d",
+      "fa-search-plus": "\uf00e",
+      "fa-search-minus": "\uf010",
+      "fa-power-off": "\uf011",
+      "fa-signal": "\uf012",
+      "fa-gear": "\uf013",
+      "fa-cog": "\uf013",
+      "fa-trash-o": "\uf014",
+      "fa-home": "\uf015",
+      "fa-file-o": "\uf016",
+      "fa-clock-o": "\uf017",
+      "fa-road": "\uf018",
+      "fa-download": "\uf019",
+      "fa-arrow-circle-o-down": "\uf01a",
+      "fa-arrow-circle-o-up": "\uf01b",
+      "fa-inbox": "\uf01c",
+      "fa-play-circle-o": "\uf01d",
+      "fa-rotate-right": "\uf01e",
+      "fa-repeat": "\uf01e",
+      "fa-refresh": "\uf021",
+      "fa-list-alt": "\uf022",
+      "fa-lock": "\uf023",
+      "fa-flag": "\uf024",
+      "fa-headphones": "\uf025",
+      "fa-volume-off": "\uf026",
+      "fa-volume-down": "\uf027",
+      "fa-volume-up": "\uf028",
+      "fa-qrcode": "\uf029",
+      "fa-barcode": "\uf02a",
+      "fa-tag": "\uf02b",
+      "fa-tags": "\uf02c",
+      "fa-book": "\uf02d",
+      "fa-bookmark": "\uf02e",
+      "fa-print": "\uf02f",
+      "fa-camera": "\uf030",
+      "fa-font": "\uf031",
+      "fa-bold": "\uf032",
+      "fa-italic": "\uf033",
+      "fa-text-height": "\uf034",
+      "fa-text-width": "\uf035",
+      "fa-align-left": "\uf036",
+      "fa-align-center": "\uf037",
+      "fa-align-right": "\uf038",
+      "fa-align-justify": "\uf039",
+      "fa-list": "\uf03a",
+      "fa-dedent": "\uf03b",
+      "fa-outdent": "\uf03b",
+      "fa-indent": "\uf03c",
+      "fa-video-camera": "\uf03d",
+      "fa-photo": "\uf03e",
+      "fa-image": "\uf03e",
+      "fa-picture-o": "\uf03e",
+      "fa-pencil": "\uf040",
+      "fa-map-marker": "\uf041",
+      "fa-adjust": "\uf042",
+      "fa-tint": "\uf043",
+      "fa-edit": "\uf044",
+      "fa-pencil-square-o": "\uf044",
+      "fa-share-square-o": "\uf045",
+      "fa-check-square-o": "\uf046",
+      "fa-arrows": "\uf047",
+      "fa-step-backward": "\uf048",
+      "fa-fast-backward": "\uf049",
+      "fa-backward": "\uf04a",
+      "fa-play": "\uf04b",
+      "fa-pause": "\uf04c",
+      "fa-stop": "\uf04d",
+      "fa-forward": "\uf04e",
+      "fa-fast-forward": "\uf050",
+      "fa-step-forward": "\uf051",
+      "fa-eject": "\uf052",
+      "fa-chevron-left": "\uf053",
+      "fa-chevron-right": "\uf054",
+      "fa-plus-circle": "\uf055",
+      "fa-minus-circle": "\uf056",
+      "fa-times-circle": "\uf057",
+      "fa-check-circle": "\uf058",
+      "fa-question-circle": "\uf059",
+      "fa-info-circle": "\uf05a",
+      "fa-crosshairs": "\uf05b",
+      "fa-times-circle-o": "\uf05c",
+      "fa-check-circle-o": "\uf05d",
+      "fa-ban": "\uf05e",
+      "fa-arrow-left": "\uf060",
+      "fa-arrow-right": "\uf061",
+      "fa-arrow-up": "\uf062",
+      "fa-arrow-down": "\uf063",
+      "fa-mail-forward": "\uf064",
+      "fa-share": "\uf064",
+      "fa-expand": "\uf065",
+      "fa-compress": "\uf066",
+      "fa-plus": "\uf067",
+      "fa-minus": "\uf068",
+      "fa-asterisk": "\uf069",
+      "fa-exclamation-circle": "\uf06a",
+      "fa-gift": "\uf06b",
+      "fa-leaf": "\uf06c",
+      "fa-fire": "\uf06d",
+      "fa-eye": "\uf06e",
+      "fa-eye-slash": "\uf070",
+      "fa-warning": "\uf071",
+      "fa-exclamation-triangle": "\uf071",
+      "fa-plane": "\uf072",
+      "fa-calendar": "\uf073",
+      "fa-random": "\uf074",
+      "fa-comment": "\uf075",
+      "fa-magnet": "\uf076",
+      "fa-chevron-up": "\uf077",
+      "fa-chevron-down": "\uf078",
+      "fa-retweet": "\uf079",
+      "fa-shopping-cart": "\uf07a",
+      "fa-folder": "\uf07b",
+      "fa-folder-open": "\uf07c",
+      "fa-arrows-v": "\uf07d",
+      "fa-arrows-h": "\uf07e",
+      "fa-bar-t-o": "\uf080",
+      "fa-bar-t": "\uf080",
+      "fa-twitter-square": "\uf081",
+      "fa-facebook-square": "\uf082",
+      "fa-camera-retro": "\uf083",
+      "fa-key": "\uf084",
+      "fa-gears": "\uf085",
+      "fa-cogs": "\uf085",
+      "fa-comments": "\uf086",
+    });
 
+
+  }
   /**
    * This function compares controls
    *

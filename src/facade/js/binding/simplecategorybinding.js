@@ -2,7 +2,7 @@ import * as chroma from 'chroma-js';
 import {
   Binding
 }
-from './binding';
+  from './binding';
 
 export class SimpleCategoryBinding extends Binding {
   constructor(html, htmlParent, styleType, styleParams, layer, binding) {
@@ -271,9 +271,7 @@ export class SimpleCategoryBinding extends Binding {
         }
         value = [value, value2];
       }
-
       Binding.createObj(styleOpts["options"], path, value);
-
     });
 
     this.querySelectorAllForEach("[data-apply]", element => {
@@ -286,6 +284,7 @@ export class SimpleCategoryBinding extends Binding {
 
     let fontSize = this.querySelector("[data-font-size]").value || 12;
     let fontFamily = this.querySelector("[data-font-family]").value;
+
     let font = `${fontSize}px ${fontFamily}`;
 
     let iconOpts = this.icon === true ? styleOpts["options"].src : styleOpts["options"].form;
@@ -488,8 +487,6 @@ export class SimpleCategoryBinding extends Binding {
       let labelTextSelected = options["label"] != null ? options["label"]["text"] : "";
       options["featuresAttr"] = SimpleCategoryBinding.arrayDataToTemplate(labelTextSelected, labelTextValues.map(name => `{{${name}}}`), labelTextValues);
     }
-
-
     return options;
   }
 
@@ -636,7 +633,7 @@ export class SimpleCategoryBinding extends Binding {
       name: "Icono"
     }, {
       id: "form",
-      name: "Fuente"
+      name: "Familia"
     }];
   }
 
