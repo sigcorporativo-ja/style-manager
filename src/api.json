@@ -14,8 +14,8 @@
   }],
   "files": {
     "ol": {
-      "scripts": "stylemanager-2.0.2.ol.js",
-      "styles": "stylemanager-2.0.2.ol.min.css"
+      "scripts": ["stylemanager.ol.min.js"],
+      "styles": ["stylemanager.ol.min.css"]
     }
   },
   "metadata": {

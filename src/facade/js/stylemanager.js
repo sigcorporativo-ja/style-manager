@@ -2,11 +2,12 @@
  * @module M/plugin/StyleManager
  */
 import 'css/stylemanager.css';
+import 'css/font-awesome.min.css';
 import StyleManagerControl from './stylemanagerControl.js';
 import {
   ColorPickerPolyfill
 }
-from './utils/colorpicker';
+  from './utils/colorpicker';
 import 'templates/categorystyles.html';
 
 export default class StyleManager extends M.Plugin {
@@ -54,33 +55,33 @@ export default class StyleManager extends M.Plugin {
 
 
     //helpers handlebars
-    Handlebars.registerHelper('sum', function(n1, n2) {
+    Handlebars.registerHelper('sum', function (n1, n2) {
       return n1 + n2;
     });
 
-    Handlebars.registerHelper('neq', function(arg1, arg2, options) {
+    Handlebars.registerHelper('neq', function (arg1, arg2, options) {
       if (!Object.equals(arg1, arg2)) {
         return options.fn(this);
       }
       return options.inverse(this);
     });
 
-    Handlebars.registerHelper('unless', function(arg1, options) {
+    Handlebars.registerHelper('unless', function (arg1, options) {
       if (!arg1) {
         return options.fn(this);
       }
       return options.inverse(this);
     });
 
-    Handlebars.registerHelper('get', function(index, array) {
+    Handlebars.registerHelper('get', function (index, array) {
       return array[index];
     });
 
-    Handlebars.registerHelper('uppercase', function(string) {
+    Handlebars.registerHelper('uppercase', function (string) {
       return string.toUpperCase();
     });
 
-    Handlebars.registerHelper('lowercase', function(string) {
+    Handlebars.registerHelper('lowercase', function (string) {
       return string.toLowerCase();
     });
 

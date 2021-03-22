@@ -134,7 +134,7 @@ export class Binding {
     this.querySelectorAllForEach("[data-array-options]", element => {
       let prop = element.dataset["arrayOptions"];
       let value = element.value;
-
+      
       if (!M.utils.isArray(styleOpts["options"][prop])) {
         styleOpts["options"][prop] = [];
       }
@@ -158,7 +158,6 @@ export class Binding {
 
       Binding.createObj(styleOpts["ranges"][id], path, value);
     });
-
     return styleOpts;
   }
 
