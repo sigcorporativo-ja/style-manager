@@ -9,6 +9,7 @@ import {
 }
   from './utils/colorpicker';
 import 'templates/categorystyles.html';
+import api from '../../api.json';
 
 export default class StyleManager extends M.Plugin {
 
@@ -38,6 +39,13 @@ export default class StyleManager extends M.Plugin {
      * @type {Array<M.Control>}
      */
     this.controls_ = [];
+
+    /**
+     * Metadata from api.json
+     * @private
+     * @type {Object}
+     */
+    this.metadata_ = api.metadata;
 
     /**
      * @private
@@ -119,5 +127,16 @@ export default class StyleManager extends M.Plugin {
 
   get name() {
     return "stylemanager";
+  }
+
+  /**
+   * This function gets metadata plugin
+   *
+   * @public
+   * @function
+   * @api stable
+   */
+  getMetadata(){
+    return this.metadata_;
   }
 }
