@@ -233,7 +233,7 @@ export default class StyleManagerControl extends M.Control {
    */
   applyStyle() {
     if (this.layer_ instanceof M.layer.Vector) {
-      this.layer_.clearStyle();
+      this.layer_.setStyle(null);
       let style = this.bindinController_.getStyle();
       this.layer_.setStyle(style);
     } else {
