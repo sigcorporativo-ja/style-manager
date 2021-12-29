@@ -14,218 +14,700 @@ const points = new M.layer.GeoJSON({
     "features": [{
         "type": "Feature",
         "properties": {
-          "alumnos": 400,
-          "colegios": 2
+          "alumnos": 399,
+          "colegios": 10
         },
         "geometry": {
           "type": "Point",
-          "coordinates": [-6.383056640625,
-            37.3002752813443
+          "coordinates": [
+            -5.398185534463248,
+            37.45730370790821
           ]
         }
       },
       {
         "type": "Feature",
         "properties": {
-          "alumnos": 340,
-          "colegios": 5
+          "alumnos": 325,
+          "colegios": 11
         },
         "geometry": {
           "type": "Point",
-          "coordinates": [-6.119384765624999,
-            37.60552821745789
+          "coordinates": [
+            -5.5957414385034285,
+            37.31260205119489
           ]
         }
       },
       {
         "type": "Feature",
         "properties": {
-          "alumnos": 675,
-          "colegios": 3
+          "alumnos": 58,
+          "colegios": 13
         },
         "geometry": {
           "type": "Point",
-          "coordinates": [-5.679931640625,
-            37.43997405227057
+          "coordinates": [
+            -5.7166812740555235,
+            36.842966167382926
           ]
         }
       },
       {
         "type": "Feature",
         "properties": {
-          "alumnos": 440,
-          "colegios": 2
+          "alumnos": 301,
+          "colegios": 15
         },
         "geometry": {
           "type": "Point",
-          "coordinates": [-6.0205078125,
-            37.17782559332976
+          "coordinates": [
+            -5.1615553374241925,
+            37.090035553089585
           ]
         }
       },
       {
         "type": "Feature",
         "properties": {
-          "alumnos": 520,
-          "colegios": 6
+          "alumnos": 235,
+          "colegios": 15
         },
         "geometry": {
           "type": "Point",
-          "coordinates": [-5.47119140625,
-            37.84015683604136
-          ]
-        }
-      },
-      {
-        "type": "Feature",
-        "properties": {},
-        "geometry": {
-          "type": "Point",
-          "coordinates": [-5.2294921875,
-            37.483576550426996
+          "coordinates": [
+            -5.448482673516814,
+            37.656815271705675
           ]
         }
       },
       {
         "type": "Feature",
         "properties": {
-          "alumnos": 350,
-          "colegios": 4
-        },
-        "geometry": {
-          "type": "Point",
-          "coordinates": [-5.4931640625,
-            37.07271048132943
-          ]
-        }
-      },
-      {
-        "type": "Feature",
-        "properties": {
-          "alumnos": "860",
-          "colegios": 5
-        },
-        "geometry": {
-          "type": "Point",
-          "coordinates": [-4.85595703125,
-            37.67512527892127
-          ]
-        }
-      },
-      {
-        "type": "Feature",
-        "properties": {
-          "alumnos": 150,
-          "colegios": 1
-        },
-        "geometry": {
-          "type": "Point",
-          "coordinates": [-4.954833984374999,
-            37.3002752813443
-          ]
-        }
-      },
-      {
-        "type": "Feature",
-        "properties": {
-          "alumnos": 320,
+          "alumnos": 148,
           "colegios": 8
         },
         "geometry": {
           "type": "Point",
-          "coordinates": [-4.713134765624999,
-            37.448696585910376
+          "coordinates": [
+            -5.950581923428585,
+            36.78131955383965
           ]
         }
       },
       {
         "type": "Feature",
         "properties": {
-          "alumnos": 575,
-          "colegios": 3
+          "alumnos": 85,
+          "colegios": 13
         },
         "geometry": {
           "type": "Point",
-          "coordinates": [-5.11962890625,
-            37.09023980307208
+          "coordinates": [
+            -5.090627618815714,
+            36.74307850736811
           ]
         }
       },
       {
         "type": "Feature",
         "properties": {
-          "alumnos": 330,
+          "alumnos": 173,
+          "colegios": 8
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -5.3702750172379385,
+            36.871880421172484
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "alumnos": 253,
           "colegios": 4
         },
         "geometry": {
           "type": "Point",
-          "coordinates": [-5.855712890625,
-            36.97622678464096
+          "coordinates": [
+            -5.085955495848571,
+            36.698061955621164
           ]
         }
       },
       {
         "type": "Feature",
         "properties": {
-          "alumnos": 360,
+          "alumnos": 121,
+          "colegios": 18
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -5.09342433102585,
+            37.45469867093221
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "alumnos": 253,
+          "colegios": 7
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -5.146250009752628,
+            37.29130849330829
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "alumnos": 178,
+          "colegios": 3
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -5.669729396428465,
+            37.099180667986964
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "alumnos": 290,
+          "colegios": 4
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -5.5723815844666715,
+            36.758350955763966
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "alumnos": 97,
           "colegios": 6
         },
         "geometry": {
           "type": "Point",
-          "coordinates": [-6.39404296875,
-            36.99377838872517
+          "coordinates": [
+            -5.229523950015954,
+            36.95796800321581
           ]
         }
       },
       {
         "type": "Feature",
         "properties": {
-          "alumnos": 240,
-          "colegios": 3
+          "alumnos": 244,
+          "colegios": 6
         },
         "geometry": {
           "type": "Point",
-          "coordinates": [-6.602783203124999,
-            37.622933594900864
+          "coordinates": [
+            -5.824364867422735,
+            37.216618748057286
           ]
         }
       },
       {
         "type": "Feature",
         "properties": {
-          "alumnos": 740,
-          "colegios": 2
-        },
-        "geometry": {
-          "type": "Point",
-          "coordinates": [-5.82275390625,
-            37.900865092570065
-          ]
-        }
-      },
-      {
-        "type": "Feature",
-        "properties": {
-          "alumnos": 500,
-          "colegios": 1
-        },
-        "geometry": {
-          "type": "Point",
-          "coordinates": [-5.756835937499999,
-            36.721273880045004
-          ]
-        }
-      },
-      {
-        "type": "Feature",
-        "properties": {
-          "alumnos": 210,
+          "alumnos": 114,
           "colegios": 4
         },
         "geometry": {
           "type": "Point",
-          "coordinates": [-5.3173828125,
-            36.8708321556463
+          "coordinates": [
+            -5.120464756843248,
+            37.80990261768569
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "alumnos": 202,
+          "colegios": 7
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -5.881586033526422,
+            36.5099796770505
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "alumnos": 306,
+          "colegios": 14
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -5.9479918420390145,
+            37.329438353921034
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "alumnos": 52,
+          "colegios": 4
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -5.357277747563661,
+            37.86010185361898
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "alumnos": 229,
+          "colegios": 7
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -5.2033881213822735,
+            37.51081093834673
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "alumnos": 58,
+          "colegios": 17
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -5.368209186061417,
+            36.56019913705545
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "alumnos": 114,
+          "colegios": 15
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -5.790633864763912,
+            36.84518455840279
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "alumnos": 84,
+          "colegios": 8
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -5.106275306740548,
+            37.97616841301806
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "alumnos": 283,
+          "colegios": 15
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -5.377606351771481,
+            37.16996250256708
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "alumnos": 226,
+          "colegios": 16
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -5.192077231736873,
+            36.810582602906365
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "alumnos": 111,
+          "colegios": 2
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -5.312952324615357,
+            37.688244218696724
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "alumnos": 276,
+          "colegios": 13
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -5.267177704056467,
+            37.14433931256324
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "alumnos": 140,
+          "colegios": 5
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -5.9000515263464255,
+            37.07848053272649
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "alumnos": 131,
+          "colegios": 12
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -5.9763123852212665,
+            36.94121200493808
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "alumnos": 58,
+          "colegios": 2
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -5.119846140677662,
+            37.049177992518054
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "alumnos": 62,
+          "colegios": 3
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -5.415054798069191,
+            37.32562655729647
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "alumnos": 344,
+          "colegios": 8
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -5.633271660894013,
+            37.56687719110893
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "alumnos": 166,
+          "colegios": 14
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -5.627568858786239,
+            36.88766959599923
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "alumnos": 78,
+          "colegios": 6
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -5.110787164934307,
+            36.88864450578582
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "alumnos": 281,
+          "colegios": 8
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -5.442189514796764,
+            37.983118868608685
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "alumnos": 74,
+          "colegios": 8
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -5.364491979422597,
+            37.76589897110641
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "alumnos": 141,
+          "colegios": 13
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -5.982592607453279,
+            36.74558390628279
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "alumnos": 259,
+          "colegios": 19
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -5.332563335974404,
+            37.590623503816715
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "alumnos": 255,
+          "colegios": 10
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -5.665724890211363,
+            37.787289402072744
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "alumnos": 102,
+          "colegios": 3
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -5.410819235335401,
+            36.93888718048877
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "alumnos": 228,
+          "colegios": 8
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -5.696200334741402,
+            37.89454141881721
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "alumnos": 137,
+          "colegios": 16
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -5.451135493107085,
+            37.06737436892989
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "alumnos": 83,
+          "colegios": 3
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -5.828101590876895,
+            37.75870882636568
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "alumnos": 83,
+          "colegios": 14
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -5.213841852401093,
+            37.3849199467344
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "alumnos": 397,
+          "colegios": 10
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -5.162462140288094,
+            36.98375757145731
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "alumnos": 245,
+          "colegios": 16
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -5.769687871441968,
+            36.7485448221363
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "alumnos": 167,
+          "colegios": 12
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -5.8064289999100644,
+            37.353129615247276
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "alumnos": 106,
+          "colegios": 9
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -5.18130512935752,
+            36.91825972785444
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "alumnos": 98,
+          "colegios": 3
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -5.606446965482102,
+            36.84820535288928
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "alumnos": 201,
+          "colegios": 19
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -5.268869643647613,
+            37.48692113860303
           ]
         }
       }
@@ -239,7 +721,10 @@ const lines = new M.layer.GeoJSON({
     "type": "FeatureCollection",
     "features": [{
         "type": "Feature",
-        "properties": {},
+        "properties": {
+          "alumnos": 400,
+          "colegios": 2
+        },
         "geometry": {
           "type": "LineString",
           "coordinates": [
@@ -329,9 +814,12 @@ const polygons = new M.layer.GeoJSON({
   name: 'polygons',
   source: {
     "type": "FeatureCollection",
-    "features": [{
+    "features": [{ //Tres tipos de features
         "type": "Feature",
-        "properties": {},
+        "properties": {
+          "alumnos": 400,
+          "colegios": 2
+        },
         "geometry": {
           "type": "Polygon",
           "coordinates": [
@@ -366,7 +854,10 @@ const polygons = new M.layer.GeoJSON({
       },
       {
         "type": "Feature",
-        "properties": {},
+        "properties": {
+          "alumnos": 400,
+          "colegios": 2
+        },
         "geometry": {
           "type": "Polygon",
           "coordinates": [
@@ -407,7 +898,10 @@ const polygons = new M.layer.GeoJSON({
       },
       {
         "type": "Feature",
-        "properties": {},
+        "properties": {
+          "alumnos": 400,
+          "colegios": 2
+        },
         "geometry": {
           "type": "Polygon",
           "coordinates": [
@@ -430,7 +924,10 @@ const polygons = new M.layer.GeoJSON({
       },
       {
         "type": "Feature",
-        "properties": {},
+        "properties": {
+          "alumnos": 400,
+          "colegios": 2
+        },
         "geometry": {
           "type": "Polygon",
           "coordinates": [
@@ -456,7 +953,10 @@ const polygons = new M.layer.GeoJSON({
       },
       {
         "type": "Feature",
-        "properties": {},
+        "properties": {
+          "alumnos": 400,
+          "colegios": 2
+        },
         "geometry": {
           "type": "Polygon",
           "coordinates": [
@@ -493,5 +993,108 @@ const polygons = new M.layer.GeoJSON({
   }
 });
 
-map.addLayers([points, lines, polygons]);
+const generic = new M.layer.GeoJSON({
+  name: 'generic',
+  source: {
+    "type": "FeatureCollection",
+    "features": [{
+        "type": "Feature",
+        "properties": {
+          "alumnos": 4,
+          "colegios": 4
+        },
+        "geometry": {
+          "type": "Polygon",
+          "coordinates": [
+            [
+              [
+                -7.021386718749999,
+                38.07939467327645
+              ],
+              [
+                -9.021142578125,
+                36.03032838760387
+              ],
+              [
+                -7.143359374999999,
+                35.179398571318765
+              ],
+              [
+                -6.121386718749999,
+                37.17939467327645
+              ]
+            ]
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "alumnos": 400,
+          "colegios": 2
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -4.113134765624999,
+            37.148696585910376
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "alumnos": 100,
+          "colegios": 100
+        },
+        "geometry": {
+          "type": "LineString",
+          "coordinates": [
+            [
+              -3.1452148437499996,
+              37.13553306183642
+            ],
+            [
+              -1.169921875,
+              38.12777351132902
+            ],
+            [
+              -3.17392578125,
+              37.1165261849112
+            ]
+          ]
+        }
+      }
+    ]
+  }
+});
+
+const wfs = new M.layer.WFS({
+  url: "http://geostematicos-sigc.juntadeandalucia.es/geoserver/tematicos/ows?",
+  namespace: "tematicos",
+  name: "Provincias",
+  legend: "Provincias",
+  geometry: 'MPOLYGON',
+});
+map.addWFS(wfs);
+
+const wfs2 = new M.layer.WFS({
+  url: "http://geostematicos-sigc.juntadeandalucia.es/geoserver/sepim/ows?",
+  namespace: "sepim",
+  name: "campamentos",
+  legend: "Campamentos",
+  geometry: 'Point',
+});
+map.addWFS(wfs2);
+
+const wfs3 = new M.layer.WFS({
+  url: "http://www.ideandalucia.es/services/DERA_g3_hidrografia/wfs",
+  namespace: "DERA_g3_hidrografia",
+  name: "g03_08_Conduccion",
+  legend: "Rios",
+  geometry: 'LINE',
+});
+map.addWFS(wfs3);
+
+map.addLayers([points, lines, polygons, generic]);
 map.addPlugin(mp);
