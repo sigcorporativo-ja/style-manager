@@ -34,10 +34,7 @@ export default class StyleManagerControl extends M.Control {
    */
   createView(map) {
     this.facadeMap_ = map;
-    const layers = map.getWFS().concat(map.getKML().concat(map.getLayers().filter(layer => layer.type === "GeoJSON"))).filter((layer) => {
-      return layer.name !== 'selectLayer';
-    });
-
+    let layers = map.getWFS().concat(map.getKML().concat(map.getLayers().filter(layer => layer.type === "GeoJSON")));
     return new Promise((success, fail) => {
       const html = M.template.compileSync(stylemanager, {
         'jsonp': true,
@@ -120,7 +117,7 @@ export default class StyleManagerControl extends M.Control {
     buttonClear.addEventListener('click', this.clearStyle.bind(this));
   }
 
-  /**
+  /** 
    * @public
    * @function
    * @param {HTMLElement} html to add the plugin
@@ -141,7 +138,7 @@ export default class StyleManagerControl extends M.Control {
   subscribeAddedLayer(htmlSelect) {
     this.facadeMap_.on(M.evt.ADDED_LAYER, (layers) => {
       if (Array.isArray(layers)) {
-        layers.filter(layer => (layer instanceof M.layer.Vector && layer.name !== 'selectLayer')).forEach(layer => this.addLayerOption(htmlSelect, layer.name));
+        layers.filter(layer => layer instanceof M.layer.Vector).forEach(layer => this.addLayerOption(htmlSelect, layer.name));
       } else if (layers instanceof M.layer.Vector) {
         const _layer = { ...layers };
         this.addLayerOption(htmlSelect, _layer);
@@ -213,10 +210,8 @@ export default class StyleManagerControl extends M.Control {
    * @api stable
    */
   getLayerByName(layerName) {
-    let layers = this.facadeMap_.getWFS().concat(this.facadeMap_.getKML().concat(this.facadeMap_.getLayers().filter(layer => layer.type === "GeoJSON"))).filter((layer) => {
-      return layer.name !== 'selectLayer';
-    });
-
+    let layers = this.facadeMap_.getWFS()
+      .concat(this.facadeMap_.getKML().concat(this.facadeMap_.getLayers().filter(layer => layer.type === "GeoJSON")));
     return layers.find(layer => layer.name === layerName);
   }
 
@@ -238,7 +233,7 @@ export default class StyleManagerControl extends M.Control {
    */
   applyStyle() {
     if (this.layer_ instanceof M.layer.Vector) {
-      this.layer_.clearStyle();
+      this.layer_.setStyle(null);
       let style = this.bindinController_.getStyle();
       this.layer_.setStyle(style);
     } else {
@@ -254,7 +249,7 @@ export default class StyleManagerControl extends M.Control {
    */
   clearStyle() {
     if (this.layer_ instanceof M.layer.Vector) {
-      this.layer_.setStyle(M.layer.Vector.DEFAULT_OPTIONS_STYLE);
+      this.layer_.clearStyle();
     } else {
       M.dialog.info("Tiene que elegir una capa.", "Elija capa");
     }

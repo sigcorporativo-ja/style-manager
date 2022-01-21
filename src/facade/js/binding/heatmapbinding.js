@@ -3,9 +3,6 @@ import {
 }
 from './binding';
 
-import * as htmlgradient from '../../../templates/gradientheatmap'
-import * as chroma from 'chroma-js';
-
 export class HeatmapBinding extends Binding {
   constructor(html, htmlParent, styleType, styleParams, layer) {
     super(html, htmlParent, styleType, styleParams, layer);
@@ -52,17 +49,18 @@ export class HeatmapBinding extends Binding {
   addGradientListener() {
     let parent = this.querySelector("[data-parent='gradient']");
     this.querySelector("[data-add]").addEventListener('click', () => {
-      this.compileTemplate(htmlgradient, {}).then((htmlgradient) => {
+      this.compileTemplate("gradientheatmap.html", {}).then((html) => {
         if (this.numberAddedColors_ < HeatmapBinding.MAX_NUMBER_COLORS) {
-          parent.appendChild(htmlgradient);
-          this.setRandomColor(htmlgradient);
-          htmlgradient.querySelector('.m-close').addEventListener('click', () => {
-            let rootElement = htmlgradient.parentElement;
-            rootElement.removeChild(htmlgradient);
+          parent.appendChild(html);
+          this.setRandomColor(html);
+          html.querySelector('.m-close').addEventListener('click', () => {
+            let rootElement = html.parentElement;
+            rootElement.removeChild(html);
             this.numberAddedColors_--;
           });
           this.numberAddedColors_++;
-        } else {
+        }
+        else {
           M.dialog.info("Ha llegado al número máximo de colores permitidos", "Información");
         }
       });
