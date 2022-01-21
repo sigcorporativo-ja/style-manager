@@ -50,7 +50,13 @@ export class SimpleBinding extends Binding {
    * @function
    */
   refreshTemplate() {
-    this.querySelectorAllForEach(`[data-geometry]`, node => node.classList.remove('m-hidden'));
+    let geometry = this.getGeometry();
+    let hiddenGeometries = SimpleBinding.GEOMETRIES.filter(section => section !== geometry);
+
+    hiddenGeometries.forEach(geometry => {
+      this.querySelectorAllForEach(`[data-geometry="${geometry}"]`, node => node.classList.add('m-hidden'));
+    });
+    this.querySelectorAllForEach(`[data-geometry="${geometry}"]`, node => node.classList.remove('m-hidden'));
     this.refreshOptionsButtons();
     this.addLabelPathListener();
   }
@@ -61,6 +67,10 @@ export class SimpleBinding extends Binding {
    */
   refreshOptionsButtons() {
     let options = SimpleBinding.OPTIONS_POINT_SUBMENU;
+
+    if (this.getGeometry() !== "point") {
+      options = SimpleBinding.OPTIONS_SUBMENU;
+    }
 
     this.addOptionsButtons(options, () => {
       this.compatibleSectionListener("icon", "form");
@@ -166,7 +176,8 @@ export class SimpleBinding extends Binding {
    */
   eventOpenIconSelector(ev) {
     let iconDialog = document.querySelector(".style-grid-container");
-    if (iconDialog.classList.toString() === 'style-grid-container active') { iconDialog.classList.remove('active'); } else { iconDialog.classList.add('active'); }
+    if (iconDialog.classList.toString() === 'style-grid-container active') { iconDialog.classList.remove('active'); }
+    else { iconDialog.classList.add('active'); }
   }
 
   /**
@@ -353,6 +364,7 @@ export class SimpleBinding extends Binding {
       }
     });
 
+
     let fontSize = this.querySelector("[data-font-size]").value || 12;
     let fontFamily = this.querySelector("[data-font-family]").value;
     let font = `${fontSize}px ${fontFamily}`;
@@ -360,7 +372,7 @@ export class SimpleBinding extends Binding {
     let icon = document.querySelector("[data-apply='icon']");
     let iconOpts = icon !== null && icon.checked === true ?
       styleOpts["options"].src : styleOpts["options"].form;
-
+      
     let labelOpt;
     if (styleOpts["options"]["label"] != null && styleOpts["options"]["label"]["text"] != null) {
       labelOpt = styleOpts["options"]["label"];
@@ -374,28 +386,26 @@ export class SimpleBinding extends Binding {
       radius: styleOpts["options"].radius
     };
 
-    // if (this.getGeometry() === "line") {
-    //   styleOpts["options"] = {
-    //     fill: styleOpts["options"].fill,
-    //     stroke: styleOpts["options"].stroke,
-    //     label: styleOpts["options"].label
-    //   };
+    if (this.getGeometry() === "line") {
+      styleOpts["options"] = {
+        fill: styleOpts["options"].fill,
+        stroke: styleOpts["options"].stroke,
+        label: styleOpts["options"].label
+      };
 
+      delete styleOpts["options"]["fill"]["pattern"];
+      if (Object.keys(styleOpts["options"]["fill"]).length === 0) {
+        delete styleOpts["options"]["fill"];
+      }
+    }
 
-    //MIRARLO
-    //   delete styleOpts["options"]["fill"]["pattern"];
-    //   if (Object.keys(styleOpts["options"]["fill"]).length === 0) {
-    //     delete styleOpts["options"]["fill"];
-    //   }
-    // }
-
-    // if (this.getGeometry() === "polygon") {
-    //   styleOpts["options"] = {
-    //     fill: styleOpts["options"].fill,
-    //     stroke: styleOpts["options"].stroke,
-    //     label: styleOpts["options"].label
-    //   };
-    // }
+    if (this.getGeometry() === "polygon") {
+      styleOpts["options"] = {
+        fill: styleOpts["options"].fill,
+        stroke: styleOpts["options"].stroke,
+        label: styleOpts["options"].label
+      };
+    }
 
     if (styleOpts["options"]["label"] != undefined) {
       styleOpts["options"]["label"]["font"] = font;
@@ -419,28 +429,6 @@ export class SimpleBinding extends Binding {
     styleOptsClone["options"]["stroke"] = checkedStroke === true ? styleOptsClone["options"]["stroke"] : undefined;
     styleOptsClone["options"]["label"] = checkedLabel === true ? styleOptsClone["options"]["label"] : undefined;
     styleOptsClone["options"]["icon"] = checkedIcon === true || checkedForm === true ? styleOptsClone["options"]["icon"] : undefined;
-
-    styleOptsClone["point"] = {
-      fill: styleOptsClone["options"].fill,
-      radius: styleOptsClone["options"].radius,
-      stroke: styleOptsClone["options"].stroke,
-      label: styleOptsClone["options"].label,
-      icon: styleOptsClone["options"].icon
-    }
-
-    styleOptsClone["line"] = {
-      fill: styleOptsClone["options"].fill,
-      stroke: styleOptsClone["options"].stroke,
-      label: styleOptsClone["options"].label
-    }
-
-    styleOptsClone["polygon"] = {
-      fill: styleOptsClone["options"].fill,
-      stroke: styleOptsClone["options"].stroke,
-      label: styleOptsClone["options"].label
-    }
-    delete styleOptsClone["options"];
-
     return styleOptsClone;
   }
 
@@ -469,26 +457,25 @@ export class SimpleBinding extends Binding {
     });
 
     let style;
-    //let geometry = this.getGeometry();
-    let styleOptions = this.generateOptions();
+    let geometry = this.getGeometry();
+    let styleOptions = this.generateOptions().options;
 
-    // switch (geometry) {
-    //   case "point":
-    //     style = new M.style.Generic(styleOptions);
-    //     break;
-    //   case "line":
-    //     style = new M.style.Line(styleOptions);
-    //     break;
-    //   case "polygon":
-    //     style = new M.style.Polygon(styleOptions);
-    //     break;
 
-    //   default:
-    //     M.dialog.error("Geometría no soportada", "Error");
+    switch (geometry) {
+      case "point":
+        style = new M.style.Point(styleOptions);
+        break;
+      case "line":
+        style = new M.style.Line(styleOptions);
+        break;
+      case "polygon":
+        style = new M.style.Polygon(styleOptions);
+        break;
 
-    // }
+      default:
+        M.dialog.error("Geometría no soportada", "Error");
 
-    style = new M.style.Generic(styleOptions);
+    }
 
     return style;
   }
@@ -576,7 +563,7 @@ export class SimpleBinding extends Binding {
     options["linecaplabelstroke"] = SimpleBinding.arrayDataToTemplate(options["label"]["stroke"]["linecap"], ["butt", "square", "round"], ["Extremo", "Cuadrado", "Redondeado"]);
     options["linejoinlabelstroke"] = SimpleBinding.arrayDataToTemplate(options["label"]["stroke"]["linejoin"], ["bevel", "miter", "round"], ["Bisel", "Inglete", "Redondeado"]);
     options["alignlist"] = SimpleBinding.arrayDataToTemplate(options["label"]["align"], alignValues, ["Centro", "Justificado", "Izquierda", "Derecha"]);
-    options["baselinelist"] = SimpleBinding.arrayDataToTemplate(options["label"]["baseline"], baselineValues, ["Alfabetico", "Abajo", "Colgando", "Ideografico", "Arriba", "Centro", ]);
+    options["baselinelist"] = SimpleBinding.arrayDataToTemplate(options["label"]["baseline"], baselineValues, ["Alfabetico", "Abajo", "Colgando", "Ideografico", "Arriba", "Centro",]);
     options["formlist"] = SimpleBinding.arrayDataToTemplate(options["icon"]["form"], formValues, formValues);
     if (this.layer_ != null) {
       let labelTextValues = Object.keys(this.getFeaturesAttributes());

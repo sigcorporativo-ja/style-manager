@@ -38,7 +38,6 @@ export class ClusterBinding extends Binding {
     this.querySelectorAllForEach("[data-style-options]", element => {
       let prop = element.dataset["styleOptions"];
       let value = element.value;
-
       if (element.type === "checkbox") {
         value = element.checked;
       }
@@ -226,7 +225,6 @@ export class ClusterBinding extends Binding {
     ranges.forEach((element, index) => {
       options["pages"].push(element);
     });
-
     return options;
   }
 }

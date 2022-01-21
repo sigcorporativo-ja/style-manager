@@ -11,7 +11,7 @@ const pjson = require(PJSON_PATH);
 module.exports = {
   mode: 'production',
   entry: {
-    'stylemanager.ol.min': path.resolve(__dirname, '..', 'src', 'index.js'),
+    [`stylemanager-${pjson.version}.ol.min`]: path.resolve(__dirname, '..', 'src', 'index.js'),
   },
   output: {
     path: path.resolve(__dirname, '..', 'dist'),
