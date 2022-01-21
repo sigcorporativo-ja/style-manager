@@ -199,23 +199,41 @@ export default class BindingController {
       this.addSelectListener();
     }
     this.layer_ = layer;
-    let geometry = layer.getFeatures()[0].getGeometry().type;
-    switch (geometry) {
+
+    // for (let feature of layer.getFeatures()) {
+    let type;
+
+    //   // Establece correspondencia entre tipo de feature y tipo de geometria
+    switch (layer.getFeatures()[0].getGeometry().type) {
       case "Point":
       case "MultiPoint":
-        this.setGeometry('point');
+        type = 'point';
         break;
       case "LineString":
       case "MultiLineString":
-        this.setGeometry('line');
+        type = 'line';
         break;
       case "Polygon":
       case "MultiPolygon":
-        this.setGeometry('polygon');
+        type = 'polygon';
         break;
       default:
         M.dialog.error('Geometria no soportada', 'Error');
     }
+
+    //   // Establece la geometria
+    //   this.setGeometry(type);
+
+    //   // Entro si tengo una lista de puntos o que contiene puntos
+    //   if (type == "point") {
+    //     break;
+    //   }
+
+    this.setGeometry(type);
+
+    // }
+
+    //this.setGeometry("generic");
   }
 
   /**
