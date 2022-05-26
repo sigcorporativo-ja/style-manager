@@ -34,7 +34,7 @@ export default class StyleManagerControl extends M.Control {
    */
   createView(map) {
     this.facadeMap_ = map;
-    const layers = map.getWFS().concat(map.getKML().concat(map.getLayers().filter(layer => layer.type === "GeoJSON"))).filter((layer) => {
+    const layers = map.getWFS().concat(map.getMVT().concat(map.getKML().concat(map.getLayers().filter(layer => layer.type === "GeoJSON")))).filter((layer) => {
       return layer.name !== 'selectLayer';
     });
 
@@ -213,7 +213,7 @@ export default class StyleManagerControl extends M.Control {
    * @api stable
    */
   getLayerByName(layerName) {
-    let layers = this.facadeMap_.getWFS().concat(this.facadeMap_.getKML().concat(this.facadeMap_.getLayers().filter(layer => layer.type === "GeoJSON"))).filter((layer) => {
+    let layers = this.facadeMap_.getWFS().concat(this.facadeMap_.getMVT().concat(this.facadeMap_.getKML().concat(this.facadeMap_.getLayers().filter(layer => layer.type === "GeoJSON")))).filter((layer) => {
       return layer.name !== 'selectLayer';
     });
 

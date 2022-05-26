@@ -251,11 +251,11 @@ input[type="checkbox"].m-input+label.check-inactive:before {
 }
 
 .m-stylemanager-container-select[open-select] .m-stylemanager-buttons-wrap #m-stylemanager-select {
-    margin-left: -35%;
+    /* margin-left: -35%; */
 }
 
 .m-stylemanager-container-select .m-stylemanager-buttons-wrap #m-stylemanager-select {
-    margin-left: -10%;
+    /* margin-left: -10%; */
 }
 
 .m-stylemanager-simple-section .subtitle {
@@ -263,9 +263,17 @@ input[type="checkbox"].m-input+label.check-inactive:before {
     font-size: 14px;
     width: 100%;
     border-bottom: 0;
-    height: 30px;
-    line-height: 2.2;
+    height: 40px;
+    line-height: 2.7;
     justify-content: center;
+    font-weight: bold;
+}
+
+.m-stylemanager-simple-section .subtitle>span {
+    position: relative;
+    top: 1px;
+    font-size: 12px;
+    margin-left: 5px;
 }
 
 .m-stylemanager-control li div {
@@ -383,6 +391,13 @@ input[type="checkbox"].m-input+label.check-inactive:before {
     align-items: left;
     flex-direction: column;
     margin-bottom: 5px;
+}
+
+.style-col-0>span,
+.style-col-1>span,
+.style-col-2>span {
+    position: relative;
+    top: 3px;
 }
 
 .style-col-0 {
@@ -1038,6 +1053,7 @@ select:disabled {
     grid-template-columns: auto auto auto auto auto;
     overflow-x: hidden;
 }
+
 .style-grid-item {
     background: #f4f4f4;
     border-radius: 3px;
@@ -1053,21 +1069,32 @@ select:disabled {
     -moz-box-sizing: border-box;
     -webkit-box-sizing: border-box;
 }
+
 .style-grid-item:hover {
     background: #e3e3e3;
     line-height: 28px;
 }
+
 .style-grid-item.selected {
     border: 1px solid #e5008a;
     line-height: 28px;
 }
-.style-grid-container.active{
+
+.style-grid-container.active {
     display: grid;
 }
 
-#select-icon{
+#select-icon {
     display: none;
     width: 29px;
     height: 29px;
     padding: 0;
+}
+
+.content-row-hidden {
+    display: none;
+}
+
+.content-row-show {
+    display: block;
 }
