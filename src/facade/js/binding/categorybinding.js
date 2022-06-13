@@ -305,7 +305,7 @@ export class CategoryBinding extends Binding {
     });
 
     let otherCategory = categoriesStyle == null ? null : categoriesStyle["other"];
-    this.styleCategories_["other"] = new SimpleCategoryBinding(stylesimple, this.htmlTemplate_, "stylesimple", otherCategory, this.layer_, this);
+    this.styleCategories_["other"] = new SimpleCategoryBinding(simpleoptions, this.htmlTemplate_, "stylesimple", otherCategory, this.layer_, this);
     this.styleCategories_["other"].compilePromise_.then(() => {
       this.styleCategories_["other"].refreshLegend("other", true);
     });

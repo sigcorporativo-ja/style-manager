@@ -110,9 +110,9 @@ export class SimpleBinding extends Binding {
     iconSelect.addEventListener('click', this.eventOpenIconSelector);
     let iconDialog = document.querySelector(".style-grid-container");
     iconDialog.addEventListener('click', this.eventSelectIcon);
-    let familySelect = this.querySelector("[data-style-options='form.class']");
+    let familySelect = this.querySelector("[data-style-options='point.form.class']");
     familySelect.addEventListener('change', this.changeFamilyFont);
-    let famSelector = this.querySelector(".style-col-2 > select[data-style-options = 'form.class']");
+    let famSelector = this.querySelector(".style-col-2 > select[data-style-options = 'point.form.class']");
     let fmSIcon = famSelector.dataset.icon;
     if (fmSIcon !== '') {
       let fmSIconArray = fmSIcon.split('-');
@@ -125,35 +125,69 @@ export class SimpleBinding extends Binding {
 
     if (style != null) {
       let options = style.getOptions();
-      if (options["fill"] != null) {
-        let valuesFill = Object.values(options.fill).filter(value => value != undefined);
-        if (valuesFill.length > 0) {
+      if (options["point"]["fill"] != null || options["line"]["fill"] != null || options["polygon"]["fill"] != null) {
+        let valuesFillPoint = Object.values(options.point.fill).filter(value => value != undefined);
+        let valuesFillLine = Object.values(options.line.fill).filter(value => value != undefined);
+        let valuesFillPolygon = Object.values(options.polygon.fill).filter(value => value != undefined);
+        if (valuesFillPoint.length > 0 || valuesFillLine.length > 0 || valuesFillPolygon.length > 0) {
           this.checkOptionSection("fill");
         }
       }
 
-      if (options["stroke"] != undefined) {
+      if (options["point"]["stroke"] != undefined || options["line"]["stroke"] != undefined || options["polygon"]["stroke"] != undefined) {
         this.checkOptionSection("stroke");
       }
 
-      if (options["label"] != undefined) {
+      if (options["point"]["label"] != undefined) {
         this.checkOptionSection("label");
       }
 
-      if (options["icon"] != undefined) {
-        if (options["icon"].hasOwnProperty("src")) {
+      if (options["point"]["icon"] != undefined) {
+        if (options["point"]["icon"].hasOwnProperty("src")) {
           this.checkOptionSection("icon");
           this.disableOption("form");
         }
 
-        if (options["icon"].hasOwnProperty("form")) {
+        if (options["point"]["icon"].hasOwnProperty("form")) {
 
           this.checkOptionSection("form");
           this.disableOption("icon");
         }
 
-        if (options["icon"].hasOwnProperty("class")) {
-          familySelect.value = options["icon"]["class"];
+        if (options["point"]["icon"].hasOwnProperty("class")) {
+          familySelect.value = options["point"]["icon"]["class"];
+        }
+      }
+      if (options["polygon"]["icon"] != undefined) {
+        if (options["polygon"]["icon"].hasOwnProperty("src")) {
+          this.checkOptionSection("icon");
+          this.disableOption("form");
+        }
+
+        if (options["polygon"]["icon"].hasOwnProperty("form")) {
+
+          this.checkOptionSection("form");
+          this.disableOption("icon");
+        }
+
+        if (options["polygon"]["icon"].hasOwnProperty("class")) {
+          familySelect.value = options["polygon"]["icon"]["class"];
+        }
+      }
+      if (options["line"]["icon"] != undefined) {
+        if (options["line"]["icon"].hasOwnProperty("src")) {
+          this.checkOptionSection("icon");
+          this.disableOption("form");
+        }
+
+        if (options["line"]["icon"].hasOwnProperty("form")) {
+
+          this.checkOptionSection("form");
+          this.disableOption("icon");
+        }
+
+        if (options["line"]["icon"].hasOwnProperty("class")) {
+          familySelect.value = options["line"]["icon"]["class"];
         }
       }
 
@@ -178,7 +212,7 @@ export class SimpleBinding extends Binding {
       if (selected) { selected.classList.remove('selected'); }
       ev.target.classList.add("selected");
       let iconSelected = ev.target.classList.toString().replace('selected', '').replace('style-grid-item', '').trim();
-      document.querySelector("[data-style-options='form.class']").dataset.icon = iconSelected.replace('fa', '').trim();
+      document.querySelector("[data-style-options='point.form.class']").dataset.icon = iconSelected.replace('fa', '').trim();
       document.querySelector('#select-icon').classList = iconSelected;
     }
   }
@@ -208,9 +242,19 @@ export class SimpleBinding extends Binding {
    * @function
    */
   addLabelPathListener() {
-    let pathCheck = this.querySelector("[data-style-options='label.path']");
-    pathCheck.addEventListener("change", () => {
-      this.togglePathSection(!pathCheck.checked);
+    let pathCheckPoint = this.querySelector("[data-style-options='point.label.path']");
+    pathCheckPoint.addEventListener("change", () => {
+      this.togglePathSection(!pathCheckPoint.checked);
+    });
+
+    let pathCheckPolygon = this.querySelector("[data-style-options='polygon.label.path']");
+    pathCheckPolygon.addEventListener("change", () => {
+      this.togglePathSection(!pathCheckPolygon.checked);
+    });
+
+    let pathCheckLine = this.querySelector("[data-style-options='line.label.path']");
+    pathCheckLine.addEventListener("change", () => {
+      this.togglePathSection(!pathCheckLine.checked);
     });
   }
 
@@ -319,8 +363,8 @@ export class SimpleBinding extends Binding {
     this.querySelectorAllForEach('[data-style-options]', element => {
       let path = element.dataset["styleOptions"];
       let value = element.value;
-      if (path == "form.class" && value !== '') {
-        value = this.querySelector("[data-style-options='form.class']").dataset.icon;
+      if (path == "point.form.class" && value !== '') {
+        value = this.querySelector("[data-style-options='point.form.class']").dataset.icon;
       }
       if (element.type === "checkbox") {
         value = element.checked;
@@ -353,25 +397,53 @@ export class SimpleBinding extends Binding {
       }
     });
 
-    let fontSize = this.querySelector("[data-font-size]").value || 12;
-    let fontFamily = this.querySelector("[data-font-family]").value;
-    let font = `${fontSize}px ${fontFamily}`;
+    let fontSizePoint = this.querySelector("[data-font-size-point]").value || 12;
+    let fontFamilyPoint = this.querySelector("[data-font-family-point]").value;
+    let fontPoint = `${fontSizePoint}px ${fontFamilyPoint}`;
+
+    let fontSizePolygon = this.querySelector("[data-font-size-polygon]").value || 12;
+    let fontFamilyPolygon = this.querySelector("[data-font-family-polygon]").value;
+    let fontPolygon = `${fontSizePolygon}px ${fontFamilyPolygon}`;
+
+    let fontSizeLine = this.querySelector("[data-font-size-line]").value || 12;
+    let fontFamilyLine = this.querySelector("[data-font-family-line]").value;
+    let fontLine = `${fontSizeLine}px ${fontFamilyLine}`;
 
     let icon = document.querySelector("[data-apply='icon']");
     let iconOpts = icon !== null && icon.checked === true ?
-      styleOpts["options"].src : styleOpts["options"].form;
+      styleOpts["options"]["point"].src : styleOpts["options"]["point"].form;
 
-    let labelOpt;
-    if (styleOpts["options"]["label"] != null && styleOpts["options"]["label"]["text"] != null) {
-      labelOpt = styleOpts["options"]["label"];
+    let labelOptPoint;
+    if (styleOpts["options"]["point"]["label"] != null && styleOpts["options"]["point"]["label"]["text"] != null) {
+      labelOptPoint = styleOpts["options"]["point"]["label"];
+    }
+    let labelOptPolygon;
+    if (styleOpts["options"]["polygon"]["label"] != null && styleOpts["options"]["polygon"]["label"]["text"] != null) {
+      labelOptPolygon = styleOpts["options"]["polygon"]["label"];
+    }
+    let labelOptLine;
+    if (styleOpts["options"]["line"]["label"] != null && styleOpts["options"]["line"]["label"]["text"] != null) {
+      labelOptLine = styleOpts["options"]["line"]["label"];
     }
 
     styleOpts["options"] = {
-      fill: styleOpts["options"].fill,
-      stroke: styleOpts["options"].stroke,
-      label: labelOpt,
-      icon: iconOpts,
-      radius: styleOpts["options"].radius
+      point: {
+        fill: styleOpts["options"]["point"].fill,
+        stroke: styleOpts["options"]["point"].stroke,
+        label: labelOptPoint,
+        icon: iconOpts,
+        radius: styleOpts["options"]["point"].radius
+      },
+      line: {
+        fill: styleOpts["options"]["line"].fill,
+        stroke: styleOpts["options"]["line"].stroke,
+        label: labelOptLine,
+      },
+      polygon: {
+        fill: styleOpts["options"]["polygon"].fill,
+        stroke: styleOpts["options"]["polygon"].stroke,
+        label: labelOptPolygon,
+      }
     };
 
     // if (this.getGeometry() === "line") {
@@ -397,8 +469,14 @@ export class SimpleBinding extends Binding {
     //   };
     // }
 
-    if (styleOpts["options"]["label"] != undefined) {
-      styleOpts["options"]["label"]["font"] = font;
+    if (styleOpts["options"]["point"]["label"] != undefined) {
+      styleOpts["options"]["point"]["label"]["font"] = fontPoint;
+    }
+    if (styleOpts["options"]["polygon"]["label"] != undefined) {
+      styleOpts["options"]["polygon"]["label"]["font"] = fontPolygon;
+    }
+    if (styleOpts["options"]["line"]["label"] != undefined) {
+      styleOpts["options"]["line"]["label"]["font"] = fontLine;
     }
 
     return this.processOptions(styleOpts);
@@ -415,29 +493,39 @@ export class SimpleBinding extends Binding {
     let checkedLabel = this.isChecked("label");
     let checkedIcon = this.isChecked("icon");
     let checkedForm = this.isChecked("form");
-    styleOptsClone["options"]["fill"] = checkedFill === true ? styleOptsClone["options"]["fill"] : undefined;
-    styleOptsClone["options"]["stroke"] = checkedStroke === true ? styleOptsClone["options"]["stroke"] : undefined;
-    styleOptsClone["options"]["label"] = checkedLabel === true ? styleOptsClone["options"]["label"] : undefined;
-    styleOptsClone["options"]["icon"] = checkedIcon === true || checkedForm === true ? styleOptsClone["options"]["icon"] : undefined;
+    styleOptsClone["options"]["point"]["fill"] = checkedFill === true ? styleOptsClone["options"]["point"]["fill"] : undefined;
+    styleOptsClone["options"]["point"]["stroke"] = checkedStroke === true ? styleOptsClone["options"]["point"]["stroke"] : undefined;
+    styleOptsClone["options"]["point"]["label"] = checkedLabel === true ? styleOptsClone["options"]["point"]["label"] : undefined;
+    styleOptsClone["options"]["point"]["icon"] = checkedIcon === true || checkedForm === true ? styleOptsClone["options"]["point"]["icon"] : undefined;
+
+    styleOptsClone["options"]["line"]["fill"] = checkedFill === true ? styleOptsClone["options"]["line"]["fill"] : undefined;
+    styleOptsClone["options"]["line"]["stroke"] = checkedStroke === true ? styleOptsClone["options"]["line"]["stroke"] : undefined;
+    styleOptsClone["options"]["line"]["label"] = checkedLabel === true ? styleOptsClone["options"]["line"]["label"] : undefined;
+    styleOptsClone["options"]["line"]["icon"] = checkedIcon === true || checkedForm === true ? styleOptsClone["options"]["line"]["icon"] : undefined;
+
+    styleOptsClone["options"]["polygon"]["fill"] = checkedFill === true ? styleOptsClone["options"]["polygon"]["fill"] : undefined;
+    styleOptsClone["options"]["polygon"]["stroke"] = checkedStroke === true ? styleOptsClone["options"]["polygon"]["stroke"] : undefined;
+    styleOptsClone["options"]["polygon"]["label"] = checkedLabel === true ? styleOptsClone["options"]["polygon"]["label"] : undefined;
+    styleOptsClone["options"]["polygon"]["icon"] = checkedIcon === true || checkedForm === true ? styleOptsClone["options"]["polygon"]["icon"] : undefined;
 
     styleOptsClone["point"] = {
-      fill: styleOptsClone["options"].fill,
-      radius: styleOptsClone["options"].radius,
-      stroke: styleOptsClone["options"].stroke,
-      label: styleOptsClone["options"].label,
-      icon: styleOptsClone["options"].icon
+      fill: styleOptsClone["options"]["point"].fill,
+      radius: styleOptsClone["options"]["point"].radius,
+      stroke: styleOptsClone["options"]["point"].stroke,
+      label: styleOptsClone["options"]["point"].label,
+      icon: styleOptsClone["options"]["point"].icon
     }
 
     styleOptsClone["line"] = {
-      fill: styleOptsClone["options"].fill,
-      stroke: styleOptsClone["options"].stroke,
-      label: styleOptsClone["options"].label
+      fill: styleOptsClone["options"]["line"].fill,
+      stroke: styleOptsClone["options"]["line"].stroke,
+      label: styleOptsClone["options"]["line"].label
     }
 
     styleOptsClone["polygon"] = {
-      fill: styleOptsClone["options"].fill,
-      stroke: styleOptsClone["options"].stroke,
-      label: styleOptsClone["options"].label
+      fill: styleOptsClone["options"]["polygon"].fill,
+      stroke: styleOptsClone["options"]["polygon"].stroke,
+      label: styleOptsClone["options"]["polygon"].label
     }
     delete styleOptsClone["options"];
 
@@ -547,21 +635,26 @@ export class SimpleBinding extends Binding {
   getOptionsTemplate() {
     let options = SimpleBinding.DEFAULT_OPTIONS_STYLE;
     if (this.style_ != null) {
-      if (this.style_.get("fill.pattern") != null) {
-        options["patternflag"] = true;
+      if (this.style_.get("polygon.fill.pattern") != null) {
+        options["polygon"]["patternflag"] = true;
       }
       options = M.utils.extends({}, this.style_.getOptions());
       options = M.utils.extends(options, SimpleBinding.DEFAULT_OPTIONS_STYLE);
     }
 
     // transform color options to hex color for value inputs color
-    options["fill"]["color"] = chroma(options["fill"]["color"]).hex();
-    options["stroke"]["color"] = chroma(options["stroke"]["color"]).hex();
-    options["label"]["fill"]["color"] = chroma(options["label"]["fill"]["color"]).hex();
-    options["label"]["stroke"]["color"] = options["label"]["stroke"]["color"] === "no-color" ? "no-color" : chroma(options["label"]["stroke"]["color"]).hex();
-    options["fill"]["pattern"]["color"] = chroma(options["fill"]["pattern"]["color"]).hex();
-    options["icon"]["fill"] = chroma(options["icon"]["fill"]).hex();
-    options["icon"]["color"] = chroma(options["icon"]["color"]).hex();
+
+    options["point"]["fill"]["color"] = options["point"]["fill"]["color"].indexOf('rgba') >= 0 ? chroma(chroma(options["point"]["fill"]["color"]).rgb()).hex() : chroma(options["point"]["fill"]["color"]).hex();
+    options["line"]["fill"]["color"] = options["line"]["fill"]["color"].indexOf('rgba') >= 0 ? chroma(chroma(options["line"]["fill"]["color"]).rgb()).hex() : chroma(options["line"]["fill"]["color"]).hex();
+    options["polygon"]["fill"]["color"] = options["polygon"]["fill"]["color"].indexOf('rgba') >= 0 ? chroma(chroma(options["polygon"]["fill"]["color"]).rgb()).hex() : chroma(options["polygon"]["fill"]["color"]).hex();
+    options["point"]["stroke"]["color"] = options["point"]["stroke"]["color"].indexOf('rgba') >= 0 ? chroma(chroma(options["point"]["stroke"]["color"]).rgb()).hex() : chroma(options["point"]["stroke"]["color"]).hex();
+    options["line"]["stroke"]["color"] = options["line"]["stroke"]["color"].indexOf('rgba') >= 0 ? chroma(chroma(options["line"]["stroke"]["color"]).rgb()).hex() : chroma(options["line"]["stroke"]["color"]).hex();
+    options["polygon"]["stroke"]["color"] = options["polygon"]["stroke"]["color"].indexOf('rgba') >= 0 ? chroma(chroma(options["polygon"]["stroke"]["color"]).rgb()).hex() : chroma(options["polygon"]["stroke"]["color"]).hex();
+    // options["point"]["label"]["fill"]["color"] = chroma(options["point"]["label"]["fill"]["color"]).hex();
+    // options["point"]["label"]["stroke"]["color"] = options["point"]["label"]["stroke"]["color"] === "no-color" ? "no-color" : chroma(options["point"]["label"]["stroke"]["color"]).hex();
+    options["polygon"]["fill"]["pattern"]["color"] = chroma(options["polygon"]["fill"]["pattern"]["color"]).hex();
+    options["point"]["icon"]["fill"] = chroma(options["point"]["icon"]["fill"]).hex();
+    options["point"]["icon"]["color"] = chroma(options["point"]["icon"]["color"]).hex();
     // --
 
     let patternValids = Object.keys(M.style.pattern).filter(name => name != "ICON" && name != "IMAGE");
@@ -570,19 +663,46 @@ export class SimpleBinding extends Binding {
     let formValues = Object.values(M.style.form).filter(name => name != null);
 
     //transform array options to data template option
-    options["patternlist"] = SimpleBinding.arrayDataToTemplate(options["fill"]["pattern"]["name"], patternValids, patternValids);
-    options["linecapstroke"] = SimpleBinding.arrayDataToTemplate(options["stroke"]["linecap"], ["butt", "square", "round"], ["Extremo", "Cuadrado", "Redondeado"]);
-    options["linejoinstroke"] = SimpleBinding.arrayDataToTemplate(options["stroke"]["linejoin"], ["bevel", "miter", "round"], ["Bisel", "Inglete", "Redondeado"]);
-    options["linecaplabelstroke"] = SimpleBinding.arrayDataToTemplate(options["label"]["stroke"]["linecap"], ["butt", "square", "round"], ["Extremo", "Cuadrado", "Redondeado"]);
-    options["linejoinlabelstroke"] = SimpleBinding.arrayDataToTemplate(options["label"]["stroke"]["linejoin"], ["bevel", "miter", "round"], ["Bisel", "Inglete", "Redondeado"]);
-    options["alignlist"] = SimpleBinding.arrayDataToTemplate(options["label"]["align"], alignValues, ["Centro", "Justificado", "Izquierda", "Derecha"]);
-    options["baselinelist"] = SimpleBinding.arrayDataToTemplate(options["label"]["baseline"], baselineValues, ["Alfabetico", "Abajo", "Colgando", "Ideografico", "Arriba", "Centro", ]);
-    options["formlist"] = SimpleBinding.arrayDataToTemplate(options["icon"]["form"], formValues, formValues);
+    options["polygon"]["patternlist"] = SimpleBinding.arrayDataToTemplate(options["polygon"]["fill"]["pattern"]["name"], patternValids, patternValids);
+    options["point"]["linecapstroke"] = SimpleBinding.arrayDataToTemplate(options["point"]["stroke"]["linecap"], ["butt", "square", "round"], ["Extremo", "Cuadrado", "Redondeado"]);
+    options["line"]["linecapstroke"] = SimpleBinding.arrayDataToTemplate(options["line"]["stroke"]["linecap"], ["butt", "square", "round"], ["Extremo", "Cuadrado", "Redondeado"]);
+    options["polygon"]["linecapstroke"] = SimpleBinding.arrayDataToTemplate(options["polygon"]["stroke"]["linecap"], ["butt", "square", "round"], ["Extremo", "Cuadrado", "Redondeado"]);
+    options["point"]["linejoinstroke"] = SimpleBinding.arrayDataToTemplate(options["point"]["stroke"]["linejoin"], ["bevel", "miter", "round"], ["Bisel", "Inglete", "Redondeado"]);
+    options["line"]["linejoinstroke"] = SimpleBinding.arrayDataToTemplate(options["line"]["stroke"]["linejoin"], ["bevel", "miter", "round"], ["Bisel", "Inglete", "Redondeado"]);
+    options["polygon"]["linejoinstroke"] = SimpleBinding.arrayDataToTemplate(options["polygon"]["stroke"]["linejoin"], ["bevel", "miter", "round"], ["Bisel", "Inglete", "Redondeado"]);
+    options["point"]["linecaplabelstroke"] = SimpleBinding.arrayDataToTemplate(options["point"]["label"]["stroke"]["linecap"], ["butt", "square", "round"], ["Extremo", "Cuadrado", "Redondeado"]);
+    options["line"]["linecaplabelstroke"] = SimpleBinding.arrayDataToTemplate(options["line"]["label"]["stroke"]["linecap"], ["butt", "square", "round"], ["Extremo", "Cuadrado", "Redondeado"]);
+    options["polygon"]["linecaplabelstroke"] = SimpleBinding.arrayDataToTemplate(options["polygon"]["label"]["stroke"]["linecap"], ["butt", "square", "round"], ["Extremo", "Cuadrado", "Redondeado"]);
+    options["point"]["linejoinlabelstroke"] = SimpleBinding.arrayDataToTemplate(options["point"]["label"]["stroke"]["linejoin"], ["bevel", "miter", "round"], ["Bisel", "Inglete", "Redondeado"]);
+    options["polygon"]["linejoinlabelstroke"] = SimpleBinding.arrayDataToTemplate(options["polygon"]["label"]["stroke"]["linejoin"], ["bevel", "miter", "round"], ["Bisel", "Inglete", "Redondeado"]);
+    options["line"]["linejoinlabelstroke"] = SimpleBinding.arrayDataToTemplate(options["line"]["label"]["stroke"]["linejoin"], ["bevel", "miter", "round"], ["Bisel", "Inglete", "Redondeado"]);
+    options["point"]["alignlist"] = SimpleBinding.arrayDataToTemplate(options["point"]["label"]["align"], alignValues, ["Centro", "Justificado", "Izquierda", "Derecha"]);
+    options["polygon"]["alignlist"] = SimpleBinding.arrayDataToTemplate(options["polygon"]["label"]["align"], alignValues, ["Centro", "Justificado", "Izquierda", "Derecha"]);
+    options["line"]["alignlist"] = SimpleBinding.arrayDataToTemplate(options["line"]["label"]["align"], alignValues, ["Centro", "Justificado", "Izquierda", "Derecha"]);
+
+    options["point"]["baselinelist"] = SimpleBinding.arrayDataToTemplate(options["point"]["label"]["baseline"], baselineValues, ["Alfabetico", "Abajo", "Colgando", "Ideografico", "Arriba", "Centro", ]);
+    options["polygon"]["baselinelist"] = SimpleBinding.arrayDataToTemplate(options["polygon"]["label"]["baseline"], baselineValues, ["Alfabetico", "Abajo", "Colgando", "Ideografico", "Arriba", "Centro", ]);
+    options["line"]["baselinelist"] = SimpleBinding.arrayDataToTemplate(options["line"]["label"]["baseline"], baselineValues, ["Alfabetico", "Abajo", "Colgando", "Ideografico", "Arriba", "Centro", ]);
+
+    options["point"]["formlist"] = SimpleBinding.arrayDataToTemplate(options["point"]["icon"]["form"], formValues, formValues);
     if (this.layer_ != null) {
       let labelTextValues = Object.keys(this.getFeaturesAttributes());
-      let labelTextSelected = options["label"] != null ? options["label"]["text"] : "";
-      options["featuresAttr"] = SimpleBinding.arrayDataToTemplate(labelTextSelected, labelTextValues.map(name => `{{${name}}}`), labelTextValues);
+      let labelTextSelectedPoint = options["point"]["label"] != null ? options["point"]["label"]["text"] : "";
+      let labelTextSelectedPolygon = options["polygon"]["label"] != null ? options["polygon"]["label"]["text"] : "";
+      let labelTextSelectedLine = options["line"]["label"] != null ? options["line"]["label"]["text"] : "";
+
+      options["point"]["featuresAttr"] = SimpleBinding.arrayDataToTemplate(labelTextSelectedPoint, labelTextValues.map(name => `{{${name}}}`), labelTextValues);
+      options["polygon"]["featuresAttr"] = SimpleBinding.arrayDataToTemplate(labelTextSelectedPolygon, labelTextValues.map(name => `{{${name}}}`), labelTextValues);
+      options["line"]["featuresAttr"] = SimpleBinding.arrayDataToTemplate(labelTextSelectedLine, labelTextValues.map(name => `{{${name}}}`), labelTextValues);
+
     }
+
+    options["point"]["label"]["fontSize"] = options["point"]["label"]["font"].split(' ')[0].replace('px', '');
+    options["point"]["label"]["font"] = options["point"]["label"]["font"].split(' ')[1];
+    options["line"]["label"]["fontSize"] = options["line"]["label"]["font"].split(' ')[0].replace('px', '');
+    options["line"]["label"]["font"] = options["line"]["label"]["font"].split(' ')[1];
+    options["polygon"]["label"]["fontSize"] = options["polygon"]["label"]["font"].split(' ')[0].replace('px', '');
+    options["polygon"]["label"]["font"] = options["polygon"]["label"]["font"].split(' ')[1];
 
 
     return options;
@@ -711,66 +831,72 @@ export class SimpleBinding extends Binding {
    * @const
    */
   static get DEFAULT_OPTIONS_STYLE() {
-    return {
-      radius: 10,
-      fill: {
-        color: "#e5008a",
-        opacity: 1,
-        width: 2,
-        pattern: {
-          color: 'red',
-          name: "HATCH",
-          size: 1,
-          spacing: 2,
-          scale: 3,
-          offset: 5,
-          rotation: 0
-        }
-      },
-      stroke: {
-        color: "#000000",
-        width: 2,
-        linedash: [0, 0],
-        linedashoffset: 0,
-        linecap: "none",
-        linejoin: "none"
-      },
-      label: {
+    const
+      def = {
+        radius: 10,
         fill: {
-          color: '#ff0000',
+          color: "#e5008a",
+          opacity: 1,
+          width: 2,
+          pattern: {
+            color: 'red',
+            name: "HATCH",
+            size: 1,
+            spacing: 2,
+            scale: 3,
+            offset: 5,
+            rotation: 0
+          }
         },
         stroke: {
-          color: "no-color",
+          color: "#000000",
           width: 2,
           linedash: [0, 0],
           linedashoffset: 0,
           linecap: "none",
           linejoin: "none"
         },
-        scale: 2,
-        text: "Texto de prueba",
-        font: "14px serif",
-        align: "center",
-        baseline: "top",
-        rotate: false,
-        rotation: 0,
-        offset: [0, 0]
-      },
-      icon: {
-        src: "",
-        form: "",
-        size: [40, 40],
-        anchor: [0, 0],
-        scale: 1,
-        offset: [0, 0],
-        rotate: false,
-        rotation: 0,
-        opacity: 1,
-        form: "CIRCLE",
-        class: "g-cartografia-info",
-        fill: "#ffffff",
-        color: "#e07e18"
-      }
-    };
+        label: {
+          fill: {
+            color: '#ff0000',
+          },
+          stroke: {
+            color: "no-color",
+            width: 2,
+            linedash: [0, 0],
+            linedashoffset: 0,
+            linecap: "none",
+            linejoin: "none"
+          },
+          scale: 2,
+          text: "",
+          font: "14px serif",
+          align: "center",
+          baseline: "top",
+          rotate: false,
+          rotation: 0,
+          offset: [0, 0]
+        },
+        icon: {
+          src: "",
+          form: "",
+          size: [40, 40],
+          anchor: [0, 0],
+          scale: 1,
+          offset: [0, 0],
+          rotate: false,
+          rotation: 0,
+          opacity: 1,
+          form: "CIRCLE",
+          class: "g-cartografia-info",
+          fill: "#ffffff",
+          color: "#e07e18"
+        }
+      };
+    return {
+      "point": M.utils.extends({}, def),
+      "line": M.utils.extends({}, def),
+      "polygon": M.utils.extends({}, def),
+    }
   }
 }
