@@ -67,11 +67,14 @@ export default class BindingController {
     this.bindings_['styleproportional'] = new ProportionalBinding(styleproportional, this.html_, 'styleproportional', this.getStyles(layer, M.style.Proportional), layer);
     this.bindings_['stylecluster'] = new ClusterBinding(stylecluster, this.html_, 'stylecluster', this.getStyles(layer, M.style.Cluster), layer);
     this.bindings_['stylechoropleth'] = new ChoroplethBinding(stylechoropleth, this.html_, 'stylechoropleth', this.getStyles(layer, M.style.Choropleth), layer);
-    this.bindings_['stylecategory'] = new CategoryBinding(stylecategory, this.html_, 'stylecategory', this.getStyles(layer, M.style.Category), layer, this);
     this.bindings_['styleheatmap'] = new HeatmapBinding(styleheatmap, this.html_, 'styleheatmap', this.getStyles(layer, M.style.Heatmap), layer);
     this.bindings_['stylechart'] = new ChartBinding(stylechart, this.html_, 'stylechart', this.getStyles(layer, M.style.Chart), layer);
+    this.bindings_['stylecategory'] = new CategoryBinding(stylecategory, this.html_, 'stylecategory', this.getStyles(layer, M.style.Category), layer, this);
+
+
     this.bindings_["stylesimple"].getCompilePromise().then(() => {
       this.addSelectOnChangeListener();
+      this.addEventSubtitle();
     });
     this.allCompilePromises_ = this.getBindings().map(binding => binding.getCompilePromise());
   }
@@ -199,23 +202,45 @@ export default class BindingController {
       this.addSelectListener();
     }
     this.layer_ = layer;
-    let geometry = layer.getFeatures()[0].getGeometry().type;
-    switch (geometry) {
-      case "Point":
-      case "MultiPoint":
-        this.setGeometry('point');
-        break;
-      case "LineString":
-      case "MultiLineString":
-        this.setGeometry('line');
-        break;
-      case "Polygon":
-      case "MultiPolygon":
-        this.setGeometry('polygon');
-        break;
-      default:
-        M.dialog.error('Geometria no soportada', 'Error');
+
+    // for (let feature of layer.getFeatures()) {
+    let type;
+
+    //   // Establece correspondencia entre tipo de feature y tipo de geometria
+    if (layer.type === 'MVT') {
+      type = 'generic';
+    } else {
+      switch (layer.getFeatures()[0].getGeometry().type) {
+        case "Point":
+        case "MultiPoint":
+          type = 'point';
+          break;
+        case "LineString":
+        case "MultiLineString":
+          type = 'line';
+          break;
+        case "Polygon":
+        case "MultiPolygon":
+          type = 'polygon';
+          break;
+        default:
+          M.dialog.error('Geometria no soportada', 'Error');
+      }
     }
+
+    //   // Establece la geometria
+    //   this.setGeometry(type);
+
+    //   // Entro si tengo una lista de puntos o que contiene puntos
+    //   if (type == "point") {
+    //     break;
+    //   }
+
+    this.setGeometry(type);
+
+    // }
+
+    //this.setGeometry("generic");
   }
 
   /**
@@ -477,6 +502,28 @@ export default class BindingController {
   }
 
   /**
+   * @function
+   */
+  addEventSubtitle() {
+    this.bindings_["stylesimple"].querySelectorAllForEach(".subtitle", element => {
+      element.addEventListener("click", (e) => {
+        const clss = e.currentTarget.nextElementSibling.classList.value;
+        if (clss === 'content-row-hidden') {
+          e.currentTarget.nextElementSibling.classList.add('content-row-show');
+          e.currentTarget.nextElementSibling.classList.remove('content-row-hidden');
+          e.currentTarget.firstElementChild.classList.remove('g-cartografia-flecha-abajo2');
+          e.currentTarget.firstElementChild.classList.add('g-cartografia-flecha-arriba2');
+        } else {
+          e.currentTarget.nextElementSibling.classList.remove('content-row-show');
+          e.currentTarget.nextElementSibling.classList.add('content-row-hidden');
+          e.currentTarget.firstElementChild.classList.add('g-cartografia-flecha-abajo2');
+          e.currentTarget.firstElementChild.classList.remove('g-cartografia-flecha-arriba2');
+        }
+      });
+    });
+  }
+
+  /**
    * @const
    * @static
    */
@@ -498,6 +545,7 @@ export default class BindingController {
    */
   static get GEOMETRY_COMPATIBLE_OPTIONS() {
     return {
+      "generic": ['stylesimple'],
       "point": ['styleproportional', 'stylecluster', 'stylechoropleth', 'stylecategory',
         'styleheatmap', 'stylechart', 'stylesimple'
       ],
