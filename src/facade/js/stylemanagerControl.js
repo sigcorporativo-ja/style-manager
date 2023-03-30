@@ -217,7 +217,7 @@ export default class StyleManagerControl extends M.Control {
       return layer.name !== 'selectLayer';
     });
 
-    return layers.find(layer => layer.name === layerName);
+    return layers.find(layer => layer.id === layerName);
   }
 
   /**
