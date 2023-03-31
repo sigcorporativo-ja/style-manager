@@ -90,7 +90,7 @@ export class ClusterBinding extends Binding {
       return {
         min: obj["minRange"],
         max: obj["maxRange"],
-        style: new M.style.Point(obj["style"])
+        style: new M.style.Generic({ point: obj["style"] })
       };
     });
     opts.options["ranges"] = ranges;

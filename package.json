@@ -1,6 +1,6 @@
 {
   "name": "StyleManager",
-  "version": "3.1.0",
+  "version": "3.2.0",
   "description": "",
   "keywords": [
     "map",
@@ -21,9 +21,9 @@
   },
   "author": "",
   "devDependencies": {
-    "@babel/core": "^7.0.0-beta.51",
-    "@babel/plugin-proposal-export-default-from": "^7.0.0-beta.51",
-    "@babel/preset-env": "^7.0.0-beta.51",
+    "@babel/core": "^7.13.10",
+    "@babel/plugin-proposal-export-default-from": "^7.12.13",
+    "@babel/preset-env": "^7.13.10",
     "async": "2.1.4",
     "babel-eslint": "^10.0.1",
     "babel-loader": "^8.0.0-beta.4",
