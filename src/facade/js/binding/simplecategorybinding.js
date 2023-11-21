@@ -2,7 +2,7 @@ import * as chroma from 'chroma-js';
 import {
   Binding
 }
-  from './binding';
+from './binding';
 
 export class SimpleCategoryBinding extends Binding {
   constructor(html, htmlParent, styleType, styleParams, layer, binding) {
@@ -371,29 +371,8 @@ export class SimpleCategoryBinding extends Binding {
         undefineStyle = false;
       }
     });
-
-    let style;
-    let geometry = this.getGeometry();
     let styleOptions = this.generateOptions().options;
-
-
-    switch (geometry) {
-      case "point":
-        style = new M.style.Point(styleOptions);
-        break;
-      case "line":
-        style = new M.style.Line(styleOptions);
-        break;
-      case "polygon":
-        style = new M.style.Polygon(styleOptions);
-        break;
-
-      default:
-        M.dialog.error("Geometría no soportada", "Error");
-
-    }
-
-    return style;
+    return new M.style.Generic({ point: styleOptions, polygon: styleOptions, line: styleOptions });
   }
 
   /**
@@ -577,18 +556,19 @@ export class SimpleCategoryBinding extends Binding {
     if (style != null) {
       this.style_ = style;
       style = style.clone();
-      if (style instanceof M.style.Point) {
-        style.set('radius', SimpleCategoryBinding.RADIUS_OPTION);
-        if (style.get("icon.radius") != null) {
-          style.set("icon.radius", SimpleCategoryBinding.ICON_RADIUS_OPTION);
-        }
+      style.set('point.radius', SimpleCategoryBinding.RADIUS_OPTION);
+      if (style.get("point.icon.radius") != null) {
+        style.set("point.icon.radius", SimpleCategoryBinding.ICON_RADIUS_OPTION);
       }
       let img = this.htmlParent_.querySelector(`img[id='img-${id}']`);
       style.updateCanvas();
-      let dataURL = style.toImage();
-      if (img != null) {
-        img.src = dataURL;
-      }
+      let dataURL = style.toImage().then((data) => {
+        if (img != null) {
+          img.src = data;
+          img.style.marginLeft = '15%';
+          img.style.width = '95px';
+        }
+      });
     }
   }
 

@@ -555,29 +555,9 @@ export class SimpleBinding extends Binding {
         undefineStyle = false;
       }
     });
-
     let style;
-    //let geometry = this.getGeometry();
     let styleOptions = this.generateOptions();
-
-    // switch (geometry) {
-    //   case "point":
-    //     style = new M.style.Generic(styleOptions);
-    //     break;
-    //   case "line":
-    //     style = new M.style.Line(styleOptions);
-    //     break;
-    //   case "polygon":
-    //     style = new M.style.Polygon(styleOptions);
-    //     break;
-
-    //   default:
-    //     M.dialog.error("Geometría no soportada", "Error");
-
-    // }
-
     style = new M.style.Generic(styleOptions);
-
     return style;
   }
 
@@ -726,28 +706,28 @@ export class SimpleBinding extends Binding {
    * @function
    * @param {function}
    */
-  refreshLegend(element, flag = false) {
-    let id = this.imgId_;
-    let style = this.generateStyle();
-    if (flag === true) {
-      style = this.style_;
-    }
-    if (style != null) {
-      style = style.clone();
-      if (style instanceof M.style.Point) {
-        style.set('radius', SimpleBinding.RADIUS_OPTION);
-        if (style.get("icon.radius") != null) {
-          style.set("icon.radius", SimpleBinding.ICON_RADIUS_OPTION);
-        }
-      }
-      let img = this.htmlParent_.querySelector(`img[id='img-${id}']`);
-      style.updateCanvas();
-      let dataURL = style.toImage();
-      if (img != null) {
-        img.src = dataURL;
-      }
-    }
-  }
+  // refreshLegend(element, flag = false) {
+  //   let id = this.imgId_;
+  //   let style = this.generateStyle();
+  //   if (flag === true) {
+  //     style = this.style_;
+  //   }
+  //   if (style != null) {
+  //     style = style.clone();
+  //     if (style instanceof M.style.Point) {
+  //       style.set('radius', SimpleBinding.RADIUS_OPTION);
+  //       if (style.get("icon.radius") != null) {
+  //         style.set("icon.radius", SimpleBinding.ICON_RADIUS_OPTION);
+  //       }
+  //     }
+  //     let img = this.htmlParent_.querySelector(`img[id='img-${id}']`);
+  //     style.updateCanvas();
+  //     let dataURL = style.toImage();
+  //     if (img != null) {
+  //       img.src = dataURL;
+  //     }
+  //   }
+  // }
 
   /**
    * TODO
