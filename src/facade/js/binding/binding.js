@@ -1,6 +1,6 @@
-import attributestemplate from 'templates/attributestemplate';
-export class Binding {
+import { getValue } from "../i18n/language";
 
+export class Binding {
   constructor(html, htmlParent, styleType, style, layer) {
     this.htmlParent_ = htmlParent;
     this.htmlTemplate_ = null;
@@ -9,8 +9,12 @@ export class Binding {
     this.selected_ = false;
     this.disabled_ = false;
     this.layer_ = layer;
-    this.activateButton_ = htmlParent.querySelector(`[data-role="botonera"] [data-flap="${styleType}"]`);
-    this.selectButton_ = htmlParent.querySelector(`[data-role="botonera"] [data-checkbox="${styleType}"]`);
+    this.activateButton_ = htmlParent.querySelector(
+      `[data-role="botonera"] [data-flap="${styleType}"]`
+    );
+    this.selectButton_ = htmlParent.querySelector(
+      `[data-role="botonera"] [data-checkbox="${styleType}"]`
+    );
     this.style_ = style;
     this.styleType_ = styleType;
     this.compilePromise_ = this.initializeView(this.html_, this.htmlParent_);
@@ -25,10 +29,24 @@ export class Binding {
   compileTemplate(htmlName, options) {
     return new Promise((resolve) => {
       const html = M.template.compileSync(htmlName, {
-        vars: options
+        vars: options,
       });
       resolve(html);
     });
+  }
+
+  /**
+   * Obtiene las traducciones necesarias para una plantilla.
+   * @static
+   * @param {Array<string>} keys
+   * @returns {Object}
+   */
+  static getTranslations(customTranslationKeys) {
+    const translations = {};
+    Object.entries(customTranslationKeys).forEach(([customKey, realKey]) => {
+      translations[customKey] = getValue(realKey);
+    });
+    return translations;
   }
 
   /**
@@ -68,7 +86,7 @@ export class Binding {
   addTemplate(htmlName, htmlParent, options, callback = null) {
     this.compileTemplate(htmlName, options).then((html) => {
       htmlParent.innerHTML = html.innerHTML;
-      if (typeof callback === 'function') {
+      if (typeof callback === "function") {
         callback();
       }
     });
@@ -82,12 +100,11 @@ export class Binding {
   appendTemplate(htmlName, htmlParent, options, callback = null) {
     this.compileTemplate(htmlName, options).then((html) => {
       htmlParent.appendChild(html);
-      if (typeof callback === 'function') {
+      if (typeof callback === "function") {
         callback();
       }
     });
   }
-
 
   /**
    * This function generates the options style from his own html form.
@@ -101,7 +118,7 @@ export class Binding {
     styleOpts["ranges"] = {};
 
     // styleOpts section
-    this.querySelectorAllForEach('[data-options]', element => {
+    this.querySelectorAllForEach("[data-options]", (element) => {
       let prop = element.dataset["options"];
       let value = element.value;
       if (element.type === "checkbox") {
@@ -116,7 +133,7 @@ export class Binding {
     });
 
     // styleOpts.options section
-    this.querySelectorAllForEach("[data-style-options]", element => {
+    this.querySelectorAllForEach("[data-style-options]", (element) => {
       let prop = element.dataset["styleOptions"];
       let value = element.value;
       if (element.type === "checkbox") {
@@ -131,20 +148,19 @@ export class Binding {
     });
 
     // Array option section (eg: gradient heatmap )
-    this.querySelectorAllForEach("[data-array-options]", element => {
+    this.querySelectorAllForEach("[data-array-options]", (element) => {
       let prop = element.dataset["arrayOptions"];
       let value = element.value;
-      
+
       if (!M.utils.isArray(styleOpts["options"][prop])) {
         styleOpts["options"][prop] = [];
       }
 
       styleOpts["options"][prop].push(value);
-
     });
 
     // Ranges cluster section
-    this.querySelectorAllForEach("[data-ranges-id]", element => {
+    this.querySelectorAllForEach("[data-ranges-id]", (element) => {
       let id = element.dataset["rangesId"];
       if (styleOpts["ranges"][id] == undefined) {
         styleOpts["ranges"][id] = {};
@@ -169,12 +185,12 @@ export class Binding {
   setActivated(flag) {
     this.activated_ = flag;
     if (flag === true) {
-      this.activateButton_.classList.replace('check-selected', 'check-active');
+      this.activateButton_.classList.replace("check-selected", "check-active");
       this.unhide();
     }
 
     if (flag === false) {
-      this.activateButton_.classList.replace('check-active', 'check-selected');
+      this.activateButton_.classList.replace("check-active", "check-selected");
       this.hide();
     }
   }
@@ -198,14 +214,18 @@ export class Binding {
     this.disabled_ = flag;
     this.selectButton_.disabled = flag;
     if (flag === true) {
-      this.activateButton_.classList.add('check-inactive');
+      this.activateButton_.classList.add("m-stylemanager-section-disabled");
+      this.activateButton_.classList.remove("m-stylemanager-section-enabled");
+      this.activateButton_.classList.add("check-inactive");
       this.setSelected(!flag);
       this.setActivated(!flag);
       this.hide();
     }
 
     if (flag === false) {
-      this.activateButton_.classList.remove('check-inactive');
+      this.activateButton_.classList.add("m-stylemanager-section-enabled");
+      this.activateButton_.classList.remove("m-stylemanager-section-disabled");
+      this.activateButton_.classList.remove("check-inactive");
     }
   }
 
@@ -215,7 +235,10 @@ export class Binding {
    * @return {Binding}
    */
   hide() {
-    this.getTemplate().classList.add('m-hidden');
+    const template = this.getTemplate();
+    if (template && template.classList) {
+      template.classList.add("m-stylemanager-hidden");
+    }
     return this;
   }
 
@@ -225,7 +248,10 @@ export class Binding {
    * @return {Binding}
    */
   unhide() {
-    this.getTemplate().classList.remove('m-hidden');
+    const template = this.getTemplate();
+    if (template && template.classList) {
+      template.classList.remove("m-stylemanager-hidden");
+    }
     return this;
   }
 
@@ -253,7 +279,8 @@ export class Binding {
    * @param {string}
    */
   querySelector(selector) {
-    return this.getTemplate().querySelector(selector);
+    const template = this.getTemplate();
+    return template ? template.querySelector(selector) : null;
   }
 
   /**
@@ -262,7 +289,8 @@ export class Binding {
    * @param {string}
    */
   querySelectorAll(selector) {
-    return this.getTemplate().querySelectorAll(selector);
+    const template = this.getTemplate();
+    return template ? template.querySelectorAll(selector) : [];
   }
 
   /**
@@ -271,7 +299,10 @@ export class Binding {
    * @param {string}
    */
   querySelectorAllForEach(selector, callback, scope = undefined) {
-    Array.prototype.forEach.apply(this.querySelectorAll(selector), [callback, scope]);
+    Array.prototype.forEach.apply(this.querySelectorAll(selector), [
+      callback,
+      scope,
+    ]);
   }
 
   /**
@@ -280,7 +311,10 @@ export class Binding {
    * @param {string}
    */
   querySelectorAllMap(selector, callback, scope = undefined) {
-    return Array.prototype.map.apply(this.querySelectorAll(selector), [callback, scope]);
+    return Array.prototype.map.apply(this.querySelectorAll(selector), [
+      callback,
+      scope,
+    ]);
   }
 
   /**
@@ -307,7 +341,10 @@ export class Binding {
    * @param {string}
    */
   querySelectorAllForEachParent(selector, callback, scope = undefined) {
-    Array.prototype.forEach.apply(this.querySelectorAllParent(selector), [callback, scope]);
+    Array.prototype.forEach.apply(this.querySelectorAllParent(selector), [
+      callback,
+      scope,
+    ]);
   }
 
   /**
@@ -316,7 +353,10 @@ export class Binding {
    * @param {string}
    */
   querySelectorAllMapParent(selector, callback, scope = undefined) {
-    return Array.prototype.map.apply(this.querySelectorAllParent(selector), [callback, scope]);
+    return Array.prototype.map.apply(this.querySelectorAllParent(selector), [
+      callback,
+      scope,
+    ]);
   }
 
   /**
@@ -356,27 +396,27 @@ export class Binding {
    * @param {M.layer.Vector}
    * @returns {Binding}
    */
-  setIntegerAttributes() {
-    let layer = this.layer_;
-    if (layer instanceof M.layer.Vector) {
-      let attributeNames = this.filterAttributesFeature("number").map(element => {
-        return {
-          name: element
-        };
-      });
-      let selectElement = this.getTemplate().querySelector("[data-options='attributeName']");
-      this.compileTemplate(attributestemplate, {
-        attributes: attributeNames
-      }).then(html => {
-        selectElement.innerHTML = html.innerHTML;
-        if (attributeNames.length === 0) {
-          this.deactivateBinding();
-        } else {
-          this.activateBinding();
-        }
-      });
-    }
-  }
+  /*setIntegerAttributes() {
+      let layer = this.layer_;
+      if (layer instanceof M.layer.Vector) {
+        let attributeNames = this.filterAttributesFeature("number").map(element => {
+          return {
+            name: element
+          };
+        });
+        let selectElement = this.getTemplate().querySelector("[data-options='attributeName']");
+        this.compileTemplate(attributestemplate, {
+          attributes: attributeNames
+        }).then(html => {
+          selectElement.innerHTML = html.innerHTML;
+          if (attributeNames.length === 0) {
+            this.deactivateBinding();
+          } else {
+            this.activateBinding();
+          }
+        });
+      }
+    }*/
 
   /**
    * This function sets the layer of a binding class.
@@ -389,16 +429,19 @@ export class Binding {
     let attributeNames = Object.keys(attributes);
     switch (type) {
       case "string":
-        attributeNames = attributeNames.filter(element => isNaN(parseFloat(attributes[element])));
+        attributeNames = attributeNames.filter((element) =>
+          isNaN(parseFloat(attributes[element]))
+        );
         break;
       case "number":
-        attributeNames = attributeNames.filter(element => !isNaN(parseFloat(attributes[element])));
+        attributeNames = attributeNames.filter(
+          (element) => !isNaN(parseFloat(attributes[element]))
+        );
         break;
       default:
     }
     return attributeNames;
   }
-
 
   /**
    * This function sets the layer of a binding class.
@@ -418,12 +461,15 @@ export class Binding {
    */
   getAllFeaturesAttributes() {
     let allFeatures = this.getFeaturesAttributes();
-    this.layer_.getFeatures().reverse().forEach(fs => {
-      Object.keys(fs.getAttributes()).forEach((k, v) => {
-        // Keep a value if the next is null so we can check attribute type later.
-        if (v != null && allFeatures[k] == null) allFeatures[k] = v;
+    this.layer_
+      .getFeatures()
+      .reverse()
+      .forEach((fs) => {
+        Object.keys(fs.getAttributes()).forEach((k, v) => {
+          // Keep a value if the next is null so we can check attribute type later.
+          if (v != null && allFeatures[k] == null) allFeatures[k] = v;
+        });
       });
-    });
     return allFeatures;
   }
 
@@ -434,8 +480,8 @@ export class Binding {
    * @returns {Binding}
    */
   hideAllOptionsSections() {
-    this.querySelectorAllForEach(".styles-row", element => {
-      element.classList.add("m-hidden");
+    this.querySelectorAllForEach(".styles-row", (element) => {
+      element.classList.add("m-stylemanager-hidden");
     });
   }
 
@@ -447,7 +493,7 @@ export class Binding {
    */
   hideOptionSection(option) {
     let optionsSection = this.querySelector(`[data-id=${option}]`);
-    optionsSection.classList.add("m-hidden");
+    optionsSection.classList.add("m-stylemanager-hidden");
   }
 
   /**
@@ -458,7 +504,7 @@ export class Binding {
    */
   showOptionSection(option) {
     let optionsSection = this.querySelector(`[data-id=${option}]`);
-    optionsSection.classList.remove("m-hidden");
+    optionsSection.classList.remove("m-stylemanager-hidden");
   }
 
   /**
@@ -467,11 +513,11 @@ export class Binding {
    * @param {function}
    */
   addInputListener(callback) {
-    this.querySelectorAllForEach("input", element => {
+    this.querySelectorAllForEach("input", (element) => {
       element.addEventListener("change", callback);
     });
 
-    this.querySelectorAllForEach("select", element => {
+    this.querySelectorAllForEach("select", (element) => {
       element.addEventListener("change", callback);
     });
   }
@@ -481,16 +527,19 @@ export class Binding {
    * @function
    */
   deactivateBinding() {
-    this.querySelectorAllForEach("input,select:not([data-options='attributeName']),label,span,.subtitle", element => {
-      element.classList.add("m-hidden");
-    });
+    this.querySelectorAllForEach(
+      "input,select:not([data-options='attributeName']),label,span,.subtitle",
+      (element) => {
+        element.classList.add("m-stylemanager-hidden");
+      }
+    );
 
     this.querySelector("[data-options='attributeName']").disabled = true;
     let option = document.createElement("option");
     option.value = "";
     option.innerText = "No existen atributos";
     this.querySelector("[data-options='attributeName']").add(option);
-    this.querySelector("span").classList.remove("m-hidden");
+    this.querySelector("span").classList.remove("m-stylemanager-hidden");
   }
 
   /**
@@ -498,9 +547,12 @@ export class Binding {
    * @function
    */
   activateBinding() {
-    this.querySelectorAllForEach("input,select:not([data-options='attributeName']),label,span,.subtitle", element => {
-      element.classList.remove("m-hidden");
-    });
+    this.querySelectorAllForEach(
+      "input,select:not([data-options='attributeName']),label,span,.subtitle",
+      (element) => {
+        element.classList.remove("m-stylemanager-hidden");
+      }
+    );
 
     this.querySelector("[data-options='attributeName']").disabled = false;
   }
@@ -521,17 +573,19 @@ export class Binding {
    * @param {number|string|object}
    */
   static createObj(obj, path, value) {
-    let keys = M.utils.isArray(path) ? path : path.split('.');
+    let keys = M.utils.isArray(path) ? path : path.split(".");
     let keyLength = keys.length;
     let key = keys[0];
-    if (keyLength === 1) { // base case
+    if (keyLength === 1) {
+      // base case
       if (M.utils.isArray(value)) {
         value = [...value];
       } else if (M.utils.isObject(value)) {
         value = Object.assign({}, value);
       }
       obj[key] = value;
-    } else if (keyLength > 1) { // recursive case
+    } else if (keyLength > 1) {
+      // recursive case
       if (M.utils.isNullOrEmpty(obj[key])) {
         obj[key] = {};
       }

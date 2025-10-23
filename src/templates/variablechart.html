@@ -1,57 +1,67 @@
 <div>
-
-  <div class="subtitle m-hidden" data-target="{{attribute}}" data-delete="{{attribute}}">Variable: {{attribute}} <span data-remove="{{attribute}}" class="m-icon-remove"><i class="g-cartografia-papelera 2x"></i></span></div>
-  <div class="group-row m-hidden" data-target="{{attribute}}" data-delete="{{attribute}}">
-
-    <div class="style-col-1">
-      <span>Leyenda:</span>
-      <input data-variable-option="{{attribute}}.legend" type="text" value="{{legend}}">
+    <div class="subtitle m-stylemanager-hidden" data-target="{{attribute}}" data-delete="{{attribute}}">
+        {{translations.variable}}
+        {{attribute}} <span data-remove="{{attribute}}" class="m-icon-remove">
+            <i class="g-cartografia-papelera 2x"></i>
+        </span>
     </div>
+    <div class="m-stylemanager-group-row m-stylemanager-hidden" data-target="{{attribute}}" data-delete="{{attribute}}">
 
-    <div class="style-col-2 input-reverse">
-      <span>Mostrar etiqueta</span>
-      <input type="checkbox" data-variable-option="{{attribute}}.labelshow" {{#if label}} checked {{/if}}>
-    </div>
-
-  </div>
-
-  <div data-label-target="{{attribute}}" data-delete="{{attribute}}" class="{{#unless label}}m-hidden{{/unless}}">
-
-    <div class="group-row m-hidden" data-target="{{attribute}}">
-
-      <div class="style-col-1">
-        <span>Relleno:</span>
-        <input data-variable-option="{{attribute}}.label.fill" type="color" value="{{label.fill}}">
-      </div>
-
-      <div class="style-col-2">
-        <span>Tamaño:</span>
-        <input data-variable-option="{{attribute}}.label.scale" type="number" min="1" value="{{label.scale}}">
-      </div>
+        <div class="m-stylemanager-style-col-2">
+            <div class="m-stylemanager-style-col-1">{{translations.legend}}</div>
+            <div class="m-stylemanager-style-col-2">
+                <input data-variable-option="{{attribute}}.legend" type="text" value="{{legend}}"
+                    class="m-stylemanager-input-size m-stylemanager-style-select">
+            </div>
+        </div>
+        <div class="m-stylemanager-style-col-2">
+            <div class="m-stylemanager-style-col-2">
+                {{translations.showLabel}}
+                <input type="checkbox" data-variable-option="{{attribute}}.labelshow" {{#if label}} checked {{/if}}>
+            </div>
+        </div>
 
     </div>
 
-    <div class="group-row m-hidden" data-target="{{attribute}}">
+    <div data-label-target="{{attribute}}" data-delete="{{attribute}}"
+        class="{{#unless label}}m-stylemanager-hidden{{/unless}}">
 
-      <div class="style-col-1">
-        <span>Borde:</span>
-        <input type="color" data-variable-option="{{attribute}}.label.stroke.color" value="{{label.stroke.color}}">
-      </div>
-
-      <div class="style-col-2">
-        <span>Grosor:</span>
-        <input type="number" data-variable-option="{{attribute}}.label.stroke.width" min="1" value="{{label.stroke.width}}">
-      </div>
+        <div class="m-stylemanager-group-row" data-target="{{attribute}}">
+            <div class="m-stylemanager-style-col-1">{{translations.fill}}</div>
+            <div class="m-stylemanager-style-col-2">
+                <input data-variable-option="{{attribute}}.label.fill" type="color" value="{{label.fill}}"
+                    class="m-stylemanager-input-size">
+            </div>
+        </div>
+        <div class="m-stylemanager-group-row" data-target="{{attribute}}">
+            <div class="m-stylemanager-style-col-1">{{translations.size}}</div>
+            <div class="m-stylemanager-style-col-2">
+                <input data-variable-option="{{attribute}}.label.scale" type="number" min="1" value="{{label.scale}}"
+                    class="m-stylemanager-input-size m-stylemanager-style-select" step="0.1">
+            </div>
+        </div>
+        <div class="m-stylemanager-group-row" data-target="{{attribute}}">
+            <div class="m-stylemanager-style-col-1">{{translations.border}}</div>
+            <div class="m-stylemanager-style-col-2">
+                <input type="color" data-variable-option="{{attribute}}.label.stroke.color"
+                    value="{{label.stroke.color}}" class="m-stylemanager-input-size">
+            </div>
+        </div>
+        <div class="m-stylemanager-group-row" data-target="{{attribute}}">
+            <div class="m-stylemanager-style-col-1">{{translations.thickness}}</div>
+            <div class="m-stylemanager-style-col-2">
+                <input type="number" data-variable-option="{{attribute}}.label.stroke.width" min="1"
+                    value="{{label.stroke.width}}" class="m-stylemanager-input-size m-stylemanager-style-select" />
+            </div>
+        </div>
+        <div class="m-stylemanager-group-row" data-target="{{attribute}}">
+            <div class="m-stylemanager-style-col-1">{{translations.space}}</div>
+            <div class="m-stylemanager-style-col-2">
+                <input data-variable-option="{{attribute}}.label.radiusIncrement" type="number"
+                    value="{{label.radiusIncrement}}" class="m-stylemanager-input-size m-stylemanager-style-select">
+            </div>
+        </div>
     </div>
-
-    <div class="group-row m-hidden" data-target="{{attribute}}">
-
-      <div class="style-col-1">
-        <span>Espacio:</span>
-        <input data-variable-option="{{attribute}}.label.radiusIncrement" type="number" value="{{label.radiusIncrement}}">
-      </div>
+    <div class="m-stylemanager-group-row m-stylemanager-hidden" data-target="{{attribute}}">
     </div>
-  </div>
-  <div class="group-row m-hidden" data-target="{{attribute}}">
-  </div>
 </div>

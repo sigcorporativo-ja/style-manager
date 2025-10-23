@@ -8,10 +8,22 @@ const CopywebpackPlugin = require('copy-webpack-plugin');
 const PJSON_PATH = path.resolve(__dirname, '..', 'package.json');
 const pjson = require(PJSON_PATH);
 
-module.exports = {
+module.exports = (env) => {
+  const entry = [];
+  if(env)
+  {
+    console.log('Compilando para configuración: ', env);
+    entry.push(path.resolve(__dirname, '../src/config/config.' + env + '.js'));
+  } else {
+    console.log('Compilando sin configuración de entorno');
+  }
+
+  entry.push(path.resolve(__dirname, '..', 'src', 'index.js'));
+
+  return {
   mode: 'production',
   entry: {
-    'stylemanager.ol.min': path.resolve(__dirname, '..', 'src', 'index.js'),
+    'stylemanager.ol.min': entry,
   },
   output: {
     path: path.resolve(__dirname, '..', 'dist'),
@@ -19,26 +31,19 @@ module.exports = {
   },
   resolve: {
     alias: {
-      facade: path.resolve(__dirname, '..', 'src', 'facade', 'js'),
-      templates: path.resolve(__dirname, '..', 'src', 'templates'),
-      css: path.resolve(__dirname, '..', 'src', 'facade', 'assets', 'css'),
-      fonts: path.resolve(__dirname, '..', 'src', 'facade', 'assets', 'fonts'),
-      impl: path.resolve(__dirname, '..', 'src', 'impl', 'ol', 'js'),
+      templates: path.resolve(__dirname, '../src/templates'),
+      assets: path.resolve(__dirname, '../src/facade/assets'),
+      impl: path.resolve(__dirname, '../src/impl/ol/js'),
+      facade: path.resolve(__dirname, '../src/facade/js'),
     },
-    extensions: ['.wasm', '.mjs', '.js', '.json', '.css', '.hbs', '.html',
-      '.woff', '.woff2', '.eot', '.ttf', '.svg',
-    ],
+    extensions: ['.wasm', '.mjs', '.js', '.json', '.css', '.hbs', '.html'],
   },
   module: {
-    rules: [{
+    rules: [
+      {
         test: /\.js$/,
-        exclude: /(node_modules\/(?!ol)|bower_components)/,
-        use: {
-          loader: 'babel-loader',
-          options: {
-            presets: ['@babel/preset-env'],
-          },
-        },
+        loader: 'eslint-loader',
+        exclude: /node_modules/,
       },
       {
         test: [/\.hbs$/, /\.html$/],
@@ -85,4 +90,5 @@ module.exports = {
     }]),
   ],
   devtool: 'source-map',
+}
 };
