@@ -1,7 +1,4 @@
-import {
-  Binding
-}
-from './binding';
+import { Binding } from "./binding";
 
 export class ProportionalBinding extends Binding {
   constructor(html, htmlParent, styleType, styleParams, layer) {
@@ -29,7 +26,11 @@ export class ProportionalBinding extends Binding {
     let opts = this.generateOptions();
     let style = null;
     if (opts.attributeName != "") {
-      style = new M.style.Proportional(opts.attributeName, opts.minRadius, opts.maxRadius);
+      style = new M.style.Proportional(
+        opts.attributeName,
+        opts.minRadius,
+        opts.maxRadius
+      );
     }
     return style;
   }
@@ -44,14 +45,25 @@ export class ProportionalBinding extends Binding {
       options = {
         attributeName: this.style_.getAttributeName(),
         minRadius: this.style_.getMinRadius(),
-        maxRadius: this.style_.getMaxRadius()
+        maxRadius: this.style_.getMaxRadius(),
       };
       this.setSelected(true);
     }
     if (this.layer_ != null) {
       options["attributes"] = this.getAttributes();
-      options["attributes"].forEach(attribute => attribute["selected"] = options.attributeName);
+      options["attributes"].forEach(
+        (attribute) => (attribute["selected"] = options.attributeName)
+      );
     }
+    // Traducciones para styleproportional.html
+    const translationKeys = {
+      options: "options",
+      attribute: "attribute",
+      minimumRadius: "minimum-radius",
+      maximumRadius: "maximum-radius",
+    };
+    options.translations = Binding.getTranslations(translationKeys);
+    
     return options;
   }
 
@@ -59,11 +71,13 @@ export class ProportionalBinding extends Binding {
    * @function
    */
   getAttributes() {
-    let attributeNames = this.filterAttributesFeature("number").map(element => {
-      return {
-        name: element
-      };
-    });
+    let attributeNames = this.filterAttributesFeature("number").map(
+      (element) => {
+        return {
+          name: element,
+        };
+      }
+    );
     return attributeNames;
   }
 }

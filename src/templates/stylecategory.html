@@ -1,22 +1,25 @@
-<div data-role="m-category" class="m-stylemanager-simple-section m-category m-hidden">
+<div data-role="m-category" class="m-stylemanager-list-container m-stylemanager-hidden">
   <div class="styles-row">
-    <div class="title">Opciones</div>
+    <div class="title">{{translations.options}}</div>
     <div class="m-styles-body">
-      <div class="group-row">
-
-        <div class="style-col-1">
-          <span>Atributo:</span>
-          <select data-options="attributeName">
-          {{#each attributes}}
-            <option value="{{this.name}}" {{#eq this.name this.selected}}selected{{/eq}}>{{this.name}}</option>
-          {{/each}}
-        </select>
+      <div class="m-stylemanager-group-row">
+        <div class="m-stylemanager-style-col-1">
+          <span>{{translations.attribute}}</span>
+        </div>
+        <div class="m-stylemanager-between">
+          <select data-options="attributeName" class="m-stylemanager-input-size m-stylemanager-style-select">
+          </select>
+          <button title="{{translations.updateStyles}}" class="m-stylemanager-button-styles"
+            data-update-category-style>{{translations.generateSymbology}}</button>
         </div>
       </div>
-
-      <div class="container-table" data-options="values">
-
+      <div id="category-labels-row" class="m-stylemanager-group-row" style="margin-top: 10px;">
+        <div class="m-stylemanager-style-col-2">
+          <span class="m-stylemanager-margin-right">{{translations.labelsByCategory}}</span>
+          <input type="checkbox" id="category-labels-toggle" checked data-category-labels-toggle>
+        </div>
       </div>
+      <div class="container-table" data-options="values"></div>
     </div>
   </div>
 </div>

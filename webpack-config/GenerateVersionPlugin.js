@@ -1,5 +1,5 @@
-const pathmodule = require('path');
-const fs = require('fs');
+const pathmodule = require("path");
+const fs = require("fs");
 /**
  * Webpack plugin that allows overwrite functions definitions after import.
  * This plugin is directly related to the class src/impl/ol/js/patches.js, which is used to
@@ -18,7 +18,7 @@ class GenerateVersionPlugin {
    * @function
    */
   apply(compiler) {
-    compiler.hooks.done.tap('GenerateVersionPlugin', (stats) => {
+    compiler.hooks.done.tap("GenerateVersionPlugin", (stats) => {
       const { path } = stats.compilation.options.output;
       stats.compilation.chunks.forEach((chunk) => {
         chunk.files.forEach((file, index) => {
@@ -29,7 +29,10 @@ class GenerateVersionPlugin {
             replacePath = basename.replace(this.regex, `$1-${version}$2`);
           }
           const realPath = pathmodule.resolve(path, file);
-          const newPath = pathmodule.join(pathmodule.dirname(realPath), replacePath);
+          const newPath = pathmodule.join(
+            pathmodule.dirname(realPath),
+            replacePath
+          );
           fs.copyFileSync(realPath, newPath);
         });
       });
@@ -41,7 +44,7 @@ class GenerateVersionPlugin {
    */
   geExecuteCB(index, stats) {
     const entry = Object.keys(stats.compilation.options.entry)[index];
-    const name = entry.split('/').slice(-1)[0];
+    const name = entry.split("/").slice(-1)[0];
     const context = stats.compilation.options.resolve.alias[this.aliasRoot];
     const absolutePath = pathmodule.resolve(context, name, this.fileName);
     const version = JSON.parse(fs.readFileSync(absolutePath)).version;

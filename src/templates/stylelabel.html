@@ -1,0 +1,798 @@
+<div class="m-stylemanager-list-container m-stylemanager-hidden">
+    <div class="title">{{translations.labels}}</div>
+
+    <div class="m-stylemanager-subtitle-section" data-geometry-section="point-options">{{translations.pointOptions}} <i
+            class="m-stylemanager-icons m-stylemanager-icons-down-circled2"></i></div>
+    <div class="m-stylemanager-hidden" data-geometry-section="point-options">
+
+        <div class="m-stylemanager-group-row">
+            <div class="m-stylemanager-style-col-1">
+                <span>{{translations.labelValue}}</span>
+            </div>
+            <div class="m-stylemanager-style-col-2">
+                <select data-style-options="point.label.text"
+                    class="m-stylemanager-input-size m-stylemanager-style-select">{{#each featuresAttr}}
+                    <option value="{{this.id}}" {{#if this.selected}}selected{{/if}}>{{this.name}}</option>
+                    {{/each}}
+                </select>
+            </div>
+        </div>
+
+        <div class="m-stylemanager-group-row">
+            <div class="m-stylemanager-style-col-1">
+                <span>{{translations.labelFont}}</span>
+            </div>
+            <div class="m-stylemanager-style-col-2">
+                <select data-font-family-point class="m-stylemanager-input-size m-stylemanager-style-select">
+                    <option value="serif">Serif</option>
+                    <option value="sans-serif">Sans-Serif</option>
+                    <option value="mono">Mono</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="m-stylemanager-group-row">
+            <div class="m-stylemanager-style-col-1">
+                <span>{{translations.labelSize}}</span>
+            </div>
+            <div class="m-stylemanager-style-col-2">
+                <input data-font-size-point type="number" min="1" value="12"
+                    class="m-stylemanager-input-size m-stylemanager-style-select">
+            </div>
+        </div>
+
+        <div class="m-stylemanager-group-row">
+            <div class="m-stylemanager-style-col-1">
+                <span>{{translations.labelColor}}</span>
+            </div>
+            <div class="m-stylemanager-style-col-2">
+                <input value="{{point.label.color}}" type="color" data-style-options="point.label.color" value="#0d5cdc"
+                    class="m-stylemanager-input-size">
+            </div>
+        </div>
+
+        <div class="m-stylemanager-group-row">
+            <div class="m-stylemanager-style-col-1">
+                <input type="checkbox" data-apply="point.label.stroke" {{#neq point.label.stroke.color 'no-color'
+                    }}checked{{/neq}}>
+                <span>{{translations.labelHalo}}</span>
+            </div>
+        </div>
+
+
+
+        <div class="m-stylemanager-button-advanced-options">
+            <i class="m-stylemanager-icons-down-open">
+            </i>{{translations.advancedOptions}}
+        </div>
+        <div class="m-stylemanager-hidden">
+
+            <div class="m-stylemanager-group-row">
+                <div class="m-stylemanager-style-col-1">
+                    <span>{{translations.scale}}</span>
+                </div>
+                <div class="m-stylemanager-style-col-2">
+                    <input value="{{point.label.scale}}" type="number" max="3" min="0" step="0.1" value="2"
+                        data-style-options="point.label.scale"
+                        class="m-stylemanager-input-size m-stylemanager-style-select">
+                </div>
+            </div>
+
+            <div class="m-stylemanager-group-row">
+                <div class="m-stylemanager-style-col-1">
+                    <span>{{translations.horizontalAlign}}</span>
+                </div>
+                <div class="m-stylemanager-style-col-2">
+                    <select data-style-options="point.label.align"
+                        class="m-stylemanager-input-size m-stylemanager-style-select">
+                        {{#each alignlist}}
+                        <option value="{{this.id}}" {{#if this.selected}}selected{{/if}}>{{this.name}}</option>
+                        {{/each}}
+                    </select>
+                </div>
+            </div>
+
+            <div class="m-stylemanager-group-row">
+                <div class="m-stylemanager-style-col-1">
+                    <span>{{translations.verticalAlign}}</span>
+                </div>
+                <div class="m-stylemanager-style-col-2">
+                    <select data-style-options="point.label.baseline"
+                        class="m-stylemanager-input-size m-stylemanager-style-select">
+                        {{#each baselinelist}}
+                        <option value="{{this.id}}" {{#if this.selected}}selected{{/if}}>{{this.name}}</option>
+                        {{/each}}
+                    </select>
+                </div>
+            </div>
+
+            <div class="m-stylemanager-group-row">
+                <div class="m-stylemanager-style-col-1">
+                    <input {{#if point.label.rotate}}checked{{/if}} type="checkbox"
+                        data-style-options="point.label.rotate">
+                    <span>{{translations.rotationWithMap}}</span>
+                </div>
+                <div class="m-stylemanager-style-col-2">
+                    <span class="m-stylemanager-margin-right">{{translations.rotation}}</span>
+                    <input value="{{point.label.rotation}}" type="number" step="0.1"
+                        data-style-options="point.label.rotation"
+                        class="m-stylemanager-input-size m-stylemanager-style-select">
+                </div>
+            </div>
+
+            <div class="m-stylemanager-group-row">
+                <div class="m-stylemanager-style-col-1">
+                    <span>{{translations.offset}}</span>
+                </div>
+                <div class="m-stylemanager-style-col-2 m-stylemanager-displayrow m-stylemanager-between">
+                    <input value="{{#get 0 point.label.offset}}{{/get}}" type="number" data-target="point.label.offset"
+                        data-style-options="point.label.offset" class="m-stylemanager-style-select">
+                    <input value="{{#get 1 point.label.offset}}{{/get}}" type="number" data-id="point.label.offset"
+                        class="m-stylemanager-style-select">
+                </div>
+            </div>
+
+            <!-- TextPath Options -->
+            <div class="m-stylemanager-group-row" data-geometry="line">
+                <div class="m-stylemanager-style-col-1">
+                    <input {{#if point.label.path}}checked{{/if}} type="checkbox" data-style-options="point.label.path">
+                    <span>{{translations.wrap}}</span>
+                </div>
+                <div class="m-stylemanager-style-col-2">
+                    <span>{{translations.minWidth}}</span>
+                    <input value="{{point.label.minwidth}}" type="number" min="1" max="200" value="10"
+                        data-style-options="point.label.minwidth" data-textpath {{#unless
+                        point.label.path}}disabled{{/unless}}
+                        class="m-stylemanager-input-size m-stylemanager-style-select">
+                </div>
+            </div>
+
+            <div class="m-stylemanager-group-row" data-geometry="line">
+                <div class="m-stylemanager-style-col-1">
+                    <input {{#if point.label.smooth}}checked{{/if}} type="checkbox"
+                        data-style-options="point.label.smooth" data-textpath {{#unless
+                        point.label.path}}disabled{{/unless}}>
+                    <span>{{translations.smooth}}</span>
+                </div>
+                <div class="m-stylemanager-style-col-2">
+                    <span class="m-stylemanager-margin-right">{{translations.textOverflow}}</span>
+                    <select data-style-options="point.label.textoverflow" data-textpath {{#unless
+                        point.label.path}}disabled{{/unless}}
+                        class="m-stylemanager-input-size m-stylemanager-style-select">
+                        <option value="hidden">{{translations.hidden}}</option>
+                        <option value="visible">{{translations.visible}}</option>
+                        <option value="ellipsis">{{translations.ellipsis}}</option>
+                    </select>
+                </div>
+            </div>
+
+        </div>
+
+
+
+        <!-- Stroke Label -->
+        <div class="subtitle" data-point-halo-section>{{translations.labelHaloSection}}</div>
+
+        <div class="m-stylemanager-group-row" data-point-halo-section>
+            <div class="m-stylemanager-style-col-1">
+                <span>{{translations.labelHaloColor}}</span>
+            </div>
+            <div class="m-stylemanager-style-col-2">
+                <input type="color" data-style-options="point.label.stroke.color" {{#neq
+                    point.label.stroke.color 'no-color' }}value="{{point.label.stroke.color}}" {{/neq}}
+                    class="m-stylemanager-input-size">
+            </div>
+        </div>
+
+        <div class="m-stylemanager-group-row" data-point-halo-section>
+            <div class="m-stylemanager-style-col-1">
+                <span>{{translations.strokeSize}}</span>
+            </div>
+            <div class="m-stylemanager-style-col-2">
+                <input value="{{point.label.stroke.width}}" type="number" value="2" max="15" min="1"
+                    data-style-options="point.label.stroke.width"
+                    class="m-stylemanager-input-size m-stylemanager-style-select">
+            </div>
+        </div>
+
+
+
+        <div class="m-stylemanager-button-advanced-options" data-point-halo-section>
+            <i class="m-stylemanager-icons-down-open">
+            </i>{{translations.advancedOptions}}
+        </div>
+        <div class="m-stylemanager-hidden">
+
+            <!-- Stroke Label -->
+            <div class="m-stylemanager-group-row" data-point-halo-section>
+                <div class="m-stylemanager-style-col-1">
+                    <span>{{translations.linedash}}</span>
+                </div>
+                <div class="m-stylemanager-style-col-2 m-stylemanager-displayrow m-stylemanager-between">
+                    <input value="{{#get 0 point.label.stroke.linedash}}{{/get}}" type="number"
+                        data-target="point.label.stroke.linedash" data-style-options="point.label.stroke.linedash"
+                        data-format="array" class="m-stylemanager-style-select">
+                    <input value="{{#get 1 point.label.stroke.linedash}}{{/get}}" type="number"
+                        data-id="point.label.stroke.linedash" class="m-stylemanager-style-select">
+                </div>
+            </div>
+
+            <div class="m-stylemanager-group-row" data-point-halo-section>
+                <div class="m-stylemanager-style-col-1">
+                    <span>{{translations.linedashOffset}}</span>
+                </div>
+                <div class="m-stylemanager-style-col-2">
+                    <input type="number" value="{{point.label.stroke.linedashoffset}}"
+                        data-style-options="point.label.stroke.linedashoffset"
+                        class="m-stylemanager-input-size m-stylemanager-style-select">
+                </div>
+            </div>
+
+            <div class="m-stylemanager-group-row" data-point-halo-section>
+                <div class="m-stylemanager-style-col-1">
+                    <span>{{translations.lineCap}}</span>
+                </div>
+                <div class="m-stylemanager-style-col-2">
+                    <select data-style-options="point.label.stroke.linecap"
+                        class="m-stylemanager-input-size m-stylemanager-style-select">
+                        {{#each linecaplabelstroke}}
+                        <option value="{{this.id}}" {{#if this.selected}}selected{{/if}}>{{this.name}}
+                        </option>
+                        {{/each}}
+                    </select>
+                </div>
+            </div>
+
+            <div class="m-stylemanager-group-row" data-point-halo-section>
+                <div class="m-stylemanager-style-col-1">
+                    <span>{{translations.lineJoin}}</span>
+                </div>
+                <div class="m-stylemanager-style-col-2">
+                    <select data-style-options="point.label.stroke.linejoin"
+                        class="m-stylemanager-input-size m-stylemanager-style-select">
+                        {{#each linejoinlabelstroke}}
+                        <option value="{{this.id}}" {{#if this.selected}}selected{{/if}}>{{this.name}}
+                        </option>
+                        {{/each}}
+                    </select>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="m-stylemanager-subtitle-section" data-geometry-section="line-options">{{translations.lineOptions}} <i
+            class="m-stylemanager-icons m-stylemanager-icons-down-circled2"></i></div>
+    <div class="m-stylemanager-hidden" data-geometry-section="line-options">
+
+        <div class="m-stylemanager-group-row">
+            <div class="m-stylemanager-style-col-1">
+                <span>{{translations.labelValue}}</span>
+            </div>
+            <div class="m-stylemanager-style-col-2">
+                <select data-style-options="line.label.text"
+                    class="m-stylemanager-input-size m-stylemanager-style-select">
+                    {{#each featuresAttr}}
+                    <option value="{{this.id}}" {{#if this.selected}}selected{{/if}}>{{this.name}}</option>
+                    {{/each}}
+                </select>
+            </div>
+        </div>
+
+        <div class="m-stylemanager-group-row">
+            <div class="m-stylemanager-style-col-1">
+                <span>{{translations.labelFont}}</span>
+            </div>
+            <div class="m-stylemanager-style-col-2">
+                <select data-font-family-line class="m-stylemanager-input-size m-stylemanager-style-select">
+                    <option value="serif">Serif</option>
+                    <option value="sans-serif">Sans-Serif</option>
+                    <option value="mono">Mono</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="m-stylemanager-group-row">
+            <div class="m-stylemanager-style-col-1">
+                <span>{{translations.labelSize}}</span>
+            </div>
+            <div class="m-stylemanager-style-col-2">
+                <input data-font-size-line type="number" min="1" value="12"
+                    class="m-stylemanager-input-size m-stylemanager-style-select">
+            </div>
+        </div>
+
+        <div class="m-stylemanager-group-row">
+            <div class="m-stylemanager-style-col-1">
+                <span>{{translations.labelColor}}</span>
+            </div>
+            <div class="m-stylemanager-style-col-2">
+                <input value="{{line.label.color}}" type="color" data-style-options="line.label.color" value="#0d5cdc"
+                    class="m-stylemanager-input-size">
+            </div>
+        </div>
+
+        <div class="m-stylemanager-group-row">
+            <div class="m-stylemanager-style-col-1">
+                <input type="checkbox" data-apply="line.label.stroke" {{#neq line.label.stroke.color 'no-color'
+                    }}checked{{/neq}}>
+                <span>{{translations.labelHalo}}</span>
+            </div>
+        </div>
+
+
+
+        <div class="m-stylemanager-button-advanced-options">
+            <i class="m-stylemanager-icons-down-open">
+            </i>{{translations.advancedOptions}}
+        </div>
+        <div class="m-stylemanager-hidden">
+
+            <div class="m-stylemanager-group-row">
+                <div class="m-stylemanager-style-col-1">
+                    <span>{{translations.scale}}</span>
+                </div>
+                <div class="m-stylemanager-style-col-2">
+                    <input value="{{line.label.scale}}" type="number" max="3" min="0" step="0.1" value="2"
+                        data-style-options="line.label.scale"
+                        class="m-stylemanager-input-size m-stylemanager-style-select">
+                </div>
+            </div>
+
+            <div class="m-stylemanager-group-row">
+                <div class="m-stylemanager-style-col-1">
+                    <span>{{translations.horizontalAlign}}</span>
+                </div>
+                <div class="m-stylemanager-style-col-2">
+                    <select data-style-options="line.label.align"
+                        class="m-stylemanager-input-size m-stylemanager-style-select">
+                        {{#each alignlist}}
+                        <option value="{{this.id}}" {{#if this.selected}}selected{{/if}}>{{this.name}}
+                        </option>
+                        {{/each}}
+                    </select>
+                </div>
+            </div>
+
+            <div class="m-stylemanager-group-row">
+                <div class="m-stylemanager-style-col-1">
+                    <span>{{translations.verticalAlign}}</span>
+                </div>
+                <div class="m-stylemanager-style-col-2">
+                    <select data-style-options="line.label.baseline"
+                        class="m-stylemanager-input-size m-stylemanager-style-select">
+                        {{#each baselinelist}}
+                        <option value="{{this.id}}" {{#if this.selected}}selected{{/if}}>{{this.name}}
+                        </option>
+                        {{/each}}
+                    </select>
+                </div>
+            </div>
+
+            <div class="m-stylemanager-group-row">
+                <div class="m-stylemanager-style-col-1">
+                    <input {{#if line.label.rotate}}checked{{/if}} type="checkbox"
+                        data-style-options="line.label.rotate">
+                    <span>{{translations.rotationWithMap}}</span>
+                </div>
+                <div class="m-stylemanager-style-col-2">
+                    <span class="m-stylemanager-margin-right">{{translations.rotation}}</span>
+                    <input value="{{line.label.rotation}}" type="number" step="0.1"
+                        data-style-options="line.label.rotation"
+                        class="m-stylemanager-input-size m-stylemanager-style-select">
+                </div>
+            </div>
+
+            <div class="m-stylemanager-group-row">
+                <div class="m-stylemanager-style-col-1">
+                    <span>{{translations.offset}}</span>
+                </div>
+                <div class="m-stylemanager-style-col-2 m-stylemanager-displayrow m-stylemanager-between">
+                    <input value="{{#get 0 line.label.offset}}{{/get}}" type="number" data-target="line.label.offset"
+                        data-style-options="line.label.offset" class="m-stylemanager-style-select">
+                    <input value="{{#get 1 line.label.offset}}{{/get}}" type="number" data-id="line.label.offset"
+                        class="m-stylemanager-style-select">
+                </div>
+            </div>
+
+            <!-- TextPath Options -->
+            <div class="m-stylemanager-group-row" data-geometry="line">
+                <div class="m-stylemanager-style-col-1">
+                    <input {{#if line.label.path}}checked{{/if}} type="checkbox" data-style-options="line.label.path">
+                    <span>{{translations.wrap}}</span>
+                </div>
+                <div class="m-stylemanager-style-col-2">
+                    <span>{{translations.minWidth}}</span>
+                    <input value="{{line.label.minwidth}}" type="number" min="1" max="200" value="10"
+                        data-style-options="line.label.minwidth" data-textpath {{#unless
+                        line.label.path}}disabled{{/unless}}
+                        class="m-stylemanager-input-size m-stylemanager-style-select">
+                </div>
+            </div>
+
+            <div class="m-stylemanager-group-row" data-geometry="line">
+                <div class="m-stylemanager-style-col-1">
+                    <input {{#if line.label.smooth}}checked{{/if}} type="checkbox"
+                        data-style-options="line.label.smooth" data-textpath {{#unless
+                        line.label.path}}disabled{{/unless}}>
+                    <span>{{translations.smooth}}</span>
+                </div>
+                <div class="m-stylemanager-style-col-2">
+                    <span class="m-stylemanager-margin-right">{{translations.textOverflow}}</span>
+                    <select data-style-options="line.label.textoverflow" data-textpath {{#unless
+                        line.label.path}}disabled{{/unless}}
+                        class="m-stylemanager-input-size m-stylemanager-style-select">
+                        <option value="hidden">{{translations.hidden}}</option>
+                        <option value="visible">{{translations.visible}}</option>
+                        <option value="ellipsis">{{translations.ellipsis}}</option>
+                    </select>
+                </div>
+            </div>
+
+        </div>
+
+
+
+        <!-- Stroke Label -->
+        <div class="subtitle" data-line-halo-section>{{translations.labelHaloSection}}</div>
+
+        <div class="m-stylemanager-group-row" data-line-halo-section>
+            <div class="m-stylemanager-style-col-1">
+                <span>{{translations.labelHaloColor}}</span>
+            </div>
+            <div class="m-stylemanager-style-col-2">
+                <input type="color" data-style-options="line.label.stroke.color" {{#neq
+                    line.label.stroke.color 'no-color' }}value="{{line.label.stroke.color}}" {{/neq}}
+                    class="m-stylemanager-input-size">
+            </div>
+        </div>
+
+        <div class="m-stylemanager-group-row" data-line-halo-section>
+            <div class="m-stylemanager-style-col-1">
+                <span>{{translations.strokeSize}}</span>
+            </div>
+            <div class="m-stylemanager-style-col-2">
+                <input value="{{line.label.stroke.width}}" type="number" value="2" max="15" min="1"
+                    data-style-options="line.label.stroke.width"
+                    class="m-stylemanager-input-size m-stylemanager-style-select">
+            </div>
+        </div>
+
+
+
+        <div class="m-stylemanager-button-advanced-options" data-line-halo-section>
+            <i class="m-stylemanager-icons-down-open">
+            </i>{{translations.advancedOptions}}
+        </div>
+        <div class="m-stylemanager-hidden">
+
+            <!-- Stroke Label -->
+            <div class="m-stylemanager-group-row" data-line-halo-section>
+                <div class="m-stylemanager-style-col-1">
+                    <span>{{translations.linedash}}</span>
+                </div>
+                <div class="m-stylemanager-style-col-2 m-stylemanager-displayrow m-stylemanager-between">
+                    <input value="{{#get 0 line.label.stroke.linedash}}{{/get}}" type="number"
+                        data-target="line.label.stroke.linedash" data-style-options="line.label.stroke.linedash"
+                        data-format="array" class="m-stylemanager-style-select">
+                    <input value="{{#get 1 line.label.stroke.linedash}}{{/get}}" type="number"
+                        data-id="line.label.stroke.linedash" class="m-stylemanager-style-select">
+                </div>
+            </div>
+
+            <div class="m-stylemanager-group-row" data-line-halo-section>
+                <div class="m-stylemanager-style-col-1">
+                    <span>{{translations.linedashOffset}}</span>
+                </div>
+                <div class="m-stylemanager-style-col-2">
+                    <input type="number" value="{{line.label.stroke.linedashoffset}}"
+                        data-style-options="line.label.stroke.linedashoffset"
+                        class="m-stylemanager-input-size m-stylemanager-style-select">
+                </div>
+            </div>
+
+            <div class="m-stylemanager-group-row" data-line-halo-section>
+                <div class="m-stylemanager-style-col-1">
+                    <span>{{translations.lineCap}}</span>
+                </div>
+                <div class="m-stylemanager-style-col-2">
+                    <select data-style-options="line.label.stroke.linecap"
+                        class="m-stylemanager-input-size m-stylemanager-style-select">
+                        {{#each linecaplabelstroke}}
+                        <option value="{{this.id}}" {{#if this.selected}}selected{{/if}}>{{this.name}}
+                        </option>
+                        {{/each}}
+                    </select>
+                </div>
+            </div>
+
+            <div class="m-stylemanager-group-row" data-line-halo-section>
+                <div class="m-stylemanager-style-col-1">
+                    <span>{{translations.lineJoin}}</span>
+                </div>
+                <div class="m-stylemanager-style-col-2">
+                    <select data-style-options="line.label.stroke.linejoin"
+                        class="m-stylemanager-input-size m-stylemanager-style-select">
+                        {{#each linejoinlabelstroke}}
+                        <option value="{{this.id}}" {{#if this.selected}}selected{{/if}}>{{this.name}}
+                        </option>
+                        {{/each}}
+                    </select>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="m-stylemanager-subtitle-section" data-geometry-section="polygon-options">{{translations.polygonOptions}}
+        <i class="m-stylemanager-icons m-stylemanager-icons-down-circled2"></i>
+    </div>
+    <div class="m-stylemanager-hidden" data-geometry-section="polygon-options">
+
+        <div class="m-stylemanager-group-row">
+            <div class="m-stylemanager-style-col-1">
+                <span>{{translations.labelValue}}</span>
+            </div>
+            <div class="m-stylemanager-style-col-2">
+                <select data-style-options="polygon.label.text"
+                    class="m-stylemanager-input-size m-stylemanager-style-select">
+                    {{#each featuresAttr}}
+                    <option value="{{this.id}}" {{#if this.selected}}selected{{/if}}>{{this.name}}</option>
+                    {{/each}}
+                </select>
+            </div>
+        </div>
+
+        <div class="m-stylemanager-group-row">
+            <div class="m-stylemanager-style-col-1">
+                <span>{{translations.labelFont}}</span>
+            </div>
+            <div class="m-stylemanager-style-col-2">
+                <select data-font-family-polygon class="m-stylemanager-input-size m-stylemanager-style-select">
+                    <option value="serif">Serif</option>
+                    <option value="sans-serif">Sans-Serif</option>
+                    <option value="mono">Mono</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="m-stylemanager-group-row">
+            <div class="m-stylemanager-style-col-1">
+                <span>{{translations.labelSize}}</span>
+            </div>
+            <div class="m-stylemanager-style-col-2">
+                <input data-font-size-polygon type="number" min="1" value="12"
+                    class="m-stylemanager-input-size m-stylemanager-style-select">
+            </div>
+        </div>
+
+        <div class="m-stylemanager-group-row">
+            <div class="m-stylemanager-style-col-1">
+                <span>{{translations.labelColor}}</span>
+            </div>
+            <div class="m-stylemanager-style-col-2">
+                <input value="{{polygon.label.color}}" type="color" data-style-options="polygon.label.color"
+                    value="#0d5cdc" class="m-stylemanager-input-size">
+            </div>
+        </div>
+
+        <div class="m-stylemanager-group-row">
+            <div class="m-stylemanager-style-col-1">
+                <input type="checkbox" data-apply="polygon.label.stroke" {{#neq polygon.label.stroke.color 'no-color'
+                    }}checked{{/neq}}>
+                <span>{{translations.labelHalo}}</span>
+            </div>
+        </div>
+
+
+
+        <div class="m-stylemanager-button-advanced-options">
+            <i class="m-stylemanager-icons-down-open">
+            </i>{{translations.advancedOptions}}
+        </div>
+        <div class="m-stylemanager-hidden">
+
+            <div class="m-stylemanager-group-row">
+                <div class="m-stylemanager-style-col-1">
+                    <span>{{translations.scale}}</span>
+                </div>
+                <div class="m-stylemanager-style-col-2">
+                    <input value="{{polygon.label.scale}}" type="number" max="3" min="0" step="0.1" value="2"
+                        data-style-options="polygon.label.scale"
+                        class="m-stylemanager-input-size m-stylemanager-style-select">
+                </div>
+            </div>
+
+            <div class="m-stylemanager-group-row">
+                <div class="m-stylemanager-style-col-1">
+                    <span>{{translations.horizontalAlign}}</span>
+                </div>
+                <div class="m-stylemanager-style-col-2">
+                    <select data-style-options="polygon.label.align"
+                        class="m-stylemanager-input-size m-stylemanager-style-select">
+                        {{#each alignlist}}
+                        <option value="{{this.id}}" {{#if this.selected}}selected{{/if}}>{{this.name}}
+                        </option>
+                        {{/each}}
+                    </select>
+                </div>
+            </div>
+
+            <div class="m-stylemanager-group-row">
+                <div class="m-stylemanager-style-col-1">
+                    <span>{{translations.verticalAlign}}</span>
+                </div>
+                <div class="m-stylemanager-style-col-2">
+                    <select data-style-options="polygon.label.baseline"
+                        class="m-stylemanager-input-size m-stylemanager-style-select">
+                        {{#each baselinelist}}
+                        <option value="{{this.id}}" {{#if this.selected}}selected{{/if}}>{{this.name}}
+                        </option>
+                        {{/each}}
+                    </select>
+                </div>
+            </div>
+
+            <div class="m-stylemanager-group-row">
+                <div class="m-stylemanager-style-col-1">
+                    <input {{#if polygon.label.rotate}}checked{{/if}} type="checkbox"
+                        data-style-options="polygon.label.rotate">
+                    <span>{{translations.rotationWithMap}}</span>
+                </div>
+                <div class="m-stylemanager-style-col-2">
+                    <span class="m-stylemanager-margin-right">{{translations.rotation}}</span>
+                    <input value="{{polygon.label.rotation}}" type="number" step="0.1"
+                        data-style-options="polygon.label.rotation"
+                        class="m-stylemanager-input-size m-stylemanager-style-select">
+                </div>
+            </div>
+
+            <div class="m-stylemanager-group-row">
+                <div class="m-stylemanager-style-col-1">
+                    <span>{{translations.offset}}</span>
+                </div>
+                <div class="m-stylemanager-style-col-2 m-stylemanager-displayrow m-stylemanager-between">
+                    <input value="{{#get 0 polygon.label.offset}}{{/get}}" type="number"
+                        data-target="polygon.label.offset" data-style-options="polygon.label.offset"
+                        class="m-stylemanager-style-select">
+                    <input value="{{#get 1 polygon.label.offset}}{{/get}}" type="number" data-id="polygon.label.offset"
+                        class="m-stylemanager-style-select">
+                </div>
+            </div>
+
+            <!-- TextPath Options -->
+            <div class="m-stylemanager-group-row" data-geometry="line">
+                <div class="m-stylemanager-style-col-1">
+                    <input {{#if polygon.label.path}}checked{{/if}} type="checkbox"
+                        data-style-options="polygon.label.path">
+                    <span>{{translations.wrap}}</span>
+                </div>
+                <div class="m-stylemanager-style-col-2">
+                    <span>{{translations.minWidth}}</span>
+                    <input value="{{polygon.label.minwidth}}" type="number" min="1" max="200" value="10"
+                        data-style-options="polygon.label.minwidth" data-textpath {{#unless
+                        polygon.label.path}}disabled{{/unless}}
+                        class="m-stylemanager-input-size m-stylemanager-style-select">
+                </div>
+            </div>
+
+            <div class="m-stylemanager-group-row" data-geometry="line">
+                <div class="m-stylemanager-style-col-1">
+                    <input {{#if polygon.label.smooth}}checked{{/if}} type="checkbox"
+                        data-style-options="polygon.label.smooth" data-textpath {{#unless
+                        polygon.label.path}}disabled{{/unless}}>
+                    <span>{{translations.smooth}}</span>
+                </div>
+                <div class="m-stylemanager-style-col-2">
+                    <span class="m-stylemanager-margin-right">{{translations.textOverflow}}</span>
+                    <select data-style-options="polygon.label.textoverflow" data-textpath {{#unless
+                        polygon.label.path}}disabled{{/unless}}
+                        class="m-stylemanager-input-size m-stylemanager-style-select">
+                        <option value="hidden">{{translations.hidden}}</option>
+                        <option value="visible">{{translations.visible}}</option>
+                        <option value="ellipsis">{{translations.ellipsis}}</option>
+                    </select>
+                </div>
+            </div>
+
+        </div>
+
+
+
+        <!-- Stroke Label -->
+        <div class="subtitle" data-polygon-halo-section>{{translations.labelHaloSection}}</div>
+
+        <div class="m-stylemanager-group-row" data-polygon-halo-section>
+            <div class="m-stylemanager-style-col-1">
+                <span>{{translations.labelHaloColor}}</span>
+            </div>
+            <div class="m-stylemanager-style-col-2">
+                <input type="color" data-style-options="polygon.label.stroke.color" {{#neq
+                    polygon.label.stroke.color 'no-color' }}value="{{polygon.label.stroke.color}}" {{/neq}}
+                    class="m-stylemanager-input-size">
+            </div>
+        </div>
+
+        <div class="m-stylemanager-group-row" data-polygon-halo-section>
+            <div class="m-stylemanager-style-col-1">
+                <span>{{translations.strokeSize}}</span>
+            </div>
+            <div class="m-stylemanager-style-col-2">
+                <input value="{{polygon.label.stroke.width}}" type="number" value="2" max="15" min="1"
+                    data-style-options="polygon.label.stroke.width"
+                    class="m-stylemanager-input-size m-stylemanager-style-select">
+            </div>
+        </div>
+
+
+
+        <div class="m-stylemanager-button-advanced-options" data-polygon-halo-section>
+            <i class="m-stylemanager-icons-down-open">
+            </i>{{translations.advancedOptions}}
+        </div>
+        <div class="m-stylemanager-hidden">
+
+            <!-- Stroke Label -->
+            <div class="m-stylemanager-group-row" data-polygon-halo-section>
+                <div class="m-stylemanager-style-col-1">
+                    <span>{{translations.linedash}}</span>
+                </div>
+                <div class="m-stylemanager-style-col-2 m-stylemanager-displayrow m-stylemanager-between">
+                    <input value="{{#get 0 polygon.label.stroke.linedash}}{{/get}}" type="number"
+                        data-target="polygon.label.stroke.linedash" data-style-options="polygon.label.stroke.linedash"
+                        data-format="array" class="m-stylemanager-style-select">
+                    <input value="{{#get 1 polygon.label.stroke.linedash}}{{/get}}" type="number"
+                        data-id="polygon.label.stroke.linedash" class="m-stylemanager-style-select">
+                </div>
+            </div>
+
+            <div class="m-stylemanager-group-row" data-polygon-halo-section>
+                <div class="m-stylemanager-style-col-1">
+                    <span>{{translations.linedashOffset}}</span>
+                </div>
+                <div class="m-stylemanager-style-col-2">
+                    <input type="number" value="{{polygon.label.stroke.linedashoffset}}"
+                        data-style-options="polygon.label.stroke.linedashoffset"
+                        class="m-stylemanager-input-size m-stylemanager-style-select">
+                </div>
+            </div>
+
+            <div class="m-stylemanager-group-row" data-polygon-halo-section>
+                <div class="m-stylemanager-style-col-1">
+                    <span>{{translations.lineCap}}</span>
+                </div>
+                <div class="m-stylemanager-style-col-2">
+                    <select data-style-options="polygon.label.stroke.linecap"
+                        class="m-stylemanager-input-size m-stylemanager-style-select">
+                        {{#each linecaplabelstroke}}
+                        <option value="{{this.id}}" {{#if this.selected}}selected{{/if}}>{{this.name}}
+                        </option>
+                        {{/each}}
+                    </select>
+                </div>
+            </div>
+
+            <div class="m-stylemanager-group-row" data-polygon-halo-section>
+                <div class="m-stylemanager-style-col-1">
+                    <span>{{translations.lineJoin}}</span>
+                </div>
+                <div class="m-stylemanager-style-col-2">
+                    <select data-style-options="polygon.label.stroke.linejoin"
+                        class="m-stylemanager-input-size m-stylemanager-style-select">
+                        {{#each linejoinlabelstroke}}
+                        <option value="{{this.id}}" {{#if this.selected}}selected{{/if}}>{{this.name}}
+                        </option>
+                        {{/each}}
+                    </select>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>

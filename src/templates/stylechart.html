@@ -1,83 +1,78 @@
-<div data-role="m-chart" class="m-stylemanager-simple-section m-chart m-hidden">
-  <div class="styles-row m-stylechart">
-    <div class="title">Opciones</div>
-
-    <div class="group-row">
-      <div class="style-col-1">
-        <span>Tipo:</span>
-        <select data-style-options="type">
-          <option value="pie" {{#eq type "pie"}}selected {{/eq}}>Tarta</option>
-          <option value="pie3D" {{#eq type "pie3D"}}selected {{/eq}}>Tarta 3D</option>
-          <option value="donut" {{#eq type "donut"}}selected {{/eq}}>Donut</option>
-          <option value="bar" {{#eq type "bar"}}selected {{/eq}}>Gráfico</option>
-        </select>
-      </div>
-
-      <div class="style-col-2">
-        <span>Color:</span>
-        <select data-style-options="scheme">
-          <option value="Classic" {{#eq scheme "Classic"}}selected {{/eq}}>Clásico</option>
-          <option value="Dark" {{#eq scheme "Dark"}}selected {{/eq}}>Oscuro</option>
-          <option value="Pale" {{#eq scheme "Pale"}}selected {{/eq}}>Pálido</option>
-          <option value="Pastel" {{#eq scheme "Pastel"}}selected {{/eq}}>Neón</option>
-          <option value="Neon" {{#eq scheme "Neon"}}selected {{/eq}}>Pastel</option>
-        </select>
-      </div>
+<div data-role="m-chart" class="m-stylemanager-list-container m-stylemanager-hidden">
+    <div class="title">{{translations.options}}</div>
+    <br>
+    <div class="m-stylemanager-group-row">
+        <div class="m-stylemanager-style-col-1">{{translations.type}}</div>
+        <div class="m-stylemanager-style-col-2">
+            <select data-style-options="type" class="m-stylemanager-input-size m-stylemanager-style-select">
+                <option value="pie" {{#eq type "pie" }}selected {{/eq}}>{{translations.pie}}</option>
+                <option value="pie3D" {{#eq type "pie3D" }}selected {{/eq}}>{{translations.3dPie}}</option>
+                <option value="donut" {{#eq type "donut" }}selected {{/eq}}>{{translations.donut}}</option>
+                <option value="bar" {{#eq type "bar" }}selected {{/eq}}>{{translations.chart}}</option>
+            </select>
+        </div>
     </div>
-
-    <div class="group-row">
-      <div class="style-col-1">
-        <span>Eje X:</span>
-        <input type="number" value="{{offsetX}}" data-style-options="offsetX">
-      </div>
-
-      <div class="style-col-2">
-        <span>Eje Y:</span>
-        <input type="number" value="{{offsetY}}" data-style-options="offsetY">
-      </div>
+    <div class="m-stylemanager-group-row">
+        <div class="m-stylemanager-style-col-1">{{translations.color}}</div>
+        <div class="m-stylemanager-style-col-2">
+            <select data-style-options="scheme" class="m-stylemanager-input-size m-stylemanager-style-select">
+                <option value="Classic" {{#eq scheme "Classic" }}selected {{/eq}}>{{translations.classic}}</option>
+                <option value="Dark" {{#eq scheme "Dark" }}selected {{/eq}}>{{translations.dark}}</option>
+                <option value="Pale" {{#eq scheme "Pale" }}selected {{/eq}}>{{translations.pale}}</option>
+                <option value="Pastel" {{#eq scheme "Pastel" }}selected {{/eq}}>{{translations.pastel}}</option>
+                <option value="Neon" {{#eq scheme "Neon" }}selected {{/eq}}>{{translations.neon}}</option>
+            </select>
+        </div>
     </div>
-
-    <div class="group-row">
-      <div class="style-col-1 {{#eq type 'bar'}}m-hidden{{/eq}}" data-type="donut,pie,pie3D">
-        <span>Radio:</span>
-        <input type="number" min="1" value="{{radius}}" data-style-options="radius">
-      </div>
-
-      <div class="style-col-2 {{#neq type 'donut'}}m-hidden{{/neq}}" data-type="donut">
-        <span>Radio de donut:</span>
-        <input type="number" min="0" value="6" data-style-options="donutRadio">
-      </div>
+    <div class="m-stylemanager-group-row">
+        <div class="m-stylemanager-style-col-1">{{translations.xAxis}}</div>
+        <div class="m-stylemanager-style-col-2">
+            <input type="number" value="{{offsetX}}" data-style-options="offsetX"
+                class="m-stylemanager-input-size m-stylemanager-style-select">
+        </div>
     </div>
-
-    <div class="group-row">
-      <div class="style-col-1 {{#neq type 'pie3D'}}m-hidden{{/neq}}" data-type="pie3D">
-        <span>Color 3D:</span>
-        <input type="color" value="#ff00f0" data-style-options="fill3DColor">
-      </div>
+    <div class="m-stylemanager-group-row">
+        <div class="m-stylemanager-style-col-1">{{translations.yAxis}}</div>
+        <div class="m-stylemanager-style-col-2">
+            <input type="number" value="{{offsetY}}" data-style-options="offsetY"
+                class="m-stylemanager-input-size m-stylemanager-style-select">
+        </div>
     </div>
-
-  </div>
-  <div class="styles-row m-stylechart">
-    <div class="title">Atributos</div>
-    <div class="group-row">
-
-      <div class="style-col-1">
-        <span>Atributo:</span>
-        <select data-attribute>
-
-        </select>
-      </div>
-
-      <div class="style-col-2">
-        <span></span>
-        <button data-add class="m-add-gradient m-button-styles">Añadir atributo</button>
-      </div>
+    <div class="m-stylemanager-group-row">
+        <div class="m-stylemanager-style-col-1 {{#eq type 'bar'}}m-stylemanager-hidden{{/eq}}"
+            data-type="donut,pie,pie3D">{{translations.radius}}</div>
+        <div class="m-stylemanager-style-col-2 {{#eq type 'bar'}}m-stylemanager-hidden{{/eq}}"
+            data-type="donut,pie,pie3D">
+            <input type="number" min="1" value="{{radius}}" data-style-options="radius"
+                class="m-stylemanager-input-size m-stylemanager-style-select">
+        </div>
     </div>
-    <div class="m-chart-variables" data-variables>
+    <div class="m-stylemanager-group-row">
+        <div class="m-stylemanager-style-col-1 {{#neq type 'donut'}}m-stylemanager-hidden{{/neq}}" data-type="donut">
+            {{translations.donutRadius}}</div>
+        <div class="m-stylemanager-style-col-2 {{#neq type 'donut'}}m-stylemanager-hidden{{/neq}}" data-type="donut">
+            <input type="number" min="0" value="6" data-style-options="donutRadio"
+                class="m-stylemanager-input-size m-stylemanager-style-select">
+        </div>
     </div>
-
-    <div class="m-pagination" data-pagination>
+    <div class="m-stylemanager-group-row">
+        <div class="m-stylemanager-style-col-1 {{#neq type 'pie3D'}}m-stylemanager-hidden{{/neq}}" data-type="pie3D">
+            {{translations.3dColor}}</div>
+        <div class="m-stylemanager-style-col-2 {{#neq type 'pie3D'}}m-stylemanager-hidden{{/neq}}" data-type="pie3D">
+            <input type="color" value="#ff00f0" data-style-options="fill3DColor" class="m-stylemanager-input-size">
+        </div>
     </div>
-
-  </div>
+    <div class="title">{{translations.attributes}}</div>
+    <br>
+    <div class="m-stylemanager-group-row">
+        <div class="m-stylemanager-style-col-2 m-stylemanager-between">
+            <div>
+                {{translations.attribute}}
+                <select data-attribute class="m-stylemanager-style-select"></select>
+            </div>
+            <button data-add class="m-stylemanager-button-styles">{{translations.addAttribute}}</button>
+        </div>
+    </div>
+    <div class="m-stylemanager-chart-variables" data-variables></div>
+    <div class="m-stylemanager-pagination" data-pagination></div>
 </div>

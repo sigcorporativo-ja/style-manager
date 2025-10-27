@@ -1,47 +1,46 @@
-<div data-role="m-choropleth" class="m-stylemanager-simple-section m-hidden m-choropleth">
-  <div class="styles-row">
-    <div class="title">Opciones</div>
-    <div class="m-styles-body">
-
-      <div class="group-row">
-
-        <div class="style-col-1">
-          <span>Atributos:</span>
-          <select data-options="attributeName">
-            {{#each attributes}}
-            <option value="{{this.name}}" {{#eq this.name this.selected}} selected {{/eq}}>{{this.name}}</option>
-            {{/each}}
-          </select>
+<div class="m-stylemanager-list-container m-stylemanager-hidden">
+    <div class="title">{{translations.options}}</div>
+    <br>
+    <div class="m-stylemanager-group-row">
+        <div class="m-stylemanager-style-col-1">
+            <span>{{translations.attribute}}</span>
         </div>
-
-      </div>
-      <div class="group-row">
-
-        <div class="style-col-1">
-          <span>Algoritmo:</span>
-          <select data-options="quantification">
-            <option value="JENKS" {{#eq quantification "jenks"}}selected{{/eq}}>Jenks</option>
-            <option value="QUANTILE" {{#eq quantification "quantile"}}selected{{/eq}}>Quantile</option>
-          </select>
+        <div class="m-stylemanager-style-col-2">
+            <select class="m-stylemanager-input-size m-stylemanager-style-select" data-options="attributeName">
+                {{#each attributes}}
+                <option value="{{this.name}}" {{#eq this.name this.selected}} selected {{/eq}}>{{this.name}}</option>
+                {{/each}}
+            </select>
         </div>
-
-        <div class="style-col-2">
-          <span>Rangos:</span>
-          <input type="number" min="2" data-number-ranges data-options="ranges" value="{{ranges}}">
-        </div>
-      </div>
-      <div class="subtitle">Rampa de color</div>
-      <div class="group-row">
-        <div class="style-col-1">
-          <span>Inicial:</span>
-          <input type="color" data-array-options="colors" value="{{startColor}}">
-        </div>
-        <div class="style-col-2">
-          <span>Final:</span>
-          <input type="color" data-array-options="colors" value="{{endColor}}">
-        </div>
-      </div>
-
     </div>
-  </div>
+    <div class="m-stylemanager-group-row">
+        <div class="m-stylemanager-style-col-1">{{translations.algorithm}}</div>
+        <div class="m-stylemanager-style-col-2">
+            <select data-options="quantification" class="m-stylemanager-input-size m-stylemanager-style-select">
+                <option value="JENKS" {{#eq quantification "jenks" }}selected{{/eq}}>{{translations.jenks}}</option>
+                <option value="QUANTILE" {{#eq quantification "quantile" }}selected{{/eq}}>{{translations.quantile}}
+                </option>
+            </select>
+        </div>
+    </div>
+    <div class="m-stylemanager-group-row">
+        <div class="m-stylemanager-style-col-1">{{translations.ranges}}</div>
+        <div class="m-stylemanager-style-col-2">
+            <input type="number" min="2" data-number-ranges data-options="ranges" value="{{ranges}}"
+                class="m-stylemanager-input-size m-stylemanager-style-select">
+        </div>
+    </div>
+    <div class="m-stylemanager-subtitle-section">{{translations.colorRamp}}</div>
+    <div class="m-stylemanager-group-row">
+        <div class="m-stylemanager-style-col-1">{{translations.initial}}</div>
+        <div class="m-stylemanager-style-col-2">
+            <input type="color" class="m-stylemanager-input-size" data-array-options="colors" value="{{startColor}}">
+        </div>
+    </div>
+    <div class="m-stylemanager-group-row">
+        <div class="m-stylemanager-style-col-1">{{translations.final}}</div>
+        <div class="m-stylemanager-style-col-2">
+            <input type="color" class="m-stylemanager-input-size" data-array-options="colors" value="{{endColor}}">
+        </div>
+    </div>
 </div>
