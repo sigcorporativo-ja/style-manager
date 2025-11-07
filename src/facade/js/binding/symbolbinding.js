@@ -169,6 +169,7 @@ export class SymbolBinding extends Binding {
     );
     const isShape = iconFormType && iconFormType.value === "form";
     const isUrl = iconFormType && iconFormType.value === "url";
+    const isNone = iconFormType && iconFormType.value === "none";
 
     const iconFamilyType = this.querySelector('select[name="iconFamilyType"]');
     const isFamily =
@@ -215,22 +216,40 @@ export class SymbolBinding extends Binding {
       };
     }
 
-    styleOpts["options"] = {
-      point: {
-        fill: pointOptions.fill,
-        stroke: pointOptions.stroke,
-        radius: pointOptions.radius,
-        icon: iconOpts,
-      },
-      line: {
-        fill: styleOpts["options"]["line"].fill,
-        stroke: styleOpts["options"]["line"].stroke,
-      },
-      polygon: {
-        fill: styleOpts["options"]["polygon"].fill,
-        stroke: styleOpts["options"]["polygon"].stroke,
-      },
-    };
+    if (isNone) {
+      styleOpts["options"] = {
+        point: {
+          fill: pointOptions.fill,
+          stroke: pointOptions.stroke,
+          radius: pointOptions.radius,
+        },
+        line: {
+          fill: styleOpts["options"]["line"].fill,
+          stroke: styleOpts["options"]["line"].stroke,
+        },
+        polygon: {
+          fill: styleOpts["options"]["polygon"].fill,
+          stroke: styleOpts["options"]["polygon"].stroke,
+        },
+      };
+    } else {
+      styleOpts["options"] = {
+        point: {
+          fill: pointOptions.fill,
+          stroke: pointOptions.stroke,
+          radius: pointOptions.radius,
+          icon: iconOpts,
+        },
+        line: {
+          fill: styleOpts["options"]["line"].fill,
+          stroke: styleOpts["options"]["line"].stroke,
+        },
+        polygon: {
+          fill: styleOpts["options"]["polygon"].fill,
+          stroke: styleOpts["options"]["polygon"].stroke,
+        },
+      };
+    }
 
     // Verificar si el checkbox del patrón está desactivado y limpiar el patrón si es necesario
     const patternCheckbox = this.getParentTemplate().querySelector(
@@ -379,8 +398,25 @@ export class SymbolBinding extends Binding {
       ["Bisel", "Inglete", "Redondeado"]
     );
 
+    // Determinar qué tipo de icono está configurado
+    const iconForm = options["point"]["icon"]["form"];
+    const iconSrc = options["point"]["icon"]["src"];
+    const iconClass = options["point"]["icon"]["class"];
+
+    // Establecer el tipo de icono seleccionado
+    if (iconSrc && iconSrc !== "") {
+      options["point"]["icon"]["selectedType"] = "url";
+    } else if (iconClass && iconClass !== "") {
+      options["point"]["icon"]["selectedType"] = "form";
+    } else if (iconForm && iconForm !== "" && iconForm !== "NONE") {
+      options["point"]["icon"]["selectedType"] = "form";
+    } else {
+      options["point"]["icon"]["selectedType"] = "none";
+    }
+
     // Traducciones
     const translationKeys = {
+      none: "none",
       pointOptions: "point-options",
       lineOptions: "line-options",
       polygonOptions: "polygon-options",

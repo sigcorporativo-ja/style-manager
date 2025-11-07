@@ -47,10 +47,10 @@
                     <input data-apply-range type="range" class="m-stylemanager-input-size m-stylemanager-range-opacity"
                         value="{{opacity}}" min="0" step="0.01" max="1" data-ranges-options="style.fill.opacity"
                         data-ranges-id="{{#sum @index 1}}{{/sum}}">
-                    <input data-apply-range type="number"
+                    <input data-apply-range type="number" min="0" max="100" step="1"
                         class="m-stylemanager-number-opacity m-stylemanager-style-select"
-                        value="{{multiply opacity 100}}" min="0" max="100" step="1"
-                        data-ranges-options="style.fill.opacity" data-ranges-id="{{#sum @index 1}}{{/sum}}">
+                        value="{{multiply opacity 100}}" data-ranges-options="style.fill.opacity"
+                        data-ranges-id="{{#sum @index 1}}{{/sum}}">
                 </div>
             </div>
             <div class="m-stylemanager-group-row">

@@ -1145,6 +1145,7 @@ export class SimpleCategoryBinding extends Binding {
     );
     const isShape = iconFormType && iconFormType.value === "form";
     const isUrl = iconFormType && iconFormType.value === "url";
+    const isNone = iconFormType && iconFormType.value === "none";
 
     const iconFamilyType = this.querySelector('select[name="iconFamilyType"]');
     const isFamily =
@@ -1210,14 +1211,24 @@ export class SimpleCategoryBinding extends Binding {
       labelOpt = styleOpts["options"]["label"];
     }
 
-    styleOpts["options"] = {
-      fill: styleOpts["options"].fill,
-      stroke: styleOpts["options"].stroke,
-      label: labelOpt,
-      icon: iconOpts,
-      radius: styleOpts["options"].radius,
-      // line: styleOpts["options"].line,
-    };
+    if (isNone) {
+      styleOpts["options"] = {
+        fill: styleOpts["options"].fill,
+        stroke: styleOpts["options"].stroke,
+        label: labelOpt,
+        radius: styleOpts["options"].radius,
+        // line: styleOpts["options"].line,
+      };
+    } else {
+      styleOpts["options"] = {
+        fill: styleOpts["options"].fill,
+        stroke: styleOpts["options"].stroke,
+        label: labelOpt,
+        icon: iconOpts,
+        radius: styleOpts["options"].radius,
+        // line: styleOpts["options"].line,
+      };
+    }
 
     if (this.getGeometry() === "line") {
       styleOpts["options"] = {
@@ -1623,6 +1634,22 @@ export class SimpleCategoryBinding extends Binding {
       formValues
     );
 
+    // Determinar qué tipo de icono está configurado
+    const iconForm = options["icon"]["form"];
+    const iconSrc = options["icon"]["src"];
+    const iconClass = options["icon"]["class"];
+
+    // Establecer el tipo de icono seleccionado
+    if (iconSrc && iconSrc !== "") {
+      options["point"]["icon"]["selectedType"] = "url";
+    } else if (iconClass && iconClass !== "") {
+      options["point"]["icon"]["selectedType"] = "form";
+    } else if (iconForm && iconForm !== "" && iconForm !== "NONE") {
+      options["point"]["icon"]["selectedType"] = "form";
+    } else {
+      options["point"]["icon"]["selectedType"] = "none";
+    }
+
     if (this.layer_ != null) {
       let labelTextValues = Object.keys(this.getFeaturesAttributes());
       let labelTextSelected =
@@ -1644,6 +1671,7 @@ export class SimpleCategoryBinding extends Binding {
 
     // Traducciones completas como en stylesymbol
     const translationKeys = {
+      none: "none",
       options: "options",
       advancedOptions: "advanced-options",
       pointOptions: "point-options",

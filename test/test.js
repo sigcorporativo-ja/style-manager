@@ -617,6 +617,59 @@ const points = new M.layer.GeoJSON({
   },
 });
 
+window.points = points;
+
+// let lyProv = new M.layer.WFS({
+//   name: "sigc_provincias_1724753768757",
+//   url: "https://hcsigc.juntadeandalucia.es/geoserver/wfs??",
+//   legend: "Provincias - COROPLETAS",
+//   geometry: "POLYGON",
+// });
+
+// let s1 = new M.style.Generic({
+//   polygon: {
+//     fill: {
+//       color: "#000000",
+//     },
+//     stroke: {
+//       color: "black",
+//     },
+//   },
+// });
+// let s2 = new M.style.Generic({
+//   polygon: {
+//     fill: {
+//       color: "#000fff",
+//     },
+//     stroke: {
+//       color: "black",
+//     },
+//   },
+// });
+// let s3 = new M.style.Generic({
+//   polygon: {
+//     fill: {
+//       color: "#fff000",
+//     },
+//     stroke: {
+//       color: "black",
+//     },
+//   },
+// });
+
+// //puede observarse como se ignoran los 4 rangos pasados al cuantificador
+// let choropleth = new M.style.Choropleth(
+//   "cod_prov",
+//   [s1, s2, s3],
+//   M.style.quantification.QUANTILE(9)
+// );
+
+// lyProv.setStyle(choropleth);
+
+// map.addLayers(lyProv);
+
+// window.capaPrueba = lyProv;
+
 // ------------------SIMPLE
 // const pointStyle = new M.style.Generic({
 //   point: {
@@ -632,7 +685,23 @@ const points = new M.layer.GeoJSON({
 //       linecap: "round",
 //     },
 //     radius: 10,
-//     label: {
+//     // icon: {
+//     //   form: M.style.form.POI,
+//     //   // url: "https://hcsigc.juntadeandalucia.es/geoserver/IECA/wfs?",
+//     //   class: "fa-user",
+//     //   fontsize: 0.8,
+//     //   gradient: false,
+//     //   radius: 70,
+//     //   rotation: 0,
+//     //   rotate: false,
+//     //   width: 20,
+//     //   // anchor: [0.5, 0.5],
+//     //   color: "green",
+//     //   fill: "yellow",
+//     //   // gradientcolor: '#FF0000',
+//     //   opacity: 0.8,
+//     // },
+//     // label: {
 //       color: "#ff0000",
 //       scale: 1,
 //       align: "center",
@@ -708,11 +777,11 @@ const points = new M.layer.GeoJSON({
 // });
 
 // ------------------COROPLETAS
-// const pointStyle = new M.style.Choropleth(
-//   "alumnos",
-//   ["#0ea32eff", "#fbaf18"],
-//   M.style.quantification.QUANTILE(3)
-// );
+const pointStyle = new M.style.Choropleth(
+  "alumnos",
+  ["#0ea32eff", "#fbaf18"],
+  M.style.quantification.QUANTILE(3)
+);
 
 // ------------------CLUSTER
 // const pointStyle = new M.style.Cluster({
@@ -790,7 +859,7 @@ const points = new M.layer.GeoJSON({
 //   ],
 // });
 
-// points.setStyle(pointStyle);
+points.setStyle(pointStyle);
 
 const lines = new M.layer.GeoJSON({
   name: "lines",
@@ -1431,9 +1500,27 @@ const generic = new M.layer.GeoJSON({
 // window.points = points;
 // map.addWFS(campamentos1)
 map.addLayers([points, lines, polygons, generic]);
+// map.addLayers([points]);
 
 // Agregar el control LayerSwitcher
-// const layerSwitcher = new M.control.LayerSwitcher();
-// map.addControls([layerSwitcher]);
+const layerSwitcher = new M.control.LayerSwitcher();
+map.addControls([layerSwitcher]);
 
+// Agregar el plugin de edición WFSTControls
+// const controls = [
+//   "drawfeature",
+//   "modifyfeature",
+//   "editattribute",
+//   "deletefeature",
+// ];
+// try {
+//   map.addPlugin(new M.plugin.WFSTControls(controls));
+// } catch (error) {
+//   throw error;
+// }
+
+// Agregar el plugin de StyleManager
 map.addPlugin(mp);
+
+// Agregar el plugin de impresión
+map.addPlugin(new M.plugin.Printer());
