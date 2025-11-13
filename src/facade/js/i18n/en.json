@@ -130,5 +130,6 @@
   "attribute-value": "Attribute Value: ",
   "others": "Others: ",
   "horizontal-align": "Horizontal Alignment: ",
-  "vertical-align": "Vertical Alignment: "
+  "vertical-align": "Vertical Alignment: ",
+  "none": "None"
 }

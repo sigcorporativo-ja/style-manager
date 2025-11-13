@@ -40,7 +40,7 @@
                 <span>{{translations.size}}</span>
             </div>
             <div class="m-stylemanager-style-col-2">
-                <input data-style-options="point.radius" type="number"
+                <input data-style-options="point.radius" type="number" min="0"
                     class="m-stylemanager-input-size m-stylemanager-style-select" value="{{point.radius}}">
             </div>
         </div>
@@ -66,9 +66,10 @@
                     <span>{{translations.linedash}}</span>
                 </div>
                 <div class="m-stylemanager-style-col-2 m-stylemanager-displayrow  m-stylemanager-between">
-                    <input value="{{point.stroke.linedash.[0]}}" type="number" data-target="point.stroke.linedash"
-                        data-style-options="point.stroke.linedash" class="m-stylemanager-style-select">
-                    <input value="{{point.stroke.linedash.[1]}}" type="number" data-id="point.stroke.linedash"
+                    <input value="{{point.stroke.linedash.[0]}}" type="number" min="0"
+                        data-target="point.stroke.linedash" data-style-options="point.stroke.linedash"
+                        class="m-stylemanager-style-select">
+                    <input value="{{point.stroke.linedash.[1]}}" type="number" min="0" data-id="point.stroke.linedash"
                         class="m-stylemanager-style-select">
                 </div>
             </div>
@@ -77,7 +78,7 @@
                     <span>{{translations.linedashOffset}}</span>
                 </div>
                 <div class="m-stylemanager-style-col-2">
-                    <input type="number" value="{{point.stroke.linedashoffset}}"
+                    <input type="number" min="0" value="{{point.stroke.linedashoffset}}"
                         class="m-stylemanager-input-size m-stylemanager-style-select"
                         data-style-options="point.stroke.linedashoffset">
                 </div>
@@ -122,11 +123,18 @@
                 <div class="m-stylemanager-group-row-2">
                     <div class="m-stylemanager-style-col-2">
                         <label>
-                            <input type="radio" name="iconFormType" data-style-options="point.icon.form" value="form">
+                            <input type="radio" name="iconFormType" data-style-options="point.icon.form" value="none"
+                                {{#eq point.icon.selectedType "none" }}checked{{/eq}}>
+                            {{translations.none}}
+                        </label>
+                        <label>
+                            <input type="radio" name="iconFormType" data-style-options="point.icon.form" value="form"
+                                {{#eq point.icon.selectedType "form" }}checked{{/eq}}>
                             {{translations.fontSelect}}
                         </label>
                         <label>
-                            <input type="radio" name="iconFormType" data-style-options="point.icon.form" value="url">
+                            <input type="radio" name="iconFormType" data-style-options="point.icon.form" value="url"
+                                {{#eq point.icon.selectedType "url" }}checked{{/eq}}>
                             {{translations.urlSelect}}
                         </label>
                     </div>
@@ -202,7 +210,7 @@
                             <span>{{translations.formSize}}</span>
                         </div>
                         <div class="m-stylemanager-style-col-2">
-                            <input data-style-options="point.icon.radius" type="number"
+                            <input data-style-options="point.icon.radius" type="number" min="0"
                                 class="m-stylemanager-input-size m-stylemanager-style-select"
                                 value="{{point.icon.radius}}">
                         </div>
@@ -991,11 +999,11 @@
                                 <span>{{translations.anchor}}</span>
                             </div>
                             <div class="m-stylemanager-style-col-2 m-stylemanager-displayrow m-stylemanager-between">
-                                <input value="{{point.icon.anchor.[0]}}" type="number" data-target="point.icon.anchor"
-                                    data-style-options="point.icon.anchor" class="m-stylemanager-style-select"
-                                    step="0.1">
-                                <input value="{{point.icon.anchor.[1]}}" type="number" data-id="point.icon.anchor"
+                                <input value="{{point.icon.anchor.[0]}}" type="number" min="0"
+                                    data-target="point.icon.anchor" data-style-options="point.icon.anchor"
                                     class="m-stylemanager-style-select" step="0.1">
+                                <input value="{{point.icon.anchor.[1]}}" type="number" min="0"
+                                    data-id="point.icon.anchor" class="m-stylemanager-style-select" step="0.1">
                             </div>
                         </div>
                         <div class="m-stylemanager-group-row">
@@ -1013,9 +1021,10 @@
                                 <span>{{translations.size}}</span>
                             </div>
                             <div class="m-stylemanager-style-col-2 m-stylemanager-displayrow m-stylemanager-between">
-                                <input value="{{point.icon.size.[0]}}" type="number" data-target="point.icon.size"
-                                    data-style-options="point.icon.size" class="m-stylemanager-style-select">
-                                <input value="{{point.icon.size.[1]}}" type="number" data-id="point.icon.size"
+                                <input value="{{point.icon.size.[0]}}" type="number" min="0"
+                                    data-target="point.icon.size" data-style-options="point.icon.size"
+                                    class="m-stylemanager-style-select">
+                                <input value="{{point.icon.size.[1]}}" type="number" min="0" data-id="point.icon.size"
                                     class="m-stylemanager-style-select">
                             </div>
                         </div>
@@ -1037,9 +1046,10 @@
                             <span>{{translations.offset}}</span>
                         </div>
                         <div class="m-stylemanager-style-col-2 m-stylemanager-displayrow m-stylemanager-between">
-                            <input value="{{point.icon.offset.[0]}}" type="number" data-target="point.icon.offset"
-                                data-style-options="point.icon.offset" class="m-stylemanager-style-select">
-                            <input value="{{point.icon.offset.[1]}}" type="number" data-id="point.icon.offset"
+                            <input value="{{point.icon.offset.[0]}}" type="number" min="0"
+                                data-target="point.icon.offset" data-style-options="point.icon.offset"
+                                class="m-stylemanager-style-select">
+                            <input value="{{point.icon.offset.[1]}}" type="number" min="0" data-id="point.icon.offset"
                                 class="m-stylemanager-style-select">
                         </div>
                     </div>
@@ -1129,9 +1139,9 @@
                     <span>{{translations.linedash}}</span>
                 </div>
                 <div class="m-stylemanager-style-col-2 m-stylemanager-displayrow  m-stylemanager-between">
-                    <input value="{{line.stroke.linedash.[0]}}" type="number" data-target="line.stroke.linedash"
+                    <input value="{{line.stroke.linedash.[0]}}" type="number" min="0" data-target="line.stroke.linedash"
                         data-style-options="line.stroke.linedash" class="m-stylemanager-style-select">
-                    <input value="{{line.stroke.linedash.[1]}}" type="number" data-id="line.stroke.linedash"
+                    <input value="{{line.stroke.linedash.[1]}}" type="number" min="0" data-id="line.stroke.linedash"
                         class="m-stylemanager-style-select">
                 </div>
             </div>
@@ -1140,7 +1150,7 @@
                     <span>{{translations.linedashOffset}}</span>
                 </div>
                 <div class="m-stylemanager-style-col-2">
-                    <input type="number" value="{{line.stroke.linedashoffset}}"
+                    <input type="number" min="0" value="{{line.stroke.linedashoffset}}"
                         class="m-stylemanager-input-size m-stylemanager-style-select"
                         data-style-options="line.stroke.linedashoffset">
                 </div>
@@ -1233,10 +1243,11 @@
                     <span>{{translations.linedash}}</span>
                 </div>
                 <div class="m-stylemanager-style-col-2 m-stylemanager-displayrow  m-stylemanager-between">
-                    <input value="{{polygon.stroke.linedash.[0]}}" type="number" data-target="polygon.stroke.linedash"
-                        data-style-options="polygon.stroke.linedash" class="m-stylemanager-style-select">
-                    <input value="{{polygon.stroke.linedash.[1]}}" type="number" data-id="polygon.stroke.linedash"
+                    <input value="{{polygon.stroke.linedash.[0]}}" type="number" min="0"
+                        data-target="polygon.stroke.linedash" data-style-options="polygon.stroke.linedash"
                         class="m-stylemanager-style-select">
+                    <input value="{{polygon.stroke.linedash.[1]}}" type="number" min="0"
+                        data-id="polygon.stroke.linedash" class="m-stylemanager-style-select">
                 </div>
             </div>
             <div class="m-stylemanager-group-row">
@@ -1244,7 +1255,7 @@
                     <span>{{translations.linedashOffset}}</span>
                 </div>
                 <div class="m-stylemanager-style-col-2">
-                    <input type="number" value="{{polygon.stroke.linedashoffset}}"
+                    <input type="number" min="0" value="{{polygon.stroke.linedashoffset}}"
                         class="m-stylemanager-input-size m-stylemanager-style-select"
                         data-style-options="polygon.stroke.linedashoffset">
                 </div>
@@ -1346,7 +1357,7 @@
                 </div>
                 <div class="m-stylemanager-style-col-2">
                     <input value="{{polygon.fill.pattern.rotation}}"
-                        class="m-stylemanager-input-size m-stylemanager-style-select" type="number"
+                        class="m-stylemanager-input-size m-stylemanager-style-select" type="number" min="0"
                         data-style-options="polygon.fill.pattern.rotation">
                 </div>
             </div>
@@ -1356,7 +1367,7 @@
                 </div>
                 <div class="m-stylemanager-style-col-2">
                     <input value="{{polygon.fill.pattern.offset}}"
-                        class="m-stylemanager-input-size m-stylemanager-style-select" type="number"
+                        class="m-stylemanager-input-size m-stylemanager-style-select" type="number" min="0"
                         data-style-options="polygon.fill.pattern.offset">
                 </div>
             </div>

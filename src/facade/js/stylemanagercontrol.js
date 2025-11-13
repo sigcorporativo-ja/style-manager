@@ -120,8 +120,52 @@ export default class StyleManagerControl extends M.Control {
       success(html);
       this.addApplyBtnListener(html);
       this.addClearBtnListener(html);
+      this.preventNegativeNumbers(html);
       this.renderOptionsLayerParam(htmlSelect, html, layers);
       success(html);
+    });
+  }
+
+  /**
+   * Previene la inserción de números negativos en todos los inputs numéricos
+   * @param {HTMLElement} html - El elemento HTML del template
+   */
+  preventNegativeNumbers(html) {
+    // Usar delegación de eventos en el contenedor principal
+    html.addEventListener('input', (event) => {
+      const target = event.target;
+      
+      // Verificar si es un input de tipo number
+      if (target.tagName === 'INPUT' && target.type === 'number') {
+        const value = parseFloat(target.value);
+        const min = parseFloat(target.getAttribute('min'));
+        
+        // Si tiene un valor y es negativo
+        if (!isNaN(value) && value < 0) {
+          // Si tiene min definido, usar ese valor, sino usar 0
+          target.value = !isNaN(min) ? Math.max(value, min) : Math.abs(value);
+        }
+        
+        // Si el min está definido y el valor es menor que min
+        if (!isNaN(min) && !isNaN(value) && value < min) {
+          target.value = min;
+        }
+      }
+    });
+
+    // También prevenir la entrada desde el teclado
+    html.addEventListener('keydown', (event) => {
+      const target = event.target;
+      
+      if (target.tagName === 'INPUT' && target.type === 'number') {
+        // Prevenir el signo menos si min es 0 o mayor
+        const min = parseFloat(target.getAttribute('min'));
+        if ((!isNaN(min) && min >= 0) || isNaN(min)) {
+          if (event.key === '-' || event.key === 'Subtract') {
+            event.preventDefault();
+          }
+        }
+      }
     });
   }
 
@@ -215,6 +259,9 @@ export default class StyleManagerControl extends M.Control {
           categoryBinding.reset();
         }
       }
+
+      // Actualizar las opciones del formulario con el estilo por defecto
+      this.bindinController_.change(currentLayer);
     } else {
       M.dialog.info("Tiene que elegir una capa.", "Elija capa");
     }

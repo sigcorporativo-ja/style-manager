@@ -116,7 +116,7 @@
                     <span class="m-stylemanager-margin-right">{{translations.rotation}}</span>
                     <input value="{{point.label.rotation}}" type="number" step="0.1"
                         data-style-options="point.label.rotation"
-                        class="m-stylemanager-input-size m-stylemanager-style-select">
+                        class="m-stylemanager-input-size m-stylemanager-style-select" min="0">
                 </div>
             </div>
 
@@ -126,9 +126,9 @@
                 </div>
                 <div class="m-stylemanager-style-col-2 m-stylemanager-displayrow m-stylemanager-between">
                     <input value="{{#get 0 point.label.offset}}{{/get}}" type="number" data-target="point.label.offset"
-                        data-style-options="point.label.offset" class="m-stylemanager-style-select">
+                        data-style-options="point.label.offset" class="m-stylemanager-style-select" min="0">
                     <input value="{{#get 1 point.label.offset}}{{/get}}" type="number" data-id="point.label.offset"
-                        class="m-stylemanager-style-select">
+                        class="m-stylemanager-style-select" min="0">
                 </div>
             </div>
 
@@ -211,9 +211,9 @@
                 <div class="m-stylemanager-style-col-2 m-stylemanager-displayrow m-stylemanager-between">
                     <input value="{{#get 0 point.label.stroke.linedash}}{{/get}}" type="number"
                         data-target="point.label.stroke.linedash" data-style-options="point.label.stroke.linedash"
-                        data-format="array" class="m-stylemanager-style-select">
+                        data-format="array" class="m-stylemanager-style-select" min="0">
                     <input value="{{#get 1 point.label.stroke.linedash}}{{/get}}" type="number"
-                        data-id="point.label.stroke.linedash" class="m-stylemanager-style-select">
+                        data-id="point.label.stroke.linedash" class="m-stylemanager-style-select" min="0">
                 </div>
             </div>
 
@@ -224,7 +224,7 @@
                 <div class="m-stylemanager-style-col-2">
                     <input type="number" value="{{point.label.stroke.linedashoffset}}"
                         data-style-options="point.label.stroke.linedashoffset"
-                        class="m-stylemanager-input-size m-stylemanager-style-select">
+                        class="m-stylemanager-input-size m-stylemanager-style-select" min="0">
                 </div>
             </div>
 
@@ -381,7 +381,7 @@
                     <span class="m-stylemanager-margin-right">{{translations.rotation}}</span>
                     <input value="{{line.label.rotation}}" type="number" step="0.1"
                         data-style-options="line.label.rotation"
-                        class="m-stylemanager-input-size m-stylemanager-style-select">
+                        class="m-stylemanager-input-size m-stylemanager-style-select" min="0">
                 </div>
             </div>
 
@@ -391,9 +391,9 @@
                 </div>
                 <div class="m-stylemanager-style-col-2 m-stylemanager-displayrow m-stylemanager-between">
                     <input value="{{#get 0 line.label.offset}}{{/get}}" type="number" data-target="line.label.offset"
-                        data-style-options="line.label.offset" class="m-stylemanager-style-select">
+                        data-style-options="line.label.offset" class="m-stylemanager-style-select" min="0">
                     <input value="{{#get 1 line.label.offset}}{{/get}}" type="number" data-id="line.label.offset"
-                        class="m-stylemanager-style-select">
+                        class="m-stylemanager-style-select" min="0">
                 </div>
             </div>
 
@@ -476,9 +476,9 @@
                 <div class="m-stylemanager-style-col-2 m-stylemanager-displayrow m-stylemanager-between">
                     <input value="{{#get 0 line.label.stroke.linedash}}{{/get}}" type="number"
                         data-target="line.label.stroke.linedash" data-style-options="line.label.stroke.linedash"
-                        data-format="array" class="m-stylemanager-style-select">
+                        data-format="array" class="m-stylemanager-style-select" min="0">
                     <input value="{{#get 1 line.label.stroke.linedash}}{{/get}}" type="number"
-                        data-id="line.label.stroke.linedash" class="m-stylemanager-style-select">
+                        data-id="line.label.stroke.linedash" class="m-stylemanager-style-select" min="0">
                 </div>
             </div>
 
@@ -487,7 +487,7 @@
                     <span>{{translations.linedashOffset}}</span>
                 </div>
                 <div class="m-stylemanager-style-col-2">
-                    <input type="number" value="{{line.label.stroke.linedashoffset}}"
+                    <input type="number" min="0" value="{{line.label.stroke.linedashoffset}}"
                         data-style-options="line.label.stroke.linedashoffset"
                         class="m-stylemanager-input-size m-stylemanager-style-select">
                 </div>
@@ -645,7 +645,7 @@
                 </div>
                 <div class="m-stylemanager-style-col-2">
                     <span class="m-stylemanager-margin-right">{{translations.rotation}}</span>
-                    <input value="{{polygon.label.rotation}}" type="number" step="0.1"
+                    <input value="{{polygon.label.rotation}}" type="number" min="0" step="0.1"
                         data-style-options="polygon.label.rotation"
                         class="m-stylemanager-input-size m-stylemanager-style-select">
                 </div>
@@ -656,11 +656,11 @@
                     <span>{{translations.offset}}</span>
                 </div>
                 <div class="m-stylemanager-style-col-2 m-stylemanager-displayrow m-stylemanager-between">
-                    <input value="{{#get 0 polygon.label.offset}}{{/get}}" type="number"
+                    <input value="{{#get 0 polygon.label.offset}}{{/get}}" type="number" min="0"
                         data-target="polygon.label.offset" data-style-options="polygon.label.offset"
                         class="m-stylemanager-style-select">
-                    <input value="{{#get 1 polygon.label.offset}}{{/get}}" type="number" data-id="polygon.label.offset"
-                        class="m-stylemanager-style-select">
+                    <input value="{{#get 1 polygon.label.offset}}{{/get}}" type="number" min="0"
+                        data-id="polygon.label.offset" class="m-stylemanager-style-select">
                 </div>
             </div>
 
@@ -742,10 +742,10 @@
                     <span>{{translations.linedash}}</span>
                 </div>
                 <div class="m-stylemanager-style-col-2 m-stylemanager-displayrow m-stylemanager-between">
-                    <input value="{{#get 0 polygon.label.stroke.linedash}}{{/get}}" type="number"
+                    <input value="{{#get 0 polygon.label.stroke.linedash}}{{/get}}" type="number" min="0"
                         data-target="polygon.label.stroke.linedash" data-style-options="polygon.label.stroke.linedash"
                         data-format="array" class="m-stylemanager-style-select">
-                    <input value="{{#get 1 polygon.label.stroke.linedash}}{{/get}}" type="number"
+                    <input value="{{#get 1 polygon.label.stroke.linedash}}{{/get}}" type="number" min="0"
                         data-id="polygon.label.stroke.linedash" class="m-stylemanager-style-select">
                 </div>
             </div>
@@ -755,7 +755,7 @@
                     <span>{{translations.linedashOffset}}</span>
                 </div>
                 <div class="m-stylemanager-style-col-2">
-                    <input type="number" value="{{polygon.label.stroke.linedashoffset}}"
+                    <input type="number" min="0" value="{{polygon.label.stroke.linedashoffset}}"
                         data-style-options="polygon.label.stroke.linedashoffset"
                         class="m-stylemanager-input-size m-stylemanager-style-select">
                 </div>

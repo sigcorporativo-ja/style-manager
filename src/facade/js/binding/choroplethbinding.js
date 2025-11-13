@@ -36,19 +36,120 @@ export class ChoroplethBinding extends Binding {
     let opts = this.generateOptions();
     let ranges = opts.ranges;
     let colors = opts.options.colors;
+
+    // Generar el gradiente de colores según el número de rangos
+    const gradientColors = this.generateColorGradient(
+      colors[0] || ChoroplethBinding.DEFAULT_OPTIONS_STYLE.startColor,
+      colors[1] || ChoroplethBinding.DEFAULT_OPTIONS_STYLE.endColor,
+      ranges
+    );
+
+    const objectChoropleths = [];
+    gradientColors.forEach((color, index) => {
+      objectChoropleths.push(
+        new M.style.Generic({
+          point: {
+            fill: {
+              color: color,
+              opacity: 1,
+            },
+            stroke: {
+              color: "black",
+              width: 1,
+            },
+            radius: 5,
+          },
+          line: {
+            stroke: {
+              color: color,
+              width: 1,
+            },
+          },
+          polygon: {
+            fill: {
+              color: color,
+              opacity: 1,
+            },
+            stroke: {
+              color: "black",
+              width: 1,
+            },
+          },
+        })
+      );
+    });
     let quantification =
       opts.quantification === "JENKS"
         ? M.style.quantification.JENKS
         : M.style.quantification.QUANTILE;
     let style = null;
+
     if (opts.attributeName != "") {
       style = new M.style.Choropleth(
         opts.attributeName,
-        colors,
+        objectChoropleths,
         quantification(ranges)
       );
     }
     return style;
+  }
+
+  /**
+   * Genera un gradiente de colores entre dos colores
+   * @param {string} startColor - Color inicial en formato hexadecimal
+   * @param {string} endColor - Color final en formato hexadecimal
+   * @param {number} steps - Número de colores a generar
+   * @returns {Array<string>} Array de colores en formato hexadecimal
+   */
+  generateColorGradient(startColor, endColor, steps) {
+    // Convertir colores hex a RGB
+    const hexToRgb = (hex) => {
+      const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+      return result
+        ? {
+            r: parseInt(result[1], 16),
+            g: parseInt(result[2], 16),
+            b: parseInt(result[3], 16),
+          }
+        : null;
+    };
+
+    // Convertir RGB a hex
+    const rgbToHex = (r, g, b) => {
+      return (
+        "#" +
+        [r, g, b]
+          .map((x) => {
+            const hex = Math.round(x).toString(16);
+            return hex.length === 1 ? "0" + hex : hex;
+          })
+          .join("")
+      );
+    };
+
+    const start = hexToRgb(startColor);
+    const end = hexToRgb(endColor);
+
+    if (!start || !end || steps < 1) {
+      return [startColor];
+    }
+
+    if (steps === 1) {
+      return [startColor];
+    }
+
+    const colors = [];
+    const stepFactor = 1 / (steps - 1);
+
+    for (let i = 0; i < steps; i++) {
+      const ratio = i * stepFactor;
+      const r = start.r + ratio * (end.r - start.r);
+      const g = start.g + ratio * (end.g - start.g);
+      const b = start.b + ratio * (end.b - start.b);
+      colors.push(rgbToHex(r, g, b));
+    }
+
+    return colors;
   }
 
   /**

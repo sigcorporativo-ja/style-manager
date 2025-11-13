@@ -973,14 +973,240 @@ export default class BindingController {
     const labelCategoryBinding = document.getElementById(
       "category-labels-toggle"
     );
+    const categoryLabelsActive =
+      labelCategoryBinding && labelCategoryBinding.checked;
 
-    if (!labelBinding && !labelCategoryBinding.checked) {
+    if (labelBinding) {
+      if (
+        this.selectedPanels_.includes("stylechoropleth") &&
+        !this.selectedPanels_.includes("stylecategory")
+      ) {
+        const labelOptions = labelBinding.generateOptions();
+        // Actualizar el estilo con el resultado de la conversión
+        style = this.applyLabelsToChoropleth(style, labelOptions);
+      }
+    } else if (!categoryLabelsActive) {
       this.removeLabelsFromStyle(style);
     }
 
     return style;
   }
 
+  /**
+   * Propaga la configuración de etiquetas sobre los estilos de coropletas seleccionados
+   * preservando la lógica de cuantificación original del Choropleth y, cuando es
+   * necesario, añade un overlay de tipo Generic en un Composite para renderizar
+   * únicamente las etiquetas.
+   * @param {M.style.Base} style - Estilo resultado que puede contener coropletas.
+   * @param {Object} labelOptions - Opciones de etiqueta generadas por LabelBinding.
+   * @return {M.style.Base} - Estilo con etiquetas aplicadas (misma instancia recibida)
+   */
+  applyLabelsToChoropleth(style, labelOptions) {
+    if (!style || !labelOptions) {
+      return style;
+    }
+
+    // Si es un Composite, buscar y convertir los Choropleths internos
+    const collectChoropleths = (candidate) => {
+      if (!candidate) {
+        return [];
+      }
+      if (candidate instanceof M.style.Choropleth) {
+        return [candidate];
+      }
+      if (
+        candidate instanceof M.style.Composite &&
+        typeof candidate.getStyles === "function"
+      ) {
+        return candidate
+          .getStyles()
+          .reduce((acc, child) => acc.concat(collectChoropleths(child)), []);
+      }
+      return [];
+    };
+
+    const choroplethStyles = collectChoropleths(style);
+    if (choroplethStyles.length === 0) {
+      return style;
+    }
+
+    const effectiveGeometry = this.getEffectiveGeometry();
+    const geometryForLabels =
+      effectiveGeometry === "generic" ? "polygon" : effectiveGeometry;
+
+    const labelConfigsByGeometry = {};
+    ["point", "line", "polygon"].forEach((geomKey) => {
+      if (labelOptions[geomKey] && labelOptions[geomKey].label) {
+        labelConfigsByGeometry[geomKey] = this.deepCloneWithFunctions(
+          labelOptions[geomKey].label
+        );
+      }
+    });
+
+    const availableGeometries = Object.keys(labelConfigsByGeometry);
+    if (availableGeometries.length === 0) {
+      return style;
+    }
+
+    const primaryLabelConfig =
+      labelConfigsByGeometry[geometryForLabels] ||
+      labelConfigsByGeometry[availableGeometries[0]];
+
+    const cloneLabelForGeometry = (geomKey) =>
+      this.deepCloneWithFunctions(labelConfigsByGeometry[geomKey]);
+    const clonePrimaryLabel = () =>
+      this.deepCloneWithFunctions(primaryLabelConfig);
+
+    const overlayMarkerKey = "__m_stylemanager_choropleth_label_overlay";
+
+    const markAsOverlay = (candidate) => {
+      if (!candidate) {
+        return;
+      }
+      if (typeof candidate.set === "function") {
+        try {
+          candidate.set(overlayMarkerKey, true);
+          return;
+        } catch (error) {
+          // Ignorar errores y continuar con el flag por propiedad directa
+        }
+      }
+      candidate[overlayMarkerKey] = true;
+    };
+
+    const isOverlayStyle = (candidate) => {
+      if (!candidate) {
+        return false;
+      }
+      if (typeof candidate.get === "function") {
+        try {
+          return !!candidate.get(overlayMarkerKey);
+        } catch (error) {
+          // Si get falla, comprobar la propiedad directa
+        }
+      }
+      return !!candidate[overlayMarkerKey];
+    };
+
+    const createLabelOverlayStyle = () => {
+      const overlayOptions = {};
+      availableGeometries.forEach((geomKey) => {
+        overlayOptions[geomKey] = {
+          label: cloneLabelForGeometry(geomKey),
+        };
+      });
+
+      if (Object.keys(overlayOptions).length === 0) {
+        return null;
+      }
+
+      const overlayStyle = new M.style.Generic(overlayOptions);
+      markAsOverlay(overlayStyle);
+      return overlayStyle;
+    };
+
+    const ensureOverlayInComposite = (compositeStyle) => {
+      if (
+        !compositeStyle ||
+        !(compositeStyle instanceof M.style.Composite) ||
+        typeof compositeStyle.getStyles !== "function"
+      ) {
+        return;
+      }
+
+      const existingStyles = compositeStyle.getStyles();
+      const alreadyHasOverlay = Array.isArray(existingStyles)
+        ? existingStyles.some((child) => isOverlayStyle(child))
+        : false;
+
+      if (alreadyHasOverlay) {
+        return;
+      }
+
+      const overlayStyle = createLabelOverlayStyle();
+      if (!overlayStyle) {
+        return;
+      }
+
+      if (typeof compositeStyle.add === "function") {
+        compositeStyle.add([overlayStyle]);
+        return;
+      }
+
+      if (Array.isArray(compositeStyle.styles_)) {
+        compositeStyle.styles_.push(overlayStyle);
+      }
+    };
+
+    choroplethStyles.forEach((choroplethStyle) => {
+      if (!choroplethStyle) {
+        return;
+      }
+
+      const assignLabel = (targetStyle) => {
+        if (!targetStyle) {
+          return;
+        }
+
+        const labelClone = clonePrimaryLabel();
+        if (targetStyle.options_) {
+          targetStyle.options_.label = labelClone;
+          availableGeometries.forEach((geomKey) => {
+            if (!targetStyle.options_[geomKey]) {
+              targetStyle.options_[geomKey] = {};
+            }
+            targetStyle.options_[geomKey].label =
+              cloneLabelForGeometry(geomKey);
+          });
+        }
+        if (typeof targetStyle.set === "function") {
+          try {
+            targetStyle.set("label", labelClone);
+          } catch (error) {
+            // Ignorar errores de asignación para mantener compatibilidad
+          }
+        }
+      };
+
+      assignLabel(choroplethStyle);
+
+      if (typeof choroplethStyle.getChoroplethStyles === "function") {
+        const rangeStyles = choroplethStyle.getChoroplethStyles();
+        if (Array.isArray(rangeStyles)) {
+          rangeStyles.forEach((rangeStyle) => assignLabel(rangeStyle));
+        }
+      }
+    });
+
+    const addOverlayIfPossible = (candidateStyle) => {
+      if (!candidateStyle) {
+        return candidateStyle;
+      }
+
+      if (candidateStyle instanceof M.style.Composite) {
+        ensureOverlayInComposite(candidateStyle);
+        return candidateStyle;
+      }
+
+      if (candidateStyle instanceof M.style.Choropleth) {
+        let compositeWrapper = null;
+        try {
+          compositeWrapper = new M.style.Composite([candidateStyle]);
+        } catch (error) {
+          compositeWrapper = null;
+        }
+
+        if (compositeWrapper) {
+          ensureOverlayInComposite(compositeWrapper);
+          return compositeWrapper;
+        }
+      }
+
+      return candidateStyle;
+    };
+
+    return addOverlayIfPossible(style);
+  }
   /**
    * Elimina recursivamente las propiedades de etiqueta de un objeto de estilo.
    * @param {M.style.Base} style - El estilo a limpiar.
@@ -1355,7 +1581,21 @@ export default class BindingController {
           'input[name="iconFormType"]:checked'
         );
 
-        if (checkedInputs !== null && checkedInputs.value === "form") {
+        if (checkedInputs !== null && checkedInputs.value === "none") {
+          formContainer.classList.add("m-stylemanager-hidden");
+          optionsForm.classList.add("m-stylemanager-hidden");
+          optionsForm2.classList.add("m-stylemanager-hidden");
+          optionsImg.classList.add("m-stylemanager-hidden");
+          iconFamilyContainer.classList.add("m-stylemanager-hidden");
+          gCartografiaContainer.classList.add("m-stylemanager-hidden");
+          fontAwesomeContainer.classList.add("m-stylemanager-hidden");
+          fontAwesomeContainer.classList.add("m-stylemanager-hidden");
+          gCartografiaContainer.classList.add("m-stylemanager-hidden");
+        } else if (
+          checkedInputs !== null &&
+          checkedInputs.value !== "none" &&
+          checkedInputs.value === "form"
+        ) {
           formContainer.classList.remove("m-stylemanager-hidden");
           optionsForm.classList.remove("m-stylemanager-hidden");
           optionsForm2.classList.remove("m-stylemanager-hidden");
@@ -1371,7 +1611,11 @@ export default class BindingController {
             }
             iconFamilySelect.disabled = false;
           }
-        } else if (checkedInputs !== null && checkedInputs.value === "url") {
+        } else if (
+          checkedInputs !== null &&
+          checkedInputs.value !== "none" &&
+          checkedInputs.value === "url"
+        ) {
           formUrlInput.classList.remove("m-stylemanager-hidden");
           optionsForm.classList.remove("m-stylemanager-hidden");
           optionsUrl.classList.remove("m-stylemanager-hidden");
@@ -1635,7 +1879,12 @@ export default class BindingController {
         "stylechoropleth",
         "stylelabel",
       ],
-      stylechoropleth: ["styleproportional", "stylecluster", "stylechoropleth"],
+      stylechoropleth: [
+        "styleproportional",
+        "stylecluster",
+        "stylechoropleth",
+        "stylelabel",
+      ],
       stylecategory: [
         "styleproportional",
         "stylecluster",
@@ -1657,6 +1906,7 @@ export default class BindingController {
         "styleproportional",
         "stylecluster",
         "stylecategory",
+        "stylechoropleth",
         "stylesymbol",
         "stylelabel",
       ],
