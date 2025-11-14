@@ -1,5 +1,6 @@
 <div>
-  {{#each attributes}}
-  <option value="{{this.name}}" {{#eq this.name this.selected}}selected{{/eq}}>{{this.name}}</option>
-  {{/each}}
+    <option value="none" {{#unless attributesSelected}}selected{{/unless}}>{{translations.selectAttribute}}</option>
+    {{#each attributes}}
+    <option value="{{this.name}}" {{#eq this.name this.selected}}selected{{/eq}}>{{this.name}}</option>
+    {{/each}}
 </div>

@@ -1,17 +1,12 @@
 /**
  * @module M/plugin/StyleManager
  */
-import 'css/stylemanager.css';
-import 'css/font-awesome.min.css';
-import StyleManagerControl from './stylemanagerControl.js';
-import {
-  ColorPickerPolyfill
-}
-  from './utils/colorpicker';
-import 'templates/categorystyles.html';
+import "assets/css/stylemanager.css";
+import "assets/css/font-awesome.min.css";
+import StyleManagerControl from "./stylemanagercontrol.js";
+import api from "../../api.json";
 
 export default class StyleManager extends M.Plugin {
-
   /**
    * @classdesc
    * Main facade plugin object. This class creates a plugin
@@ -23,7 +18,6 @@ export default class StyleManager extends M.Plugin {
    * @api stable
    */
   constructor(layer = null) {
-
     super();
     /**
      * Facade of the map
@@ -40,10 +34,18 @@ export default class StyleManager extends M.Plugin {
     this.controls_ = [];
 
     /**
+     * Metadata from api.json
      * @private
-     * @type {M.ui.Panel}
+     * @type {Object}
      */
-    this.panel_ = null;
+    this.metadata_ = api.metadata;
+
+    /**
+     * Name
+     * @public
+     * @type {string}
+     */
+    this.name = "StyleManager";
 
     /**
      * @private
@@ -51,39 +53,52 @@ export default class StyleManager extends M.Plugin {
      */
     this.layer_ = layer;
 
-    ColorPickerPolyfill.apply(window);
-
-
     //helpers handlebars
-    Handlebars.registerHelper('sum', function (n1, n2) {
+    Handlebars.registerHelper("sum", function (n1, n2) {
       return n1 + n2;
     });
 
-    Handlebars.registerHelper('neq', function (arg1, arg2, options) {
+    Handlebars.registerHelper("neq", function (arg1, arg2, options) {
       if (!Object.equals(arg1, arg2)) {
         return options.fn(this);
       }
       return options.inverse(this);
     });
 
-    Handlebars.registerHelper('unless', function (arg1, options) {
+    Handlebars.registerHelper("unless", function (arg1, options) {
       if (!arg1) {
         return options.fn(this);
       }
       return options.inverse(this);
     });
 
-    Handlebars.registerHelper('get', function (index, array) {
+    Handlebars.registerHelper("get", function (index, array) {
       return array[index];
     });
 
-    Handlebars.registerHelper('uppercase', function (string) {
+    Handlebars.registerHelper("uppercase", function (string) {
       return string.toUpperCase();
     });
 
-    Handlebars.registerHelper('lowercase', function (string) {
+    Handlebars.registerHelper("lowercase", function (string) {
       return string.toLowerCase();
     });
+
+    Handlebars.registerHelper("multiply", function (a, b) {
+      return a * b;
+    });
+
+    Handlebars.registerHelper("eq", function (a, b, options) {
+      if (a === b) {
+        return options.fn(this);
+      }
+      return options.inverse(this);
+    });
+
+    // Handlebars.registerHelper("sanitizeId", function (id) {
+    //   if (!id) return '';
+    //   return id.replace(/[^a-zA-Z0-9_-]/g, '_');
+    // });
 
     M.utils.extends = M.utils.extendsObj;
   }
@@ -99,26 +114,27 @@ export default class StyleManager extends M.Plugin {
   addTo(map) {
     this.controls_.push(new StyleManagerControl(this.layer_));
     this.map_ = map;
-    this.panel_ = new M.ui.Panel(StyleManager.NAME, {
-      'collapsible': true,
-      'className': 'm-stylemanager',
-      'collapsedButtonClass': 'g-sigc-palette',
-      'position': M.ui.position.TL,
-      'tooltip': 'Simbología',
+    // panel para agregar control - no obligatorio
+    this.panel_ = new M.ui.Panel("panelStyleManager", {
+      collapsible: true,
+      position: M.ui.position.TR,
+      className: "m-stylemanager",
     });
     this.panel_.addControls(this.controls_);
+    this.panel_.on(M.evt.ADDED_TO_MAP, () => {
+      this.fire(M.evt.ADDED_TO_MAP);
+    });
     map.addPanels(this.panel_);
   }
 
   /**
-   * TODO
+   * This function gets metadata plugin
+   *
+   * @public
+   * @function
+   * @api stable
    */
-  destroy() {
-    this.map_.removeControls(this.controls_);
-    [this.control_, this.panel_, this.map_] = [null, null, null];
-  }
-
-  get name() {
-    return "stylemanager";
+  getMetadata() {
+    return this.metadata_;
   }
 }

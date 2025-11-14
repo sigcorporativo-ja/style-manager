@@ -1,18 +1,50 @@
 <div class="">
-  <table class="m-table-category">
+  <table class="m-stylemanager-table-category">
     <tr>
-      <th>Valor de atributo</th>
-      <th>Previsualización</th>
+      <th>{{translations.attributeValue}}</th>
+      <th>{{translations.hideSymbols}}</th>
+      <th>{{translations.hideLabels}}</th>
+      <th>{{translations.preview}}</th>
+    </tr>
+    <tr>
+      <th></th>
+      <th>
+        <input type="checkbox" id="hide-all-categories" class="m-stylemanager-hide-checkbox-all"
+          title="{{translations.hideShowAllSymbols}}">
+      </th>
+      <th>
+        <input type="checkbox" id="hide-all-labels" class="m-stylemanager-hide-checkbox-all"
+          title="{{translations.hideShowAllLabels}}">
+      </th>
+      <th></th>
     </tr>
     {{#each values}}
-    <tr>
-      <td id="{{this.name}}">{{this.name}}</td>
-      <td><img id="img-{{this.name}}" src="" alt=""></td>
+    <td id="{{this.name}}">{{this.name}}</td>
+    <td>
+      <input type="checkbox" id="hide-{{this.name}}" class="m-stylemanager-hide-checkbox"
+        data-hide-category="{{this.name}}" title="{{translations.hideShowSymbol}}">
+    </td>
+    <td>
+      <input type="checkbox" id="label-hide-{{this.name}}" class="m-stylemanager-hide-checkbox"
+        data-hide-label="{{this.name}}" title="{{translations.hideShowLabel}}">
+    </td>
+    <td>
+      <img id="img-{{this.name}}" src="" alt="">
+    </td>
     </tr>
-    {{/each}} {{#if attributeExists}}
+    {{/each}}
+    {{#if attributeExists}}
     <tr>
-      <td id="other">Otros</td>
-      <td><img id="img-other" src="" alt=""></td>
+      <td id="other">{{translations.others}}</td>
+      <td>
+        <input type="checkbox" id="hide-other" class="m-stylemanager-hide-checkbox" data-hide-category="other">
+      </td>
+      <td>
+        <input type="checkbox" id="label-hide-other" class="m-stylemanager-hide-checkbox" data-hide-label="other">
+      </td>
+      <td>
+        <img id="img-other" src="" alt="">
+      </td>
     </tr>
     {{/if}}
   </table>

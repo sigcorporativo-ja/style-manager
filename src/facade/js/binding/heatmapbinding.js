@@ -1,10 +1,7 @@
-import {
-  Binding
-}
-from './binding';
+import { Binding } from "./binding";
 
-import * as htmlgradient from '../../../templates/gradientheatmap'
-import * as chroma from 'chroma-js';
+import * as chroma from "chroma-js";
+import * as htmlgradient from "../../../templates/gradientheatmap";
 
 export class HeatmapBinding extends Binding {
   constructor(html, htmlParent, styleType, styleParams, layer) {
@@ -28,7 +25,6 @@ export class HeatmapBinding extends Binding {
     this.style_ = null;
     // this.setIntegerAttributes();
     return this;
-
   }
 
   /**
@@ -36,13 +32,16 @@ export class HeatmapBinding extends Binding {
    * @function
    */
   removeGradientListener() {
-    this.querySelectorAllForEach('.m-removable-input-color .m-close', element => {
-      element.addEventListener('click', () => {
-        let rootElement = element.parentElement.parentElement;
-        rootElement.removeChild(element.parentElement);
-        this.numberAddedColors_--;
-      });
-    });
+    this.querySelectorAllForEach(
+      ".m-stylemanager-removable-input-color .m-stylemanager-close",
+      (element) => {
+        element.addEventListener("click", () => {
+          let rootElement = element.parentElement.parentElement;
+          rootElement.removeChild(element.parentElement);
+          this.numberAddedColors_--;
+        });
+      }
+    );
   }
 
   /**
@@ -51,19 +50,24 @@ export class HeatmapBinding extends Binding {
    */
   addGradientListener() {
     let parent = this.querySelector("[data-parent='gradient']");
-    this.querySelector("[data-add]").addEventListener('click', () => {
+    this.querySelector("[data-add]").addEventListener("click", () => {
       this.compileTemplate(htmlgradient, {}).then((htmlgradient) => {
         if (this.numberAddedColors_ < HeatmapBinding.MAX_NUMBER_COLORS) {
           parent.appendChild(htmlgradient);
           this.setRandomColor(htmlgradient);
-          htmlgradient.querySelector('.m-close').addEventListener('click', () => {
-            let rootElement = htmlgradient.parentElement;
-            rootElement.removeChild(htmlgradient);
-            this.numberAddedColors_--;
-          });
+          htmlgradient
+            .querySelector(".m-stylemanager-close")
+            .addEventListener("click", () => {
+              let rootElement = htmlgradient.parentElement;
+              rootElement.removeChild(htmlgradient);
+              this.numberAddedColors_--;
+            });
           this.numberAddedColors_++;
         } else {
-          M.dialog.info("Ha llegado al número máximo de colores permitidos", "Información");
+          M.dialog.info(
+            "Ha llegado al número máximo de colores permitidos",
+            "Información"
+          );
         }
       });
     });
@@ -103,12 +107,23 @@ export class HeatmapBinding extends Binding {
       options["radius"] = this.style_.getRadius();
       options["blur"] = this.style_.getBlurSize();
       options["gradient"] = this.style_.getGradient();
-
     }
     if (this.layer_ != null) {
       options["attributes"] = this.getAttributes();
-      options["attributes"].forEach(attribute => attribute["selected"] = options.attribute);
+      options["attributes"].forEach(
+        (attribute) => (attribute["selected"] = options.attribute)
+      );
     }
+    // Traducciones para la plantilla heatmap
+    const translationKeys = {
+      options: "options",
+      attribute: "attribute",
+      addColor: "add-color",
+      gradient: "gradient",
+      blur: "blur",
+      radius: "radius",
+    };
+    options.translations = Binding.getTranslations(translationKeys);
     return options;
   }
 
@@ -116,11 +131,13 @@ export class HeatmapBinding extends Binding {
    * @function
    */
   getAttributes() {
-    let attributeNames = this.filterAttributesFeature("number").map(element => {
-      return {
-        name: element
-      };
-    });
+    let attributeNames = this.filterAttributesFeature("number").map(
+      (element) => {
+        return {
+          name: element,
+        };
+      }
+    );
     return attributeNames;
   }
 }
@@ -132,7 +149,7 @@ HeatmapBinding.DEFAULT_OPTIONS_STYLE = {
   attribute: "",
   gradient: ["#0000ff", "#00ffff", "#00ff00", "#ffff00", "#ffb619", "#ff0000"],
   blur: 12,
-  radius: 22
+  radius: 22,
 };
 
 /**

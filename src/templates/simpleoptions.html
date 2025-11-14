@@ -1,772 +1,1335 @@
 <div data-category-section>
-  <div class="styles-row m-hidden m-simple-category" data-id="fill">
-    <div class="title">Opciones</div>
-    <div class="m-styles-body">
-
-      <div class="group-row">
-        <div class="style-col-1">
-          <span>Color:</span>
-          <input data-style-options="fill.color" type="color" value="{{fill.color}}">
-        </div>
-
-        <div class="style-col-2">
-          <span>Opacidad:</span>
-          <input data-style-options="fill.opacity" type="number" value="{{fill.opacity}}" min="0" step="0.1" max="1">
-        </div>
+  <div class="m-stylemanager-hidden" data-id="opciones">
+    <div class="title">{{translations.options}}</div>
+    <!-- --- AJUSTES GENERALES ------------------------------------------------------------------------------------------ -->
+    <div class="m-stylemanager-group-row">
+      <div class="m-stylemanager-style-col-1">
+        <span>{{translations.fillColor}}</span>
       </div>
-
-      <div class="group-row" data-geometry="point">
-        <div class="style-col-1">
-          <span>Radio:</span>
-          <input data-style-options="radius" type="number" value="{{radius}}" min="1" max="60">
-        </div>
-      </div>
-
-      <div class="group-row" data-geometry="line">
-        <div class="style-col-1">
-          <span>Ancho:</span>
-          <input value="{{fill.width}}" type="number" data-style-options="fill.width">
-        </div>
-      </div>
-      <!-- Polygon Pattern -->
-      <div class="subtitle" data-geometry="polygon">Opciones de patrón</div>
-
-      <div class="group-row" data-geometry="polygon">
-        <div class="style-col-1 input-reverse">
-          <span>Patrón</span>
-          <input data-apply="fill.pattern" type="checkbox" {{#if patternflag }}checked{{/if}}>
-        </div>
-      </div>
-
-      <div class="group-row" data-geometry="polygon">
-        <div class="style-col-1">
-          <span>Tipo:</span>
-          <select data-style-options="fill.pattern.name">
-            {{#each patternlist}}
-            <option value="{{#lowercase this.name}}{{/lowercase}}" {{#eq this.name this.selected}} selected {{/eq}}>
-              {{this.name}}</option>
-            {{/each}}
-          </select>
-        </div>
-
-        <div class="style-col-2">
-          <span>Color:</span>
-          <input value="{{fill.pattern.color}}" type="color" data-style-options="fill.pattern.color">
-        </div>
-      </div>
-
-      <div class="group-row" data-geometry="polygon">
-        <div class="style-col-1">
-          <span>Tamaño:</span>
-          <input value="{{fill.pattern.size}}" type="number" min="1" max="100" data-style-options="fill.pattern.size">
-        </div>
-
-        <div class="style-col-2">
-          <span>Espacio:</span>
-          <input value="{{fill.pattern.spacing}}" type="number" min="1" max="100"
-            data-style-options="fill.pattern.spacing">
-        </div>
-      </div>
-
-      <div class="group-row" data-geometry="polygon">
-        <div class="style-col-1">
-          <span>Rotación:</span>
-          <input value="{{fill.pattern.rotation}}" type="number" min="0" max="360" step="1"
-            data-style-options="fill.pattern.rotation">
-        </div>
-
-        <div class="style-col-2">
-          <span>Escala:</span>
-          <input value="{{fill.pattern.scale}}" type="number" min="1" max="30" data-style-options="fill.pattern.scale">
-        </div>
-      </div>
-      <div class="group-row" data-geometry="polygon">
-        <div class="style-col-1">
-          <span>Offset:</span>
-          <input value="{{fill.pattern.offset}}" type="number" min="1" data-style-options="fill.pattern.offset">
-        </div>
+      <div class="m-stylemanager-style-col-2">
+        <input data-style-options="fill.color" type="color" class="m-stylemanager-input-size" value="{{fill.color}}">
       </div>
     </div>
-  </div>
-
-  <!-- Stroke options -->
-  <div class="styles-row m-hidden m-simple-category" data-id="stroke">
-    <div class="title">Opciones</div>
-    <div class="m-styles-body">
-
-      <div class="group-row">
-
-        <div class="style-col-1">
-          <span>Color:</span>
-          <input value="{{stroke.color}}" type="color" data-style-options="stroke.color">
-        </div>
-
-        <div class="style-col-2">
-          <span>Ancho:</span>
-          <input value="{{stroke.width}}" type="number" value="2" min="1" data-style-options="stroke.width">
-        </div>
-
+    <!-- <div data-geometry="polygon,point"> -->
+    <div class="m-stylemanager-group-row">
+      <div class="m-stylemanager-style-col-1">
+        <span>{{translations.strokeColor}}</span>
       </div>
+      <div class="m-stylemanager-style-col-2">
+        <input data-style-options="stroke.color" type="color" class="m-stylemanager-input-size"
+          value="{{stroke.color}}">
+      </div>
+    </div>
+    <div class="m-stylemanager-group-row">
+      <div class="m-stylemanager-style-col-1">
+        <span>{{translations.outlineThickness}}</span>
+      </div>
+      <div class="m-stylemanager-style-col-2">
+        <input data-style-options="stroke.width" type="number" min="0"
+          class="m-stylemanager-input-size m-stylemanager-style-select" value="{{stroke.width}}">
+      </div>
+      <!-- </div> -->
+    </div>
+    <div class="m-stylemanager-group-row" data-geometry="line">
+      <div class="m-stylemanager-style-col-1">
+        <span>{{translations.fillWidth}}</span>
+      </div>
+      <div class="m-stylemanager-style-col-2">
+        <input data-style-options="fill.width" type="number" min="1"
+          class="m-stylemanager-input-size m-stylemanager-style-select" value="{{fill.width}}">
+      </div>
+    </div>
+    <div class="m-stylemanager-group-row" data-geometry="point">
+      <div class=" m-stylemanager-style-col-1">
+        <span>{{translations.size}}</span>
+      </div>
+      <div class="m-stylemanager-style-col-2">
+        <input data-style-options="radius" type="number" min="0"
+          class="m-stylemanager-input-size m-stylemanager-style-select" value="{{radius}}">
+      </div>
+    </div>
+    <div class="m-stylemanager-group-row">
+      <div class="m-stylemanager-style-col-1">
+        <span>{{translations.opacity}}</span>
+      </div>
+      <div class="m-stylemanager-style-col-2 m-stylemanager-display-center">
+        <input data-style-options="fill.opacity" type="range"
+          class="m-stylemanager-input-size m-stylemanager-range-opacity" value="{{fill.opacity}}" min="0" step="0.01"
+          max="1">
+        <input type="number" min="0" max="100" step="1"
+          class="m-stylemanager-number-opacity m-stylemanager-style-select" value="{{multiply fill.opacity 100}}">
+      </div>
+    </div>
 
-      <div class="group-row">
-        <div class="style-col-1">
-          <span>Linedash:</span>
-          <input value="{{#get 0 stroke.linedash}}{{/get}}" type="number" data-target="stroke.linedash"
-            data-style-options="stroke.linedash">
-          <span class="empty">&nbsp;</span>
-          <input value="{{#get 1 stroke.linedash}}{{/get}}" type="number" data-id="stroke.linedash">
+    <!-- --- AJUSTES AVANZADOS ------------------------------------------------------------------------------------------ -->
+    <div class="m-stylemanager-button-advanced-options">
+      <i class="m-stylemanager-icons-down-open">
+      </i>{{translations.advancedOptions}}
+    </div>
+    <div class="m-stylemanager-hidden">
+      <div class="m-stylemanager-group-row">
+        <div class="m-stylemanager-style-col-1">
+          <span>{{translations.linedash}}</span>
         </div>
-
-        <div class="style-col-2">
-          <span>Linedash Offset:</span>
-          <input type="number" value="{{stroke.linedashoffset}}" data-style-options="stroke.linedashoffset">
+        <div class="m-stylemanager-style-col-2 m-stylemanager-displayrow m-stylemanager-between">
+          <input value="{{stroke.linedash.[0]}}" type="number" min="0" data-target="stroke.linedash"
+            data-style-options="stroke.linedash" class="m-stylemanager-style-select">
+          <input value="{{stroke.linedash.[1]}}" type="number" min="0" data-id="stroke.linedash"
+            class="m-stylemanager-style-select">
         </div>
       </div>
-
-      <div class="group-row">
-
-        <div class="style-col-1">
-          <span>Line Cap</span>
-          <select data-style-options="stroke.linecap">
-            <option value="">Ninguno</option>
+      <div class="m-stylemanager-group-row">
+        <div class="m-stylemanager-style-col-1">
+          <span>{{translations.linedashoffset}}</span>
+        </div>
+        <div class="m-stylemanager-style-col-2">
+          <input type="number" min="0" value="{{stroke.linedashoffset}}"
+            class="m-stylemanager-input-size m-stylemanager-style-select" data-style-options="stroke.linedashoffset">
+        </div>
+      </div>
+      <div class="m-stylemanager-group-row">
+        <div class="m-stylemanager-style-col-1">
+          <span>{{translations.linecap}}</span>
+        </div>
+        <div class="m-stylemanager-style-col-2">
+          <select data-style-options="stroke.linecap" class="m-stylemanager-input-size m-stylemanager-style-select">
+            <option value="">{{translations.noneO}}</option>
             {{#each linecapstroke}}
-            <option value="{{this.name}}" {{#eq this.name this.selected}}selected{{/eq}}>{{this.name}}</option>
-            {{/each}}
-          </select>
-        </div>
-
-        <div class="style-col-2">
-          <span>Line Join</span>
-          <select data-style-options="stroke.linejoin">
-            <option value="">Ninguno</option>
-            {{#each linejoinstroke}}
-            <option value="{{this.name}}" {{#eq this.name this.selected}}selected{{/eq}}> {{this.name}}</option>
-            {{/each}}
-          </select>
-        </div>
-
-      </div>
-    </div>
-  </div>
-
-  <!-- Label options -->
-  <div class="styles-row m-hidden m-simple-category m-label-option" data-id="label">
-    <div class="title">Opciones</div>
-    <div class="m-styles-body">
-
-      <div class="group-row">
-
-        <div class="style-col-1">
-          <span>Color</span>
-          <input value="{{label.fill.color}}" type="color" data-style-options="label.color" value="#0d5cdc">
-        </div>
-
-        <div class="style-col-2">
-          <span>Texto:</span>
-          <select data-style-options="label.text">
-            {{#each featuresAttr}}
             <option value="{{this.id}}" {{#eq this.id this.selected}}selected{{/eq}}>{{this.name}}</option>
             {{/each}}
           </select>
         </div>
       </div>
-
-      <div class="group-row">
-
-        <div class="style-col-1">
-          <span>Fuente:</span>
-          <select data-font-family>
-            <option value="serif">Serif</option>
-            <option value="sans-serif">Sans-Serif</option>
-            <option value="mono">Mono</option>
-          </select>
+      <div class="m-stylemanager-group-row">
+        <div class="m-stylemanager-style-col-1">
+          <span>{{translations.linejoin}}</span>
         </div>
-
-        <div class="style-col-2">
-          <span>Tamaño:</span>
-          <input data-font-size type="number" min="1" value="12">
+        <div class="m-stylemanager-style-col-2">
+          <select data-style-options="stroke.linejoin" class="m-stylemanager-input-size m-stylemanager-style-select">
+            <option value="">{{translations.noneO}}</option>
+            {{#each linejoinstroke}}
+            <option value="{{this.id}}" {{#eq this.id this.selected}}selected{{/eq}}> {{this.name}}</option>
+            {{/each}}
+          </select>
         </div>
       </div>
 
-      <div class="group-row">
+      <!-- --- PATRON------------------------------------------------------------------------------------------ -->
+      <div data-geometry="polygon">
+        <div class="subtitle">{{translations.pattern}}</div>
+        <div class="m-stylemanager-group-row">
+          <div class="m-stylemanager-style-col-2">
+            <div class="m-stylemanager-style-col-1">
+              <input data-apply="fill.pattern.patternflag" type="checkbox" {{#if patternflag }}checked{{/if}}>
+              <span>{{translations.pattern}}</span>
+            </div>
+            <div class="m-stylemanager-style-col-2">
+              <span class="m-stylemanager-margin-right">{{translations.type}}</span>
+              <select data-style-options="fill.pattern.name" class="m-stylemanager-style-select">
+                {{#each polygon.patternlist}}
+                <option value="{{this.id}}" {{#eq this.id this.selected}} selected {{/eq}}>
+                  {{this.name}}
+                </option>
+                {{/each}}
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="m-stylemanager-group-row">
+          <div class="m-stylemanager-style-col-1">
+            <span>{{translations.patternSize}}</span>
+          </div>
+          <div class="m-stylemanager-style-col-2">
+            <input value="{{fill.pattern.size}}" class="m-stylemanager-input-size m-stylemanager-style-select"
+              type="number" min="1" data-style-options="fill.pattern.size">
+          </div>
+        </div>
+        <div class="m-stylemanager-group-row">
+          <div class="m-stylemanager-style-col-1">
+            <span>{{translations.patternSpacing}}</span>
+          </div>
+          <div class="m-stylemanager-style-col-2">
+            <input value="{{fill.pattern.spacing}}" class="m-stylemanager-input-size m-stylemanager-style-select"
+              type="number" min="1" data-style-options="fill.pattern.spacing">
+          </div>
+        </div>
+        <div class="m-stylemanager-group-row">
+          <div class="m-stylemanager-style-col-1">
+            <span>{{translations.patternColor}}</span>
+          </div>
+          <div class="m-stylemanager-style-col-2">
+            <input value="{{fill.pattern.color}}" class="m-stylemanager-input-size" type="color"
+              data-style-options="fill.pattern.color">
+          </div>
+        </div>
+        <div class="m-stylemanager-group-row">
+          <div class="m-stylemanager-style-col-1">
+            <span>{{translations.scale}}</span>
+          </div>
+          <div class="m-stylemanager-style-col-2">
+            <input value="{{fill.pattern.scale}}" class="m-stylemanager-input-size m-stylemanager-style-select"
+              type="number" min="1" max="30" data-style-options="fill.pattern.scale">
+          </div>
+        </div>
+        <div class="m-stylemanager-group-row">
+          <div class="m-stylemanager-style-col-1">
+            <span>{{translations.rotation}}</span>
+          </div>
+          <div class="m-stylemanager-style-col-2">
+            <input value="{{fill.pattern.rotation}}" class="m-stylemanager-input-size m-stylemanager-style-select"
+              type="number" min="0" max="360" step="1" data-style-options="fill.pattern.rotation">
+          </div>
+        </div>
+        <div class="m-stylemanager-group-row">
+          <div class="m-stylemanager-style-col-1">
+            <span>{{translations.offset}}</span>
+          </div>
+          <div class="m-stylemanager-style-col-2">
+            <input value="{{fill.pattern.offset}}" class="m-stylemanager-input-size m-stylemanager-style-select"
+              type="number" min="0" data-style-options="fill.pattern.offset">
+          </div>
+        </div>
+      </div>
 
-        <div class="style-col-1">
-          <span>Alineación horizontal:</span>
-          <select data-style-options="label.align">
+      <!-- --- ICONS ------------------------------------------------------------------------------------------ -->
+      <div class="m-stylemanager-button-advanced-options" data-geometry="point">
+        <i class="m-stylemanager-icons-down-open">
+        </i>{{translations.iconAndFont}}
+      </div>
+      <div data-geometry="point">
+        <div class="m-stylemanager-group-row-2">
+          <div class="m-stylemanager-style-col-2">
+            <label>
+              <input type="radio" name="iconFormType" data-style-options="point.icon.form" value="none" {{#eq
+                icon.selectedType "none" }}checked{{/eq}}>
+              {{translations.none}}
+            </label>
+            <label>
+              <input type="radio" name="iconFormType" data-style-options="icon.form" value="form" {{#eq
+                icon.selectedType "form" }}checked{{/eq}}>
+              {{translations.fontSelect}}
+            </label>
+            <label>
+              <input type="radio" name="iconFormType" data-style-options="icon.form" value="url" {{#eq
+                icon.selectedType "url" }}checked{{/eq}}>
+              {{translations.urlSelect}}
+            </label>
+          </div>
+        </div>
+        <div id="icon-form-container" class="m-stylemanager-group-row">
+          <div class="m-stylemanager-box-icon">
+            <div data-style-options="icon.form">
+              <div title="NONE" data-id="NONE"
+                class="m-stylemanager-grid-item m-stylemanager-grid-form-item m-stylemanager-icons-none">
+              </div>
+              <div title="BAN" data-id="BAN"
+                class="m-stylemanager-grid-item m-stylemanager-grid-form-item m-stylemanager-icons-ban">
+              </div>
+              <div title="BLAZON" data-id="BLAZON"
+                class="m-stylemanager-grid-item m-stylemanager-grid-form-item m-stylemanager-icons-blason">
+              </div>
+              <div title="BOOKMARK" data-id="BOOKMARK"
+                class="m-stylemanager-grid-item m-stylemanager-grid-form-item m-stylemanager-icons-bookmark">
+              </div>
+              <div title="BUBBLE" data-id="BUBBLE"
+                class="m-stylemanager-grid-item m-stylemanager-grid-form-item m-stylemanager-icons-burbuja">
+              </div>
+              <div title="CIRCLE" data-id="CIRCLE"
+                class="m-stylemanager-grid-item m-stylemanager-grid-form-item m-stylemanager-icons-circulo">
+              </div>
+              <div title="COMA" data-id="COMA"
+                class="m-stylemanager-grid-item m-stylemanager-grid-form-item m-stylemanager-icons-coma">
+              </div>
+              <div title="DIAMOND" data-id="DIAMOND"
+                class="m-stylemanager-grid-item m-stylemanager-grid-form-item m-stylemanager-icons-diamond">
+              </div>
+              <div title="HEXAGON" data-id="HEXAGON"
+                class="m-stylemanager-grid-item m-stylemanager-grid-form-item m-stylemanager-icons-hexagon">
+              </div>
+              <div title="LOZENGE" data-id="LOZENGE"
+                class="m-stylemanager-grid-item m-stylemanager-grid-form-item m-stylemanager-icons-pastilla">
+              </div>
+              <div title="MARKER" data-id="MARKER"
+                class="m-stylemanager-grid-item m-stylemanager-grid-form-item m-stylemanager-icons-marcador">
+              </div>
+              <div title="POI" data-id="POI"
+                class="m-stylemanager-grid-item m-stylemanager-grid-form-item m-stylemanager-icons-poi">
+              </div>
+              <div title="SHIELD" data-id="SHIELD"
+                class="m-stylemanager-grid-item m-stylemanager-grid-form-item m-stylemanager-icons-escudo">
+              </div>
+              <div title="SIGN" data-id="SIGN"
+                class="m-stylemanager-grid-item m-stylemanager-grid-form-item m-stylemanager-icons-sign">
+              </div>
+              <div title="SQUARE" data-id="SQUARE"
+                class="m-stylemanager-grid-item m-stylemanager-grid-form-item m-stylemanager-icons-cuadrado">
+              </div>
+              <div title="TRIANGLE" data-id="TRIANGLE"
+                class="m-stylemanager-grid-item m-stylemanager-grid-form-item m-stylemanager-icons-triangulo">
+              </div>
+            </div>
+          </div>
+        </div>
+        <div id="icon-form-input" class="m-stylemanager-group-row">
+          <div class="m-stylemanager-style-col-2">
+            <div class="m-stylemanager-style-col-1">
+              <span>{{translations.url}}</span>
+            </div>
+            <div class="m-stylemanager-style-col-2">
+              <input data-style-options="icon.src" type="text" class="m-stylemanager-input m-stylemanager-style-select"
+                value="{{icon.src}}">
+            </div>
+          </div>
+        </div>
+        <div id="icon-form-option2" class="m-stylemanager-group-row">
+          <div class="m-stylemanager-style-col-2">
+            <div class="m-stylemanager-style-col-1">
+              <span>{{translations.formSize}}</span>
+            </div>
+            <div class="m-stylemanager-style-col-2">
+              <input data-style-options="icon.radius" type="number" min="0"
+                class="m-stylemanager-input-size m-stylemanager-style-select" value="{{icon.radius}}">
+            </div>
+          </div>
+        </div>
+        <div id="icon-family-container" class="m-stylemanager-hidden m-stylemanager-group-row">
+          <div class="m-stylemanager-style-col-2">
+            <div class="m-stylemanager-style-col-1">
+              <span>{{translations.family}}</span>
+            </div>
+            <div class="m-stylemanager-style-col-2">
+              <select id="icon-family-select" class="m-stylemanager-input-size" name="iconFamilyType">
+                <option value="none">{{translations.noneA}}</option>
+                <option value="g-cartografia">{{translations.gCartography}}</option>
+                <option value="font-awesome">{{translations.fontAwesome}}</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div id="icon-family-gcartografia" class="m-stylemanager-hidden m-stylemanager-group-row">
+          <div class="m-stylemanager-style-col-1">
+            <span>{{translations.familyGCartografia}}</span>
+          </div>
+          <div class="m-stylemanager-style-col-1">
+            <div class="m-stylemanager-box-icon">
+              <div data-style-options="icon.family">
+                <div data-id="g-cartografia-alerta"
+                  class="m-stylemanager-grid-item m-stylemanager-grid-family-item g-cartografia-alerta">
+                </div>
+                <div data-id="g-cartografia-ayuda"
+                  class="m-stylemanager-grid-item m-stylemanager-grid-family-item g-cartografia-ayuda">
+                </div>
+                <div data-id="g-cartografia-bandera"
+                  class="m-stylemanager-grid-item m-stylemanager-grid-family-item g-cartografia-bandera">
+                </div>
+                <div data-id="g-cartografia-brujula"
+                  class="m-stylemanager-grid-item m-stylemanager-grid-family-item g-cartografia-brujula">
+                </div>
+                <div data-id="g-cartografia-cancelar"
+                  class="m-stylemanager-grid-item m-stylemanager-grid-family-item g-cartografia-cancelar">
+                </div>
+                <div data-id="g-cartografia-cancelar2"
+                  class="m-stylemanager-grid-item m-stylemanager-grid-family-item g-cartografia-cancelar2">
+                </div>
+                <div data-id="g-cartografia-capas"
+                  class="m-stylemanager-grid-item m-stylemanager-grid-family-item g-cartografia-capas">
+                </div>
+                <div data-id="g-cartografia-capas2"
+                  class="m-stylemanager-grid-item m-stylemanager-grid-family-item g-cartografia-capas2">
+                </div>
+                <div data-id="g-cartografia-check"
+                  class="m-stylemanager-grid-item m-stylemanager-grid-family-item g-cartografia-check">
+                </div>
+                <div data-id="g-cartografia-check2"
+                  class="m-stylemanager-grid-item m-stylemanager-grid-family-item g-cartografia-check2">
+                </div>
+                <div data-id="g-cartografia-check3"
+                  class="m-stylemanager-grid-item m-stylemanager-grid-family-item g-cartografia-check3">
+                </div>
+                <div data-id="g-cartografia-check4"
+                  class="m-stylemanager-grid-item m-stylemanager-grid-family-item g-cartografia-check4">
+                </div>
+                <div data-id="g-cartografia-check5"
+                  class="m-stylemanager-grid-item m-stylemanager-grid-family-item g-cartografia-check5">
+                </div>
+                <div data-id="g-cartografia-check6"
+                  class="m-stylemanager-grid-item m-stylemanager-grid-family-item g-cartografia-comentarios">
+                </div>
+                <div data-id="g-cartografia-descargar"
+                  class="m-stylemanager-grid-item m-stylemanager-grid-family-item g-cartografia-descargar">
+                </div>
+                <div data-id="g-cartografia-editar"
+                  class="m-stylemanager-grid-item m-stylemanager-grid-family-item g-cartografia-editar">
+                </div>
+                <div data-id="g-cartografia-editar2"
+                  class="m-stylemanager-grid-item m-stylemanager-grid-family-item g-cartografia-editar2">
+                </div>
+                <div data-id="g-cartografia-escala"
+                  class="m-stylemanager-grid-item m-stylemanager-grid-family-item g-cartografia-escala">
+                </div>
+                <div data-id="g-cartografia-escala2"
+                  class="m-stylemanager-grid-item m-stylemanager-grid-family-item g-cartografia-escala2">
+                </div>
+                <div data-id="g-cartografia-escala3"
+                  class="m-stylemanager-grid-item m-stylemanager-grid-family-item g-cartografia-escala3">
+                </div>
+                <div data-id="g-cartografia-flecha"
+                  class="m-stylemanager-grid-item m-stylemanager-grid-family-item g-cartografia-flecha">
+                </div>
+                <div data-id="g-cartografia-flecha-abajo"
+                  class="m-stylemanager-grid-item m-stylemanager-grid-family-item g-cartografia-flecha-abajo">
+                </div>
+                <div data-id="g-cartografia-flecha-abajo2"
+                  class="m-stylemanager-grid-item m-stylemanager-grid-family-item g-cartografia-flecha-abajo2">
+                </div>
+                <div data-id="g-cartografia-flecha-arriba"
+                  class="m-stylemanager-grid-item m-stylemanager-grid-family-item g-cartografia-flecha-arriba">
+                </div>
+                <div data-id="g-cartografia-flecha-arriba2"
+                  class="m-stylemanager-grid-item m-stylemanager-grid-family-item g-cartografia-flecha-arriba2">
+                </div>
+                <div data-id="g-cartografia-flecha-derecha"
+                  class="m-stylemanager-grid-item m-stylemanager-grid-family-item g-cartografia-flecha-derecha">
+                </div>
+                <div data-id="g-cartografia-flecha-derecha2"
+                  class="m-stylemanager-grid-item m-stylemanager-grid-family-item g-cartografia-flecha-derecha2">
+                </div>
+                <div data-id="g-cartografia-flecha-derecha3"
+                  class="m-stylemanager-grid-item m-stylemanager-grid-family-item g-cartografia-flecha-derecha3">
+                </div>
+                <div data-id="g-cartografia-flecha-deshacer"
+                  class="m-stylemanager-grid-item m-stylemanager-grid-family-item g-cartografia-flecha-deshacer">
+                </div>
+                <div data-id="g-cartografia-flecha-izquierda"
+                  class="m-stylemanager-grid-item m-stylemanager-grid-family-item g-cartografia-flecha-izquierda">
+                </div>
+                <div data-id="g-cartografia-flecha-izquierda2"
+                  class="m-stylemanager-grid-item m-stylemanager-grid-family-item g-cartografia-flecha-izquierda2">
+                </div>
+                <div data-id="g-cartografia-flecha-izquierda3"
+                  class="m-stylemanager-grid-item m-stylemanager-grid-family-item g-cartografia-flecha-izquierda3">
+                </div>
+                <div data-id="g-cartografia-flecha-link"
+                  class="m-stylemanager-grid-item m-stylemanager-grid-family-item g-cartografia-flecha-link">
+                </div>
+                <div data-id="g-cartografia-flechas-mover"
+                  class="m-stylemanager-grid-item m-stylemanager-grid-family-item g-cartografia-flechas-mover">
+                </div>
+                <div data-id="g-cartografia-gps"
+                  class="m-stylemanager-grid-item m-stylemanager-grid-family-item g-cartografia-gps">
+                </div>
+                <div data-id="g-cartografia-gps2"
+                  class="m-stylemanager-grid-item m-stylemanager-grid-family-item g-cartografia-gps2">
+                </div>
+                <div data-id="g-cartografia-gps3"
+                  class="m-stylemanager-grid-item m-stylemanager-grid-family-item g-cartografia-gps3">
+                </div>
+                <div data-id="g-cartografia-gps4"
+                  class="m-stylemanager-grid-item m-stylemanager-grid-family-item g-cartografia-gps4">
+                </div>
+                <div data-id="g-cartografia-gps5"
+                  class="m-stylemanager-grid-item m-stylemanager-grid-family-item g-cartografia-guardar">
+                </div>
+                <div data-id="g-cartografia-herramienta"
+                  class="m-stylemanager-grid-item m-stylemanager-grid-family-item g-cartografia-herramienta">
+                </div>
+                <div data-id="g-cartografia-impresora"
+                  class="m-stylemanager-grid-item m-stylemanager-grid-family-item g-cartografia-impresora">
+                </div>
+                <div data-id="g-cartografia-info"
+                  class="m-stylemanager-grid-item m-stylemanager-grid-family-item g-cartografia-info">
+                </div>
+                <div data-id="g-cartografia-linea"
+                  class="m-stylemanager-grid-item m-stylemanager-grid-family-item g-cartografia-linea">
+                </div>
+                <div data-id="g-cartografia-lineas"
+                  class="m-stylemanager-grid-item m-stylemanager-grid-family-item g-cartografia-lineas">
+                </div>
+                <div data-id="g-cartografia-lista"
+                  class="m-stylemanager-grid-item m-stylemanager-grid-family-item g-cartografia-lista">
+                </div>
+                <div data-id="g-cartografia-localizacion"
+                  class="m-stylemanager-grid-item m-stylemanager-grid-family-item g-cartografia-localizacion">
+                </div>
+                <div data-id="g-cartografia-localizacion2"
+                  class="m-stylemanager-grid-item m-stylemanager-grid-family-item g-cartografia-localizacion2">
+                </div>
+                <div data-id="g-cartografia-localizacion3"
+                  class="m-stylemanager-grid-item m-stylemanager-grid-family-item g-cartografia-localizacion3">
+                </div>
+                <div data-id="g-cartografia-localizacion4"
+                  class="m-stylemanager-grid-item m-stylemanager-grid-family-item g-cartografia-localizacion4">
+                </div>
+                <div data-id="g-cartografia-mano"
+                  class="m-stylemanager-grid-item m-stylemanager-grid-family-item g-cartografia-mano">
+                </div>
+                <div data-id="g-cartografia-mano2"
+                  class="m-stylemanager-grid-item m-stylemanager-grid-family-item g-cartografia-mano2">
+                </div>
+                <div data-id="g-cartografia-mapa"
+                  class="m-stylemanager-grid-item m-stylemanager-grid-family-item g-cartografia-mapa">
+                </div>
+                <div data-id="g-cartografia-mas"
+                  class="m-stylemanager-grid-item m-stylemanager-grid-family-item g-cartografia-mas">
+                </div>
+                <div data-id="g-cartografia-mas2"
+                  class="m-stylemanager-grid-item m-stylemanager-grid-family-item g-cartografia-mas2">
+                </div>
+                <div data-id="g-cartografia-medir-area"
+                  class="m-stylemanager-grid-item m-stylemanager-grid-family-item g-cartografia-medir-area">
+                </div>
+                <div data-id="g-cartografia-medir-linea"
+                  class="m-stylemanager-grid-item m-stylemanager-grid-family-item g-cartografia-medir-linea">
+                </div>
+                <div data-id="g-cartografia-menos"
+                  class="m-stylemanager-grid-item m-stylemanager-grid-family-item g-cartografia-menos">
+                </div>
+                <div data-id="g-cartografia-menos2"
+                  class="m-stylemanager-grid-item m-stylemanager-grid-family-item g-cartografia-menos2">
+                </div>
+                <div data-id="g-cartografia-menu"
+                  class="m-stylemanager-grid-item m-stylemanager-grid-family-item g-cartografia-menu">
+                </div>
+                <div data-id="g-cartografia-menudo"
+                  class="m-stylemanager-grid-item m-stylemanager-grid-family-item g-cartografia-mundo">
+                </div>
+                <div data-id="g-cartografia-menudo2"
+                  class="m-stylemanager-grid-item m-stylemanager-grid-family-item g-cartografia-mundo2">
+                </div>
+                <div data-id="g-cartografia-opciones"
+                  class="m-stylemanager-grid-item m-stylemanager-grid-family-item g-cartografia-opciones">
+                </div>
+                <div data-id="g-cartografia-papelera"
+                  class="m-stylemanager-grid-item m-stylemanager-grid-family-item g-cartografia-papelera">
+                </div>
+                <div data-id="g-cartografia-pin"
+                  class="m-stylemanager-grid-item m-stylemanager-grid-family-item g-cartografia-pin">
+                </div>
+                <div data-id="g-cartografia-pin-nuevo"
+                  class="m-stylemanager-grid-item m-stylemanager-grid-family-item g-cartografia-pin-nuevo">
+                </div>
+                <div data-id="g-cartografia-pin2"
+                  class="m-stylemanager-grid-item m-stylemanager-grid-family-item g-cartografia-pin2">
+                </div>
+                <div data-id="g-cartografia-pin3"
+                  class="m-stylemanager-grid-item m-stylemanager-grid-family-item g-cartografia-pin3">
+                </div>
+                <div data-id="g-cartografia-pin4"
+                  class="m-stylemanager-grid-item m-stylemanager-grid-family-item g-cartografia-pin4">
+                </div>
+                <div data-id="g-cartografia-poligono"
+                  class="m-stylemanager-grid-item m-stylemanager-grid-family-item g-cartografia-poligono">
+                </div>
+                <div data-id="g-cartografia-posicion"
+                  class="m-stylemanager-grid-item m-stylemanager-grid-family-item g-cartografia-posicion">
+                </div>
+                <div data-id="g-cartografia-posicion2"
+                  class="m-stylemanager-grid-item m-stylemanager-grid-family-item g-cartografia-posicion2">
+                </div>
+                <div data-id="g-cartografia-posicion3"
+                  class="m-stylemanager-grid-item m-stylemanager-grid-family-item g-cartografia-posicion3">
+                </div>
+                <div data-id="g-cartografia-posicion4"
+                  class="m-stylemanager-grid-item m-stylemanager-grid-family-item g-cartografia-posicion4">
+                </div>
+                <div data-id="g-cartografia-posicion5"
+                  class="m-stylemanager-grid-item m-stylemanager-grid-family-item g-cartografia-posicion5">
+                </div>
+                <div data-id="g-cartografia-posicion6"
+                  class="m-stylemanager-grid-item m-stylemanager-grid-family-item g-cartografia-posicion6">
+                </div>
+                <div data-id="g-cartografia-posicion7"
+                  class="m-stylemanager-grid-item m-stylemanager-grid-family-item g-cartografia-posicion7">
+                </div>
+                <div data-id="g-cartografia-prismaticos"
+                  class="m-stylemanager-grid-item m-stylemanager-grid-family-item g-cartografia-prismaticos">
+                </div>
+                <div data-id="g-cartografia-regla"
+                  class="m-stylemanager-grid-item m-stylemanager-grid-family-item g-cartografia-regla">
+                </div>
+                <div data-id="g-cartografia-reglas"
+                  class="m-stylemanager-grid-item m-stylemanager-grid-family-item g-cartografia-reglas">
+                </div>
+                <div data-id="g-cartografia-ruta"
+                  class="m-stylemanager-grid-item m-stylemanager-grid-family-item g-cartografia-ruta">
+                </div>
+                <div data-id="g-cartografia-spinner"
+                  class="m-stylemanager-grid-item m-stylemanager-grid-family-item g-cartografia-spinner">
+                </div>
+                <div data-id="g-cartografia-subir"
+                  class="m-stylemanager-grid-item m-stylemanager-grid-family-item g-cartografia-subir">
+                </div>
+                <div data-id="g-cartografia-tamano"
+                  class="m-stylemanager-grid-item m-stylemanager-grid-family-item g-cartografia-tamano">
+                </div>
+                <div data-id="g-cartografia-temperatura"
+                  class="m-stylemanager-grid-item m-stylemanager-grid-family-item g-cartografia-temperatura">
+                </div>
+                <div data-id="g-cartografia-texto"
+                  class="m-stylemanager-grid-item m-stylemanager-grid-family-item g-cartografia-texto">
+                </div>
+                <div data-id="g-cartografia-usuario"
+                  class="m-stylemanager-grid-item m-stylemanager-grid-family-item g-cartografia-usuario">
+                </div>
+                <div data-id="g-cartografia-usuario2"
+                  class="m-stylemanager-grid-item m-stylemanager-grid-family-item g-cartografia-usuario2">
+                </div>
+                <div data-id="g-cartografia-zoom"
+                  class="m-stylemanager-grid-item m-stylemanager-grid-family-item g-cartografia-zoom">
+                </div>
+                <div data-id="g-cartografia-zoom-extension"
+                  class="m-stylemanager-grid-item m-stylemanager-grid-family-item g-cartografia-zoom-extension">
+                </div>
+                <div data-id="g-cartografia-zoom-mas"
+                  class="m-stylemanager-grid-item m-stylemanager-grid-family-item g-cartografia-zoom-mas">
+                </div>
+                <div data-id="g-cartografia-zoom-menos"
+                  class="m-stylemanager-grid-item m-stylemanager-grid-family-item g-cartografia-zoom-menos">
+                </div>
+                <div data-id="g-cartografia-pin5"
+                  class="m-stylemanager-grid-item m-stylemanager-grid-family-item g-cartografia-pin5">
+                </div>
+                <div data-id="g-cartografia-pin-nuevo2"
+                  class="m-stylemanager-grid-item m-stylemanager-grid-family-item g-cartografia-pin-nuevo2">
+                </div>
+                <div data-id="g-cartografia-pin-seleccionado"
+                  class="m-stylemanager-grid-item m-stylemanager-grid-family-item g-cartografia-pin-seleccionado">
+                </div>
+                <div data-id="g-cartografia-brujula-norte"
+                  class="m-stylemanager-grid-item m-stylemanager-grid-family-item g-cartografia-brujula-norte">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div id="icon-family-fontawesome" class="m-stylemanager-hidden m-stylemanager-group-row">
+          <div class="m-stylemanager-style-col-1">
+            <span>{{translations.familyFontAwesome}}</span>
+          </div>
+          <div class="m-stylemanager-style-col-2">
+            <div class="m-stylemanager-box-icon">
+              <div data-style-options="icon.family">
+                <div data-id="fa-glass" class="m-stylemanager-grid-item m-stylemanager-grid-family-item fa fa-glass">
+                </div>
+                <div data-id="fa-music" class="m-stylemanager-grid-item m-stylemanager-grid-family-item fa fa-music">
+                </div>
+                <div data-id="fa-search" class="m-stylemanager-grid-item m-stylemanager-grid-family-item fa fa-search">
+                </div>
+                <div data-id="fa-envelope-o"
+                  class="m-stylemanager-grid-item m-stylemanager-grid-family-item fa fa-envelope-o">
+                </div>
+                <div data-id="fa-heart" class="m-stylemanager-grid-item m-stylemanager-grid-family-item fa fa-heart">
+                </div>
+                <div data-id="fa-star" class="m-stylemanager-grid-item m-stylemanager-grid-family-item fa fa-star">
+                </div>
+                <div data-id="fa-star-o" class="m-stylemanager-grid-item m-stylemanager-grid-family-item fa fa-star-o">
+                </div>
+                <div data-id="fa-user" class="m-stylemanager-grid-item m-stylemanager-grid-family-item fa fa-user">
+                </div>
+                <div data-id="fa-film" class="m-stylemanager-grid-item m-stylemanager-grid-family-item fa fa-film">
+                </div>
+                <div data-id="fa-th-large"
+                  class="m-stylemanager-grid-item m-stylemanager-grid-family-item fa fa-th-large">
+                </div>
+                <div data-id="fa-th" class="m-stylemanager-grid-item m-stylemanager-grid-family-item fa fa-th">
+                </div>
+                <div data-id="fa-th-list"
+                  class="m-stylemanager-grid-item m-stylemanager-grid-family-item fa fa-th-list">
+                </div>
+                <div data-id="fa-check" class="m-stylemanager-grid-item m-stylemanager-grid-family-item fa fa-check">
+                </div>
+                <div data-id="fa-remove" class="m-stylemanager-grid-item m-stylemanager-grid-family-item fa fa-remove">
+                </div>
+                <div data-id="fa-close" class="m-stylemanager-grid-item m-stylemanager-grid-family-item fa fa-close">
+                </div>
+                <div data-id="fa-times" class="m-stylemanager-grid-item m-stylemanager-grid-family-item fa fa-times">
+                </div>
+                <div data-id="fa-search-plus"
+                  class="m-stylemanager-grid-item m-stylemanager-grid-family-item fa fa-search-plus">
+                </div>
+                <div data-id="fa-search-minus"
+                  class="m-stylemanager-grid-item m-stylemanager-grid-family-item fa fa-search-minus">
+                </div>
+                <div data-id="fa-power-off"
+                  class="m-stylemanager-grid-item m-stylemanager-grid-family-item fa fa-power-off">
+                </div>
+                <div data-id="fa-signal" class="m-stylemanager-grid-item m-stylemanager-grid-family-item fa fa-signal">
+                </div>
+                <div data-id="fa-gear" class="m-stylemanager-grid-item m-stylemanager-grid-family-item fa fa-gear">
+                </div>
+                <div data-id="fa-cog" class="m-stylemanager-grid-item m-stylemanager-grid-family-item fa fa-cog">
+                </div>
+                <div data-id="fa-trash-o"
+                  class="m-stylemanager-grid-item m-stylemanager-grid-family-item fa fa-trash-o">
+                </div>
+                <div data-id="fa-home" class="m-stylemanager-grid-item m-stylemanager-grid-family-item fa fa-home">
+                </div>
+                <div data-id="fa-file-o" class="m-stylemanager-grid-item m-stylemanager-grid-family-item fa fa-file-o">
+                </div>
+                <div data-id="fa-clock-o"
+                  class="m-stylemanager-grid-item m-stylemanager-grid-family-item fa fa-clock-o">
+                </div>
+                <div data-id="fa-road" class="m-stylemanager-grid-item m-stylemanager-grid-family-item fa fa-road">
+                </div>
+                <div data-id="fa-download"
+                  class="m-stylemanager-grid-item m-stylemanager-grid-family-item fa fa-download">
+                </div>
+                <div data-id="fa-arrow-circle-o-down"
+                  class="m-stylemanager-grid-item m-stylemanager-grid-family-item fa fa-arrow-circle-o-down">
+                </div>
+                <div data-id="fa-arrow-circle-o-up"
+                  class="m-stylemanager-grid-item m-stylemanager-grid-family-item fa fa-arrow-circle-o-up">
+                </div>
+                <div data-id="fa-inbox" class="m-stylemanager-grid-item m-stylemanager-grid-family-item fa fa-inbox">
+                </div>
+                <div data-id="fa-play-circle-o"
+                  class="m-stylemanager-grid-item m-stylemanager-grid-family-item fa fa-play-circle-o">
+                </div>
+                <div data-id="fa-rotate-right"
+                  class="m-stylemanager-grid-item m-stylemanager-grid-family-item fa fa-rotate-right">
+                </div>
+                <div data-id="fa-repeat" class="m-stylemanager-grid-item m-stylemanager-grid-family-item fa fa-repeat">
+                </div>
+                <div data-id="fa-refresh"
+                  class="m-stylemanager-grid-item m-stylemanager-grid-family-item fa fa-refresh">
+                </div>
+                <div data-id="fa-list-alt"
+                  class="m-stylemanager-grid-item m-stylemanager-grid-family-item fa fa-list-alt">
+                </div>
+                <div data-id="fa-lock" class="m-stylemanager-grid-item m-stylemanager-grid-family-item fa fa-lock">
+                </div>
+                <div data-id="fa-flag" class="m-stylemanager-grid-item m-stylemanager-grid-family-item fa fa-flag">
+                </div>
+                <div data-id="fa-headphones"
+                  class="m-stylemanager-grid-item m-stylemanager-grid-family-item fa fa-headphones">
+                </div>
+                <div data-id="fa-volume-off"
+                  class="m-stylemanager-grid-item m-stylemanager-grid-family-item fa fa-volume-off">
+                </div>
+                <div data-id="fa-volume-down"
+                  class="m-stylemanager-grid-item m-stylemanager-grid-family-item fa fa-volume-down">
+                </div>
+                <div data-id="fa-volume-up"
+                  class="m-stylemanager-grid-item m-stylemanager-grid-family-item fa fa-volume-up">
+                </div>
+                <div data-id="fa-qrcode" class="m-stylemanager-grid-item m-stylemanager-grid-family-item fa fa-qrcode">
+                </div>
+                <div data-id="fa-barcode"
+                  class="m-stylemanager-grid-item m-stylemanager-grid-family-item fa fa-barcode">
+                </div>
+                <div data-id="fa-tag" class="m-stylemanager-grid-item m-stylemanager-grid-family-item fa fa-tag">
+                </div>
+                <div data-id="fa-tags" class="m-stylemanager-grid-item m-stylemanager-grid-family-item fa fa-tags">
+                </div>
+                <div data-id="fa-book" class="m-stylemanager-grid-item m-stylemanager-grid-family-item fa fa-book">
+                </div>
+                <div data-id="fa-bookmark"
+                  class="m-stylemanager-grid-item m-stylemanager-grid-family-item fa fa-bookmark">
+                </div>
+                <div data-id="fa-print" class="m-stylemanager-grid-item m-stylemanager-grid-family-item fa fa-print">
+                </div>
+                <div data-id="fa-camera" class="m-stylemanager-grid-item m-stylemanager-grid-family-item fa fa-camera">
+                </div>
+                <div data-id="fa-font" class="m-stylemanager-grid-item m-stylemanager-grid-family-item fa fa-font">
+                </div>
+                <div data-id="fa-bold" class="m-stylemanager-grid-item m-stylemanager-grid-family-item fa fa-bold">
+                </div>
+                <div data-id="fa-italic" class="m-stylemanager-grid-item m-stylemanager-grid-family-item fa fa-italic">
+                </div>
+                <div data-id="fa-text-height"
+                  class="m-stylemanager-grid-item m-stylemanager-grid-family-item fa fa-text-height">
+                </div>
+                <div data-id="fa-text-width"
+                  class="m-stylemanager-grid-item m-stylemanager-grid-family-item fa fa-text-width">
+                </div>
+                <div data-id="fa-align-left"
+                  class="m-stylemanager-grid-item m-stylemanager-grid-family-item fa fa-align-left">
+                </div>
+                <div data-id="fa-align-center"
+                  class="m-stylemanager-grid-item m-stylemanager-grid-family-item fa fa-align-center">
+                </div>
+                <div data-id="fa-align-right"
+                  class="m-stylemanager-grid-item m-stylemanager-grid-family-item fa fa-align-right">
+                </div>
+                <div data-id="fa-align-justify"
+                  class="m-stylemanager-grid-item m-stylemanager-grid-family-item fa fa-align-justify">
+                </div>
+                <div data-id="fa-list" class="m-stylemanager-grid-item m-stylemanager-grid-family-item fa fa-list">
+                </div>
+                <div data-id="fa-dedent" class="m-stylemanager-grid-item m-stylemanager-grid-family-item fa fa-dedent">
+                </div>
+                <div data-id="fa-outdent"
+                  class="m-stylemanager-grid-item m-stylemanager-grid-family-item fa fa-outdent">
+                </div>
+                <div data-id="fa-indent" class="m-stylemanager-grid-item m-stylemanager-grid-family-item fa fa-indent">
+                </div>
+                <div data-id="fa-video-camera"
+                  class="m-stylemanager-grid-item m-stylemanager-grid-family-item fa fa-video-camera">
+                </div>
+                <div data-id="fa-photo" class="m-stylemanager-grid-item m-stylemanager-grid-family-item fa fa-photo">
+                </div>
+                <div data-id="fa-image" class="m-stylemanager-grid-item m-stylemanager-grid-family-item fa fa-image">
+                </div>
+                <div data-id="fa-picture-o"
+                  class="m-stylemanager-grid-item m-stylemanager-grid-family-item fa fa-picture-o">
+                </div>
+                <div data-id="fa-pencil" class="m-stylemanager-grid-item m-stylemanager-grid-family-item fa fa-pencil">
+                </div>
+                <div data-id="fa-map-marker"
+                  class="m-stylemanager-grid-item m-stylemanager-grid-family-item fa fa-map-marker">
+                </div>
+                <div data-id="fa-adjust" class="m-stylemanager-grid-item m-stylemanager-grid-family-item fa fa-adjust">
+                </div>
+                <div data-id="fa-tint" class="m-stylemanager-grid-item m-stylemanager-grid-family-item fa fa-tint">
+                </div>
+                <div data-id="fa-edit" class="m-stylemanager-grid-item m-stylemanager-grid-family-item fa fa-edit">
+                </div>
+                <div data-id="fa-pencil-square-o"
+                  class="m-stylemanager-grid-item m-stylemanager-grid-family-item fa fa-pencil-square-o">
+                </div>
+                <div data-id="fa-share-square-o"
+                  class="m-stylemanager-grid-item m-stylemanager-grid-family-item fa fa-share-square-o">
+                </div>
+                <div data-id="fa-check-square-o"
+                  class="m-stylemanager-grid-item m-stylemanager-grid-family-item fa fa-check-square-o">
+                </div>
+                <div data-id="fa-arrows" class="m-stylemanager-grid-item m-stylemanager-grid-family-item fa fa-arrows">
+                </div>
+                <div data-id="fa-step-backward"
+                  class="m-stylemanager-grid-item m-stylemanager-grid-family-item fa fa-step-backward">
+                </div>
+                <div data-id="fa-fast-backward"
+                  class="m-stylemanager-grid-item m-stylemanager-grid-family-item fa fa-fast-backward">
+                </div>
+                <div data-id="fa-backward"
+                  class="m-stylemanager-grid-item m-stylemanager-grid-family-item fa fa-backward">
+                </div>
+                <div data-id="fa-play" class="m-stylemanager-grid-item m-stylemanager-grid-family-item fa fa-play">
+                </div>
+                <div data-id="fa-pause" class="m-stylemanager-grid-item m-stylemanager-grid-family-item fa fa-pause">
+                </div>
+                <div data-id="fa-stop" class="m-stylemanager-grid-item m-stylemanager-grid-family-item fa fa-stop">
+                </div>
+                <div data-id="fa-forward"
+                  class="m-stylemanager-grid-item m-stylemanager-grid-family-item fa fa-forward">
+                </div>
+                <div data-id="fa-fast-forward"
+                  class="m-stylemanager-grid-item m-stylemanager-grid-family-item fa fa-fast-forward">
+                </div>
+                <div data-id="fa-step-forward"
+                  class="m-stylemanager-grid-item m-stylemanager-grid-family-item fa fa-step-forward">
+                </div>
+                <div data-id="fa-eject" class="m-stylemanager-grid-item m-stylemanager-grid-family-item fa fa-eject">
+                </div>
+                <div data-id="fa-chevron-left"
+                  class="m-stylemanager-grid-item m-stylemanager-grid-family-item fa fa-chevron-left">
+                </div>
+                <div data-id="fa-chevron-right"
+                  class="m-stylemanager-grid-item m-stylemanager-grid-family-item fa fa-chevron-right">
+                </div>
+                <div data-id="fa-plus-circle"
+                  class="m-stylemanager-grid-item m-stylemanager-grid-family-item fa fa-plus-circle">
+                </div>
+                <div data-id="fa-minus-circle"
+                  class="m-stylemanager-grid-item m-stylemanager-grid-family-item fa fa-minus-circle">
+                </div>
+                <div data-id="fa-times-circle"
+                  class="m-stylemanager-grid-item m-stylemanager-grid-family-item fa fa-times-circle">
+                </div>
+                <div data-id="fa-check-circle"
+                  class="m-stylemanager-grid-item m-stylemanager-grid-family-item fa fa-check-circle">
+                </div>
+                <div data-id="fa-question-circle"
+                  class="m-stylemanager-grid-item m-stylemanager-grid-family-item fa fa-question-circle">
+                </div>
+                <div data-id="fa-info-circle"
+                  class="m-stylemanager-grid-item m-stylemanager-grid-family-item fa fa-info-circle">
+                </div>
+                <div data-id="fa-crosshairs"
+                  class="m-stylemanager-grid-item m-stylemanager-grid-family-item fa fa-crosshairs">
+                </div>
+                <div data-id="fa-times-circle-o"
+                  class="m-stylemanager-grid-item m-stylemanager-grid-family-item fa fa-times-circle-o">
+                </div>
+                <div data-id="fa-check-circle-o"
+                  class="m-stylemanager-grid-item m-stylemanager-grid-family-item fa fa-check-circle-o">
+                </div>
+                <div data-id="fa-ban" class="m-stylemanager-grid-item m-stylemanager-grid-family-item fa fa-ban">
+                </div>
+                <div data-id="fa-arrow-left"
+                  class="m-stylemanager-grid-item m-stylemanager-grid-family-item fa fa-arrow-left">
+                </div>
+                <div data-id="fa-arrow-right"
+                  class="m-stylemanager-grid-item m-stylemanager-grid-family-item fa fa-arrow-right">
+                </div>
+                <div data-id="fa-arrow-up"
+                  class="m-stylemanager-grid-item m-stylemanager-grid-family-item fa fa-arrow-up">
+                </div>
+                <div data-id="fa-arrow-down"
+                  class="m-stylemanager-grid-item m-stylemanager-grid-family-item fa fa-arrow-down">
+                </div>
+                <div data-id="fa-mail-forward"
+                  class="m-stylemanager-grid-item m-stylemanager-grid-family-item fa fa-mail-forward">
+                </div>
+                <div data-id="fa-share" class="m-stylemanager-grid-item m-stylemanager-grid-family-item fa fa-share">
+                </div>
+                <div data-id="fa-expand" class="m-stylemanager-grid-item m-stylemanager-grid-family-item fa fa-expand">
+                </div>
+                <div data-id="fa-compress"
+                  class="m-stylemanager-grid-item m-stylemanager-grid-family-item fa fa-compress">
+                </div>
+                <div data-id="fa-plus" class="m-stylemanager-grid-item m-stylemanager-grid-family-item fa fa-plus">
+                </div>
+                <div data-id="fa-minus" class="m-stylemanager-grid-item m-stylemanager-grid-family-item fa fa-minus">
+                </div>
+                <div data-id="fa-asterisk"
+                  class="m-stylemanager-grid-item m-stylemanager-grid-family-item fa fa-asterisk">
+                </div>
+                <div data-id="fa-exclamation-circle"
+                  class="m-stylemanager-grid-item m-stylemanager-grid-family-item fa fa-exclamation-circle">
+                </div>
+                <div data-id="fa-gift" class="m-stylemanager-grid-item m-stylemanager-grid-family-item fa fa-gift">
+                </div>
+                <div data-id="fa-leaf" class="m-stylemanager-grid-item m-stylemanager-grid-family-item fa fa-leaf">
+                </div>
+                <div data-id="fa-fire" class="m-stylemanager-grid-item m-stylemanager-grid-family-item fa fa-fire">
+                </div>
+                <div data-id="fa-eye" class="m-stylemanager-grid-item m-stylemanager-grid-family-item fa fa-eye">
+                </div>
+                <div data-id="fa-eye-slash"
+                  class="m-stylemanager-grid-item m-stylemanager-grid-family-item fa fa-eye-slash">
+                </div>
+                <div data-id="fa-warning"
+                  class="m-stylemanager-grid-item m-stylemanager-grid-family-item fa fa-warning">
+                </div>
+                <div data-id="fa-exclamation-triangle"
+                  class="m-stylemanager-grid-item m-stylemanager-grid-family-item fa fa-exclamation-triangle">
+                </div>
+                <div data-id="fa-plane" class="m-stylemanager-grid-item m-stylemanager-grid-family-item fa fa-plane">
+                </div>
+                <div data-id="fa-calendar"
+                  class="m-stylemanager-grid-item m-stylemanager-grid-family-item fa fa-calendar">
+                </div>
+                <div data-id="fa-random" class="m-stylemanager-grid-item m-stylemanager-grid-family-item fa fa-random">
+                </div>
+                <div data-id="fa-comment"
+                  class="m-stylemanager-grid-item m-stylemanager-grid-family-item fa fa-comment">
+                </div>
+                <div data-id="fa-magnet" class="m-stylemanager-grid-item m-stylemanager-grid-family-item fa fa-magnet">
+                </div>
+                <div data-id="fa-chevron-up"
+                  class="m-stylemanager-grid-item m-stylemanager-grid-family-item fa fa-chevron-up">
+                </div>
+                <div data-id="fa-chevron-down"
+                  class="m-stylemanager-grid-item m-stylemanager-grid-family-item fa fa-chevron-down">
+                </div>
+                <div data-id="fa-retweet"
+                  class="m-stylemanager-grid-item m-stylemanager-grid-family-item fa fa-retweet">
+                </div>
+                <div data-id="fa-shopping-cart"
+                  class="m-stylemanager-grid-item m-stylemanager-grid-family-item fa fa-shopping-cart">
+                </div>
+                <div data-id="fa-folder" class="m-stylemanager-grid-item m-stylemanager-grid-family-item fa fa-folder">
+                </div>
+                <div data-id="fa-folder-open"
+                  class="m-stylemanager-grid-item m-stylemanager-grid-family-item fa fa-folder-open">
+                </div>
+                <div data-id="fa-arrows-v"
+                  class="m-stylemanager-grid-item m-stylemanager-grid-family-item fa fa-arrows-v">
+                </div>
+                <div data-id="fa-arrows-h"
+                  class="m-stylemanager-grid-item m-stylemanager-grid-family-item fa fa-arrows-h">
+                </div>
+                <div data-id="fa-bar-t-o"
+                  class="m-stylemanager-grid-item m-stylemanager-grid-family-item fa fa-bar-t-o">
+                </div>
+                <div data-id="fa-bar-t" class="m-stylemanager-grid-item m-stylemanager-grid-family-item fa fa-bar-t">
+                </div>
+                <div data-id="fa-twitter-square"
+                  class="m-stylemanager-grid-item m-stylemanager-grid-family-item fa fa-twitter-square">
+                </div>
+                <div data-id="fa-facebook-square"
+                  class="m-stylemanager-grid-item m-stylemanager-grid-family-item fa fa-facebook-square">
+                </div>
+                <div data-id="fa-camera-retro"
+                  class="m-stylemanager-grid-item m-stylemanager-grid-family-item fa fa-camera-retro">
+                </div>
+                <div data-id="fa-key" class="m-stylemanager-grid-item m-stylemanager-grid-family-item fa fa-key">
+                </div>
+                <div data-id="fa-gears" class="m-stylemanager-grid-item m-stylemanager-grid-family-item fa fa-gears">
+                </div>
+                <div data-id="fa-cogs" class="m-stylemanager-grid-item m-stylemanager-grid-family-item fa fa-cogs">
+                </div>
+                <div data-id="fa-comments"
+                  class="m-stylemanager-grid-item m-stylemanager-grid-family-item fa fa-comments">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div id="icon-family-option" class="m-stylemanager-group-row m-stylemanager-hidden">
+          <div class="m-stylemanager-style-col-2">
+            <div class="m-stylemanager-style-col-1">
+              <span>{{translations.iconSize}}</span>
+            </div>
+            <div class="m-stylemanager-style-col-2">
+              <input data-style-options="icon.fontsize" type="number" min="0" max="1" step="0.1"
+                class="m-stylemanager-input-size m-stylemanager-style-select" value="{{icon.fontsize}}">
+            </div>
+          </div>
+        </div>
+        <div id="icon-form-option">
+          <div id="icon-img-option">
+            <div class="m-stylemanager-group-row">
+              <div class="m-stylemanager-style-col-1">
+                <span>{{translations.fillColor}}</span>
+              </div>
+              <div class="m-stylemanager-style-col-2">
+                <input data-style-options="icon.fill" type="color" class="m-stylemanager-input-size"
+                  value="{{icon.fill}}">
+              </div>
+            </div>
+            <div class="m-stylemanager-group-row">
+              <div class="m-stylemanager-style-col-1">
+                <span>{{translations.strokeColor}}</span>
+              </div>
+              <div class="m-stylemanager-style-col-2">
+                <input data-style-options="icon.color" type="color" class="m-stylemanager-input-size"
+                  value="{{icon.color}}">
+              </div>
+            </div>
+            <div class="m-stylemanager-group-row-2">
+              <label>
+                {{translations.gradient}}
+                <input value="{{icon.gradient}}" type="checkbox" data-style-options="icon.gradient" {{#if
+                  icon.gradient}}checked{{/if}}>
+              </label>
+            </div>
+          </div>
+          <div id="icon-url-option">
+            <div class="m-stylemanager-group-row">
+              <div class="m-stylemanager-style-col-1">
+                <span>{{translations.anchor}}</span>
+              </div>
+              <div class="m-stylemanager-style-col-2 m-stylemanager-displayrow m-stylemanager-between">
+                <input value="{{icon.anchor.[0]}}" type="number" min="0" step="0.1" data-target="icon.anchor"
+                  data-style-options="icon.anchor" class="m-stylemanager-style-select">
+                <input value="{{icon.anchor.[1]}}" type="number" min="0" step="0.1" data-id="icon.anchor"
+                  class="m-stylemanager-style-select">
+              </div>
+            </div>
+            <div class="m-stylemanager-group-row">
+              <div class="m-stylemanager-style-col-1">
+                <span>{{translations.scale}}</span>
+              </div>
+              <div class="m-stylemanager-style-col-2">
+                <input value="{{icon.scale}}" class="m-stylemanager-input-size m-stylemanager-style-select"
+                  type="number" min="0" max="1" step="0.1" data-style-options="icon.scale">
+              </div>
+            </div>
+            <div class="m-stylemanager-group-row">
+              <div class="m-stylemanager-style-col-1">
+                <span>{{translations.size}}</span>
+              </div>
+              <div class="m-stylemanager-style-col-2 m-stylemanager-displayrow  m-stylemanager-between">
+                <input value="{{icon.size.[0]}}" type="number" min="0" data-target="icon.size"
+                  data-style-options="icon.size" class="m-stylemanager-style-select">
+                <input value="{{icon.size.[1]}}" type="number" min="0" data-id="icon.size"
+                  class="m-stylemanager-style-select">
+              </div>
+            </div>
+          </div>
+          <div class="m-stylemanager-group-row">
+            <div class="m-stylemanager-style-col-1">
+              <span>{{translations.opacity}}</span>
+            </div>
+            <div class="m-stylemanager-style-col-2">
+              <input data-style-options="icon.opacity" type="range"
+                class="m-stylemanager-input-size m-stylemanager-range-opacity" value="{{icon.opacity}}" min="0" max="1"
+                step="0.01">
+              <input type="number" min="0" max="100" step="1"
+                class="m-stylemanager-number-opacity m-stylemanager-style-select" value="{{multiply icon.opacity 100}}">
+            </div>
+          </div>
+          <div class="m-stylemanager-group-row">
+            <div class="m-stylemanager-style-col-1">
+              <span>{{translations.offset}}</span>
+            </div>
+            <div class="m-stylemanager-style-col-2 m-stylemanager-displayrow m-stylemanager-between">
+              <input value="{{icon.offset.[0]}}" type="number" min="0" data-target="icon.offset"
+                data-style-options="icon.offset" class="m-stylemanager-style-select">
+              <input value="{{icon.offset.[1]}}" type="number" min="0" data-id="icon.offset"
+                class="m-stylemanager-style-select">
+            </div>
+          </div>
+          <div class="m-stylemanager-group-row-2">
+            <label>
+              {{translations.rotationWithMap}}
+              <input value="{{icon.rotate}}" type="checkbox" data-style-options="icon.rotate" {{#if
+                icon.rotate}}checked{{/if}}>
+            </label>
+          </div>
+          <div class="m-stylemanager-group-row">
+            <div class="m-stylemanager-style-col-1">
+              <span>{{translations.rotation}}</span>
+            </div>
+            <div class="m-stylemanager-style-col-2">
+              <input value="{{icon.rotation}}" class="m-stylemanager-input-size m-stylemanager-style-select"
+                type="number" min="0" step="1" data-style-options="icon.rotation">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- --- AJUSTES ETIQUETA ------------------------------------------------------------------------------------------ -->
+  <div class="m-stylemanager-button-advanced-options">
+    <i class="m-stylemanager-icons-down-open">
+    </i>{{translations.labels}}
+  </div>
+  <div class="m-stylemanager-hidden">
+    <div class="m-stylemanager-group-row">
+      <div class="m-stylemanager-style-col-1">
+        <span>{{translations.labelValue}}</span>
+      </div>
+      <div class="m-stylemanager-style-col-2">
+        <select data-style-options="label.text" class="m-stylemanager-input-size m-stylemanager-style-select">{{#each
+          featuresAttr}}
+          <option value="{{this.id}}" {{#if this.selected}}selected{{/if}}>{{this.name}}</option>
+          {{/each}}
+        </select>
+      </div>
+    </div>
+
+    <div class="m-stylemanager-group-row">
+      <div class="m-stylemanager-style-col-1">
+        <span>{{translations.labelFont}}</span>
+      </div>
+      <div class="m-stylemanager-style-col-2">
+        <select data-font-family data-style-options="label.font.family"
+          class="m-stylemanager-input-size m-stylemanager-style-select">
+          <option value="serif">Serif</option>
+          <option value="sans-serif">Sans-Serif</option>
+          <option value="mono">Mono</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="m-stylemanager-group-row">
+      <div class="m-stylemanager-style-col-1">
+        <span>{{translations.labelSize}}</span>
+      </div>
+      <div class="m-stylemanager-style-col-2">
+        <input data-font-size data-style-options="label.font.size" type="number" min="1" value="12"
+          class="m-stylemanager-input-size m-stylemanager-style-select">
+      </div>
+    </div>
+
+    <div class="m-stylemanager-group-row">
+      <div class="m-stylemanager-style-col-1">
+        <span>{{translations.labelColor}}</span>
+      </div>
+      <div class="m-stylemanager-style-col-2">
+        <input value="{{label.color}}" type="color" data-style-options="label.color" value="#0d5cdc"
+          class="m-stylemanager-input-size">
+      </div>
+    </div>
+
+    <div class="m-stylemanager-group-row">
+      <div class="m-stylemanager-style-col-1">
+        <input type="checkbox" data-apply="label.stroke" {{#neq label.stroke.color 'no-color' }}checked{{/neq}}>
+        <span>{{translations.labelHalo}}</span>
+      </div>
+    </div>
+
+
+
+    <div class="m-stylemanager-button-advanced-options">
+      <i class="m-stylemanager-icons-down-open">
+      </i>{{translations.advancedOptions}}
+    </div>
+    <div class="m-stylemanager-hidden">
+
+      <div class="m-stylemanager-group-row">
+        <div class="m-stylemanager-style-col-1">
+          <span>{{translations.scale}}</span>
+        </div>
+        <div class="m-stylemanager-style-col-2">
+          <input value="{{label.scale}}" type="number" min="0" max="3" step="0.1" value="2"
+            data-style-options="label.scale" class="m-stylemanager-input-size m-stylemanager-style-select">
+        </div>
+      </div>
+
+      <div class="m-stylemanager-group-row">
+        <div class="m-stylemanager-style-col-1">
+          <span>{{translations.horizontalAlign}}</span>
+        </div>
+        <div class="m-stylemanager-style-col-2">
+          <select data-style-options="label.align" class="m-stylemanager-input-size m-stylemanager-style-select">
             {{#each alignlist}}
-            <option value="{{this.name}}" {{#eq this.id this.selected}}selected{{/eq}}>{{this.name}}</option>
+            <option value="{{this.id}}" {{#if this.selected}}selected{{/if}}>{{this.name}}</option>
             {{/each}}
           </select>
         </div>
+      </div>
 
-        <div class="style-col-2">
-          <span>Alineación vertical:</span>
-          <select data-style-options="label.baseline">
+      <div class="m-stylemanager-group-row">
+        <div class="m-stylemanager-style-col-1">
+          <span>{{translations.verticalAlign}}</span>
+        </div>
+        <div class="m-stylemanager-style-col-2">
+          <select data-style-options="label.baseline" class="m-stylemanager-input-size m-stylemanager-style-select">
             {{#each baselinelist}}
-            <option value="{{this.name}}" {{#eq this.id this.selected}}selected{{/eq}}>{{this.name}}</option>
+            <option value="{{this.id}}" {{#if this.selected}}selected{{/if}}>{{this.name}}</option>
             {{/each}}
           </select>
         </div>
-
       </div>
 
-      <div class="group-row">
-
-        <div class="style-col-1 input-reverse">
-          <span>Habilitar rotación con el mapa</span>
+      <div class="m-stylemanager-group-row">
+        <div class="m-stylemanager-style-col-1">
           <input {{#if label.rotate}}checked{{/if}} type="checkbox" data-style-options="label.rotate">
+          <span>{{translations.rotationWithMap}}</span>
         </div>
-
-        <div class="style-col-2">
-          <span>Rotación:</span>
-          <input value="{{label.rotation}}" type="number" step="0.1" data-style-options="label.rotation">
+        <div class="m-stylemanager-style-col-2">
+          <span class="m-stylemanager-margin-right">{{translations.rotation}}</span>
+          <input value="{{label.rotation}}" type="number" min="0" step="0.1" data-style-options="label.rotation"
+            class="m-stylemanager-input-size m-stylemanager-style-select">
         </div>
-
       </div>
 
-      <div class="group-row">
-
-        <div class="style-col-1">
-          <span>Escala:</span>
-          <input value="{{label.scale}}" type="number" max="3" min="0" step="0.1" value="2"
-            data-style-options="label.scale">
+      <div class="m-stylemanager-group-row">
+        <div class="m-stylemanager-style-col-1">
+          <span>{{translations.offset}}</span>
         </div>
-
-        <div class="style-col-2">
-          <span>Offset:</span>
-          <input value="{{#get 0 label.offset}}{{/get}}" type="number" data-target="label.offset"
-            data-style-options="label.offset">
-          <span class="empty">&nbsp;</span>
-          <input value="{{#get 1 label.offset}}{{/get}}" type="number" data-id="label.offset">
+        <div class="m-stylemanager-style-col-2 m-stylemanager-displayrow m-stylemanager-between">
+          <input value="{{#get 0 label.offset}}{{/get}}" type="number" min="0" data-target="label.offset"
+            data-style-options="label.offset" class="m-stylemanager-style-select">
+          <input value="{{#get 1 label.offset}}{{/get}}" type="number" min="0" data-id="label.offset"
+            class="m-stylemanager-style-select">
         </div>
-
       </div>
 
       <!-- TextPath Options -->
-
-      <div class="group-row" data-geometry="line">
-
-        <div class="style-col-1 input-reverse">
-          <span>Ajustar</span>
+      <div class="m-stylemanager-group-row" data-geometry="line">
+        <div class="m-stylemanager-style-col-1">
           <input {{#if label.path}}checked{{/if}} type="checkbox" data-style-options="label.path">
+          <span>{{translations.adjustGeometry}}</span>
         </div>
-
-        <div class="style-col-2">
-          <span>Ancho Mínimo:</span>
+        <div class="m-stylemanager-style-col-2">
+          <span>{{translations.minWidth}}</span>
           <input value="{{label.minwidth}}" type="number" min="1" max="200" value="10"
-            data-style-options="label.minwidth" data-textpath {{#unless label.path}}disabled{{/unless}}>
+            data-style-options="label.minwidth" data-textpath {{#unless label.path}}disabled{{/unless}}
+            class="m-stylemanager-input-size m-stylemanager-style-select">
         </div>
-
       </div>
 
-      <div class="group-row" data-geometry="line">
-
-        <div class="style-col-1 input-reverse">
-          <span>Suavizar</span>
+      <div class="m-stylemanager-group-row" data-geometry="line">
+        <div class="m-stylemanager-style-col-1">
           <input {{#if label.smooth}}checked{{/if}} type="checkbox" data-style-options="label.smooth" data-textpath
             {{#unless label.path}}disabled{{/unless}}>
+          <span>{{translations.smooth}}</span>
         </div>
-
-        <div class=style-col-2>
-          <span>Desbordar:</span>
-          <select data-style-options="label.textoverflow" data-textpath {{#unless label.path}}disabled{{/unless}}>
-            <option value="hidden">Oculto</option>
-            <option value="visible">Visible</option>
-            <option value="ellipsis">Puntos suspensivos</option>
+        <div class="m-stylemanager-style-col-2">
+          <span class="m-stylemanager-margin-right">{{translations.overflow}}</span>
+          <select data-style-options="label.textoverflow" data-textpath {{#unless label.path}}disabled{{/unless}}
+            class="m-stylemanager-input-size m-stylemanager-style-select">
+            <option value="hidden">{{translations.hidden}}</option>
+            <option value="visible">{{translations.visible}}</option>
+            <option value="ellipsis">{{translations.ellipsis}}</option>
           </select>
         </div>
-
       </div>
+
+    </div>
+
+
+
+    <!-- Stroke Label -->
+    <div class="subtitle" data-halo-section>{{translations.labelHaloSection}}</div>
+
+    <div class="m-stylemanager-group-row" data-halo-section>
+      <div class="m-stylemanager-style-col-1">
+        <span>{{translations.labelHaloColor}}</span>
+      </div>
+      <div class="m-stylemanager-style-col-2">
+        <input type="color" data-style-options="label.stroke.color" {{#neq label.stroke.color 'no-color'
+          }}value="{{label.stroke.color}}" {{/neq}} class="m-stylemanager-input-size">
+      </div>
+    </div>
+
+    <div class="m-stylemanager-group-row" data-halo-section>
+      <div class="m-stylemanager-style-col-1">
+        <span>{{translations.strokeSize}}</span>
+      </div>
+      <div class="m-stylemanager-style-col-2">
+        <input value="{{label.stroke.width}}" type="number" min="1" max="15" value="2"
+          data-style-options="label.stroke.width" class="m-stylemanager-input-size m-stylemanager-style-select">
+      </div>
+    </div>
+
+
+
+    <div class="m-stylemanager-button-advanced-options" data-halo-section>
+      <i class="m-stylemanager-icons-down-open">
+      </i>{{translations.advancedOptions}}
+    </div>
+    <div class="m-stylemanager-hidden">
 
       <!-- Stroke Label -->
-      <div class="subtitle">Trazo de etiqueta:</div>
-      <div class="group-row">
-
-        <div class="style-col-1 input-reverse">
-          <span>Trazo</span>
-          <input type="checkbox" data-apply="label.stroke" {{#neq label.stroke.color 'no-color' }}checked{{/neq}}>
+      <div class="m-stylemanager-group-row" data-halo-section>
+        <div class="m-stylemanager-style-col-1">
+          <span>{{translations.linedash}}</span>
         </div>
-
-      </div>
-      <div class="group-row">
-
-        <div class="style-col-1">
-          <span>Color:</span>
-          <input type="color" data-style-options="label.stroke.color" {{#neq label.stroke.color 'no-color'
-            }}value="{{label.stroke.color}}" {{/neq}}>
+        <div class="m-stylemanager-style-col-2 m-stylemanager-displayrow m-stylemanager-between">
+          <input value="{{#get 0 label.stroke.linedash}}{{/get}}" type="number" min="0"
+            data-target="label.stroke.linedash" data-style-options="label.stroke.linedash" data-format="array"
+            class="m-stylemanager-style-select">
+          <input value="{{#get 1 label.stroke.linedash}}{{/get}}" type="number" min="0" data-id="label.stroke.linedash"
+            class="m-stylemanager-style-select">
         </div>
-
-        <div class="style-col-2">
-          <span>Ancho:</span>
-          <input value="{{label.stroke.width}}" type="number" value="2" max="15" min="1"
-            data-style-options="label.stroke.width">
-        </div>
-
       </div>
 
-      <div class="group-row">
-
-        <div class="style-col-1">
-          <span>Line Dash:</span>
-          <input value="{{#get 0 label.stroke.linedash}}{{/get}}" type="number" data-target="label.stroke.linedash"
-            data-style-options="label.stroke.linedash" data-format="array">
-          <span class="empty">&nbsp;</span>
-          <input value="{{#get 1 label.stroke.linedash}}{{/get}}" type="number" data-id="label.stroke.linedash">
+      <div class="m-stylemanager-group-row" data-halo-section>
+        <div class="m-stylemanager-style-col-1">
+          <span>{{translations.linedashOffset}}</span>
         </div>
-
-        <div class="style-col-2">
-          <span>Line Dash Offset:</span>
-          <input type="number" value="{{label.stroke.linedashoffset}}" data-style-options="label.stroke.linedashoffset">
+        <div class="m-stylemanager-style-col-2">
+          <input type="number" value="{{label.stroke.linedashoffset}}" data-style-options="label.stroke.linedashoffset"
+            class="m-stylemanager-input-size m-stylemanager-style-select" min="0">
         </div>
-
       </div>
 
-      <div class="group-row">
-
-        <div class="style-col-1">
-          <span>Line Cap:</span>
-          <select data-style-options="label.stroke.linecap">
+      <div class="m-stylemanager-group-row" data-halo-section>
+        <div class="m-stylemanager-style-col-1">
+          <span>{{translations.lineCap}}</span>
+        </div>
+        <div class="m-stylemanager-style-col-2">
+          <select data-style-options="label.stroke.linecap"
+            class="m-stylemanager-input-size m-stylemanager-style-select">
             {{#each linecaplabelstroke}}
-            <option value="{{this.id}}" {{#eq this.id this.selected}}selected{{/eq}}>{{this.name}}</option>
+            <option value="{{this.id}}" {{#if this.selected}}selected{{/if}}>{{this.name}}
+            </option>
             {{/each}}
           </select>
         </div>
+      </div>
 
-        <div class="style-col-2">
-          <span>Line Join:</span>
-          <select data-style-options="label.stroke.linejoin">
+      <div class="m-stylemanager-group-row" data-halo-section>
+        <div class="m-stylemanager-style-col-1">
+          <span>{{translations.lineJoin}}</span>
+        </div>
+        <div class="m-stylemanager-style-col-2">
+          <select data-style-options="label.stroke.linejoin"
+            class="m-stylemanager-input-size m-stylemanager-style-select">
             {{#each linejoinlabelstroke}}
-            <option value="{{this.id}}" {{#eq this.id this.selected}}selected{{/eq}}>{{this.name}}</option>
+            <option value="{{this.id}}" {{#if this.selected}}selected{{/if}}>{{this.name}}
+            </option>
             {{/each}}
           </select>
         </div>
       </div>
-
     </div>
   </div>
-
-  <!-- Icon Options -->
-  <div class="styles-row m-hidden m-simple-category" data-id="icon">
-    <div class="title">Opciones</div>
-
-    <div class="m-styles-body">
-
-
-      <!-- Point Icon -->
-      <div data-pointicon class="group-row">
-
-        <div class="style-col-1">
-          <span>URL</span>
-          <input value="{{icon.src}}" type="url" data-style-options="src.src">
-        </div>
-        <div class="style-col-2">
-          <span>Tamaño:</span>
-          <input {{#if icon.size}}value="{{#get 0 icon.size}}{{/get}}" {{/if}} type="number" data-undefined
-            data-target="size" data-style-options="src.size">
-          <span class="empty">&nbsp;</span>
-          <input {{#if icon.size}}value="{{#get 1 icon.size}}{{/get}}" {{/if}} type="number" data-undefined
-            data-id="size">
-        </div>
-
-
-      </div>
-
-      <div data-pointicon class="group-row">
-
-
-        <div class="style-col-2 input-reverse m-hidden">
-          <span>Snap to pixel</span>
-          <input {{#if icon.snaptopixel}}checked{{/if}} type="checkbox" data-style-options="src.snaptopixel">
-        </div>
-
-      </div>
-
-      <div data-pointicon class="group-row">
-
-        <div class="style-col-1">
-          <span>Anclaje:</span>
-          <input value="{{#get 0 icon.anchor}}{{/get}}" type="number" data-target="anchor"
-            data-style-options="src.anchor">
-          <span class="empty">&nbsp;</span>
-          <input value="{{#get 1 icon.anchor}}{{/get}}" type="number" data-id="anchor">
-        </div>
-
-        <div class="style-col-2">
-          <span>Escala:</span>
-          <input value="{{icon.scale}}" type="number" data-style-options="src.scale" max="3" min="0" step="0.1">
-        </div>
-      </div>
-
-
-
-      <!-- Common -->
-      <div data-common-icon class="group-row">
-
-        <div class="style-col-1">
-          <span>Offset:</span>
-          <input value="{{#get 0 icon.offset}}{{/get}}" type="number" data-target="icon-offset"
-            data-style-options="src.offset">
-          <span class="empty">&nbsp;</span>
-          <input value="{{#get 1 icon.offset}}{{/get}}" type="number" data-id="icon-offset" />
-        </div>
-
-        <div class="style-col-2">
-          <span>Opacidad:</span>
-          <input value="{{icon.opacity}}" type="number" step="0.1" min=0 max=1 data-style-options="src.opacity">
-        </div>
-      </div>
-
-      <div data-common-icon class="group-row">
-
-        <div class="style-col-1 input-reverse">
-          <span>Habilitar rotación con el mapa</span>
-          <input {{#if icon.rotate}}checked {{/if}} type="checkbox" data-style-options="src.rotate">
-        </div>
-
-        <div class="style-col-2">
-          <span>Rotación:</span>
-          <input value="{{icon.rotation}}" type="number" min=0 max=360 data-style-options="src.rotation">
-        </div>
-
-      </div>
-
-    </div>
-  </div>
-
-  <!-- Form Options -->
-  <div class="styles-row m-hidden m-simple-category" data-id="form">
-    <div class="title">Opciones</div>
-    <div class="m-styles-body">
-
-      <!-- Point Font -->
-      <div data-pointfont class="group-row">
-
-        <div class="style-col-1">
-          <span>bkColor:</span>
-          <input type="color" data-style-options="form.fill" value="{{icon.fill}}">
-        </div>
-
-      </div>
-
-      <div data-pointfont class="group-row">
-
-        <div class="style-col-1">
-          <span>Forma:</span>
-          <select data-style-options="form.form">
-            {{#each formlist}}
-            <option value="{{this.id}}" {{#eq this.id this.selected}}selected{{/eq}}>{{this.name}}</option>
-            {{/each}}
-          </select>
-        </div>
-
-        <div class="style-col-2">
-          <span>Familia:</span>
-          <select data-style-options="form.class" data-icon="{{icon.class}}">
-            <option value="" selected>None</option>
-            <option value="g-cartografia">G-Cartografía</option>
-            <option value="fa">Font Awesome</option>
-          </select>
-          <button id="select-icon" class="g-cartografia-info"></button>
-          <div class="style-grid-container">
-            <div class="style-grid-item g-cartografia-alerta"></div>
-            <div class="style-grid-item g-cartografia-ayuda"></div>
-            <div class="style-grid-item g-cartografia-bandera"></div>
-            <div class="style-grid-item g-cartografia-brujula"></div>
-            <div class="style-grid-item g-cartografia-cancelar"></div>
-            <div class="style-grid-item g-cartografia-cancelar2"></div>
-            <div class="style-grid-item g-cartografia-capas"></div>
-            <div class="style-grid-item g-cartografia-capas2"></div>
-            <div class="style-grid-item g-cartografia-check"></div>
-            <div class="style-grid-item g-cartografia-check2"></div>
-            <div class="style-grid-item g-cartografia-check3"></div>
-            <div class="style-grid-item g-cartografia-check4"></div>
-            <div class="style-grid-item g-cartografia-check5"></div>
-            <div class="style-grid-item g-cartografia-comentarios"></div>
-            <div class="style-grid-item g-cartografia-descargar"></div>
-            <div class="style-grid-item g-cartografia-editar"></div>
-            <div class="style-grid-item g-cartografia-editar2"></div>
-            <div class="style-grid-item g-cartografia-escala"></div>
-            <div class="style-grid-item g-cartografia-escala2"></div>
-            <div class="style-grid-item g-cartografia-escala3"></div>
-            <div class="style-grid-item g-cartografia-flecha"></div>
-            <div class="style-grid-item g-cartografia-flecha-abajo"></div>
-            <div class="style-grid-item g-cartografia-flecha-abajo2"></div>
-            <div class="style-grid-item g-cartografia-flecha-arriba"></div>
-            <div class="style-grid-item g-cartografia-flecha-arriba2"></div>
-            <div class="style-grid-item g-cartografia-flecha-derecha"></div>
-            <div class="style-grid-item g-cartografia-flecha-derecha2"></div>
-            <div class="style-grid-item g-cartografia-flecha-derecha3"></div>
-            <div class="style-grid-item g-cartografia-flecha-deshacer"></div>
-            <div class="style-grid-item g-cartografia-flecha-izquierda"></div>
-            <div class="style-grid-item g-cartografia-flecha-izquierda2"></div>
-            <div class="style-grid-item g-cartografia-flecha-izquierda3"></div>
-            <div class="style-grid-item g-cartografia-flecha-link"></div>
-            <div class="style-grid-item g-cartografia-flechas-mover"></div>
-            <div class="style-grid-item g-cartografia-gps"></div>
-            <div class="style-grid-item g-cartografia-gps2"></div>
-            <div class="style-grid-item g-cartografia-gps3"></div>
-            <div class="style-grid-item g-cartografia-gps4"></div>
-            <div class="style-grid-item g-cartografia-guardar"></div>
-            <div class="style-grid-item g-cartografia-herramienta"></div>
-            <div class="style-grid-item g-cartografia-impresora"></div>
-            <div class="style-grid-item g-cartografia-info"></div>
-            <div class="style-grid-item g-cartografia-linea"></div>
-            <div class="style-grid-item g-cartografia-lineas"></div>
-            <div class="style-grid-item g-cartografia-lista"></div>
-            <div class="style-grid-item g-cartografia-localizacion"></div>
-            <div class="style-grid-item g-cartografia-localizacion2"></div>
-            <div class="style-grid-item g-cartografia-localizacion3"></div>
-            <div class="style-grid-item g-cartografia-localizacion4"></div>
-            <div class="style-grid-item g-cartografia-mano"></div>
-            <div class="style-grid-item g-cartografia-mano2"></div>
-            <div class="style-grid-item g-cartografia-mapa"></div>
-            <div class="style-grid-item g-cartografia-mas"></div>
-            <div class="style-grid-item g-cartografia-mas2"></div>
-            <div class="style-grid-item g-cartografia-medir-area"></div>
-            <div class="style-grid-item g-cartografia-medir-linea"></div>
-            <div class="style-grid-item g-cartografia-menos"></div>
-            <div class="style-grid-item g-cartografia-menos2"></div>
-            <div class="style-grid-item g-cartografia-menu"></div>
-            <div class="style-grid-item g-cartografia-mundo"></div>
-            <div class="style-grid-item g-cartografia-mundo2"></div>
-            <div class="style-grid-item g-cartografia-opciones"></div>
-            <div class="style-grid-item g-cartografia-papelera"></div>
-            <div class="style-grid-item g-cartografia-pin"></div>
-            <div class="style-grid-item g-cartografia-pin-nuevo"></div>
-            <div class="style-grid-item g-cartografia-pin2"></div>
-            <div class="style-grid-item g-cartografia-pin3"></div>
-            <div class="style-grid-item g-cartografia-pin4"></div>
-            <div class="style-grid-item g-cartografia-poligono"></div>
-            <div class="style-grid-item g-cartografia-posicion"></div>
-            <div class="style-grid-item g-cartografia-posicion2"></div>
-            <div class="style-grid-item g-cartografia-posicion3"></div>
-            <div class="style-grid-item g-cartografia-posicion4"></div>
-            <div class="style-grid-item g-cartografia-posicion5"></div>
-            <div class="style-grid-item g-cartografia-posicion6"></div>
-            <div class="style-grid-item g-cartografia-posicion7"></div>
-            <div class="style-grid-item g-cartografia-prismaticos"></div>
-            <div class="style-grid-item g-cartografia-regla"></div>
-            <div class="style-grid-item g-cartografia-reglas"></div>
-            <div class="style-grid-item g-cartografia-ruta"></div>
-            <div class="style-grid-item g-cartografia-spinner"></div>
-            <div class="style-grid-item g-cartografia-subir"></div>
-            <div class="style-grid-item g-cartografia-tamano"></div>
-            <div class="style-grid-item g-cartografia-temperatura"></div>
-            <div class="style-grid-item g-cartografia-texto"></div>
-            <div class="style-grid-item g-cartografia-usuario"></div>
-            <div class="style-grid-item g-cartografia-usuario2"></div>
-            <div class="style-grid-item g-cartografia-zoom"></div>
-            <div class="style-grid-item g-cartografia-zoom-extension"></div>
-            <div class="style-grid-item g-cartografia-zoom-mas"></div>
-            <div class="style-grid-item g-cartografia-zoom-menos"></div>
-            <div class="style-grid-item g-cartografia-pin5"></div>
-            <div class="style-grid-item g-cartografia-pin-nuevo2"></div>
-            <div class="style-grid-item g-cartografia-pin-seleccionado"></div>
-            <div class="style-grid-item g-cartografia-brujula-norte"></div>
-            <div class="style-grid-item fa fa-glass"></div>
-            <div class="style-grid-item fa fa-music"></div>
-            <div class="style-grid-item fa fa-search"></div>
-            <div class="style-grid-item fa fa-envelope-o"></div>
-            <div class="style-grid-item fa fa-heart"></div>
-            <div class="style-grid-item fa fa-star"></div>
-            <div class="style-grid-item fa fa-star-o"></div>
-            <div class="style-grid-item fa fa-user"></div>
-            <div class="style-grid-item fa fa-film"></div>
-            <div class="style-grid-item fa fa-th-large"></div>
-            <div class="style-grid-item fa fa-th"></div>
-            <div class="style-grid-item fa fa-th-list"></div>
-            <div class="style-grid-item fa fa-check"></div>
-            <div class="style-grid-item fa fa-remove"></div>
-            <div class="style-grid-item fa fa-close"></div>
-            <div class="style-grid-item fa fa-times"></div>
-            <div class="style-grid-item fa fa-search-plus"></div>
-            <div class="style-grid-item fa fa-search-minus"></div>
-            <div class="style-grid-item fa fa-power-off"></div>
-            <div class="style-grid-item fa fa-signal"></div>
-            <div class="style-grid-item fa fa-gear"></div>
-            <div class="style-grid-item fa fa-cog"></div>
-            <div class="style-grid-item fa fa-trash-o"></div>
-            <div class="style-grid-item fa fa-home"></div>
-            <div class="style-grid-item fa fa-file-o"></div>
-            <div class="style-grid-item fa fa-clock-o"></div>
-            <div class="style-grid-item fa fa-road"></div>
-            <div class="style-grid-item fa fa-download"></div>
-            <div class="style-grid-item fa fa-arrow-circle-o-down"></div>
-            <div class="style-grid-item fa fa-arrow-circle-o-up"></div>
-            <div class="style-grid-item fa fa-inbox"></div>
-            <div class="style-grid-item fa fa-play-circle-o"></div>
-            <div class="style-grid-item fa fa-rotate-right"></div>
-            <div class="style-grid-item fa fa-repeat"></div>
-            <div class="style-grid-item fa fa-refresh"></div>
-            <div class="style-grid-item fa fa-list-alt"></div>
-            <div class="style-grid-item fa fa-lock"></div>
-            <div class="style-grid-item fa fa-flag"></div>
-            <div class="style-grid-item fa fa-headphones"></div>
-            <div class="style-grid-item fa fa-volume-off"></div>
-            <div class="style-grid-item fa fa-volume-down"></div>
-            <div class="style-grid-item fa fa-volume-up"></div>
-            <div class="style-grid-item fa fa-qrcode"></div>
-            <div class="style-grid-item fa fa-barcode"></div>
-            <div class="style-grid-item fa fa-tag"></div>
-            <div class="style-grid-item fa fa-tags"></div>
-            <div class="style-grid-item fa fa-book"></div>
-            <div class="style-grid-item fa fa-bookmark"></div>
-            <div class="style-grid-item fa fa-print"></div>
-            <div class="style-grid-item fa fa-camera"></div>
-            <div class="style-grid-item fa fa-font"></div>
-            <div class="style-grid-item fa fa-bold"></div>
-            <div class="style-grid-item fa fa-italic"></div>
-            <div class="style-grid-item fa fa-text-height"></div>
-            <div class="style-grid-item fa fa-text-width"></div>
-            <div class="style-grid-item fa fa-align-left"></div>
-            <div class="style-grid-item fa fa-align-center"></div>
-            <div class="style-grid-item fa fa-align-right"></div>
-            <div class="style-grid-item fa fa-align-justify"></div>
-            <div class="style-grid-item fa fa-list"></div>
-            <div class="style-grid-item fa fa-dedent"></div>
-            <div class="style-grid-item fa fa-outdent"></div>
-            <div class="style-grid-item fa fa-indent"></div>
-            <div class="style-grid-item fa fa-video-camera"></div>
-            <div class="style-grid-item fa fa-photo"></div>
-            <div class="style-grid-item fa fa-image"></div>
-            <div class="style-grid-item fa fa-picture-o"></div>
-            <div class="style-grid-item fa fa-pencil"></div>
-            <div class="style-grid-item fa fa-map-marker"></div>
-            <div class="style-grid-item fa fa-adjust"></div>
-            <div class="style-grid-item fa fa-tint"></div>
-            <div class="style-grid-item fa fa-edit"></div>
-            <div class="style-grid-item fa fa-pencil-square-o"></div>
-            <div class="style-grid-item fa fa-share-square-o"></div>
-            <div class="style-grid-item fa fa-check-square-o"></div>
-            <div class="style-grid-item fa fa-arrows"></div>
-            <div class="style-grid-item fa fa-step-backward"></div>
-            <div class="style-grid-item fa fa-fast-backward"></div>
-            <div class="style-grid-item fa fa-backward"></div>
-            <div class="style-grid-item fa fa-play"></div>
-            <div class="style-grid-item fa fa-pause"></div>
-            <div class="style-grid-item fa fa-stop"></div>
-            <div class="style-grid-item fa fa-forward"></div>
-            <div class="style-grid-item fa fa-fast-forward"></div>
-            <div class="style-grid-item fa fa-step-forward"></div>
-            <div class="style-grid-item fa fa-eject"></div>
-            <div class="style-grid-item fa fa-chevron-left"></div>
-            <div class="style-grid-item fa fa-chevron-right"></div>
-            <div class="style-grid-item fa fa-plus-circle"></div>
-            <div class="style-grid-item fa fa-minus-circle"></div>
-            <div class="style-grid-item fa fa-times-circle"></div>
-            <div class="style-grid-item fa fa-check-circle"></div>
-            <div class="style-grid-item fa fa-question-circle"></div>
-            <div class="style-grid-item fa fa-info-circle"></div>
-            <div class="style-grid-item fa fa-crosshairs"></div>
-            <div class="style-grid-item fa fa-times-circle-o"></div>
-            <div class="style-grid-item fa fa-check-circle-o"></div>
-            <div class="style-grid-item fa fa-ban"></div>
-            <div class="style-grid-item fa fa-arrow-left"></div>
-            <div class="style-grid-item fa fa-arrow-right"></div>
-            <div class="style-grid-item fa fa-arrow-up"></div>
-            <div class="style-grid-item fa fa-arrow-down"></div>
-            <div class="style-grid-item fa fa-mail-forward"></div>
-            <div class="style-grid-item fa fa-share"></div>
-            <div class="style-grid-item fa fa-expand"></div>
-            <div class="style-grid-item fa fa-compress"></div>
-            <div class="style-grid-item fa fa-plus"></div>
-            <div class="style-grid-item fa fa-minus"></div>
-            <div class="style-grid-item fa fa-asterisk"></div>
-            <div class="style-grid-item fa fa-exclamation-circle"></div>
-            <div class="style-grid-item fa fa-gift"></div>
-            <div class="style-grid-item fa fa-leaf"></div>
-            <div class="style-grid-item fa fa-fire"></div>
-            <div class="style-grid-item fa fa-eye"></div>
-            <div class="style-grid-item fa fa-eye-slash"></div>
-            <div class="style-grid-item fa fa-warning"></div>
-            <div class="style-grid-item fa fa-exclamation-triangle"></div>
-            <div class="style-grid-item fa fa-plane"></div>
-            <div class="style-grid-item fa fa-calendar"></div>
-            <div class="style-grid-item fa fa-random"></div>
-            <div class="style-grid-item fa fa-comment"></div>
-            <div class="style-grid-item fa fa-magnet"></div>
-            <div class="style-grid-item fa fa-chevron-up"></div>
-            <div class="style-grid-item fa fa-chevron-down"></div>
-            <div class="style-grid-item fa fa-retweet"></div>
-            <div class="style-grid-item fa fa-shopping-cart"></div>
-            <div class="style-grid-item fa fa-folder"></div>
-            <div class="style-grid-item fa fa-folder-open"></div>
-            <div class="style-grid-item fa fa-arrows-v"></div>
-            <div class="style-grid-item fa fa-arrows-h"></div>
-            <div class="style-grid-item fa fa-bar-t-o"></div>
-            <div class="style-grid-item fa fa-bar-t"></div>
-            <div class="style-grid-item fa fa-twitter-square"></div>
-            <div class="style-grid-item fa fa-facebook-square"></div>
-            <div class="style-grid-item fa fa-camera-retro"></div>
-            <div class="style-grid-item fa fa-key"></div>
-            <div class="style-grid-item fa fa-gears"></div>
-            <div class="style-grid-item fa fa-cogs"></div>
-            <div class="style-grid-item fa fa-comments"></div>
-          </div>
-        </div>
-
-      </div>
-
-      <div data-pointfont class="group-row">
-
-        <div class="style-col-1">
-          <span>Radio:</span>
-          <input type="number" min="1" max="100" value="20" data-style-options="form.radius" value="{{icon.radius}}">
-        </div>
-
-        <div class="style-col-2">
-          <span>Tamaño icono:</span>
-          <input type="number" step="0.1" min=0 max=100 data-style-options="form.fontsize" value="{{icon.fontsize}}">
-        </div>
-
-
-      </div>
-
-      <div data-pointfont class="group-row">
-
-        <div class="style-col-1 input-reverse">
-          <span>Gradiente</span>
-          <input type="checkbox" data-style-options="form.gradient" {{#if icon.gradient}}checked{{/if}}>
-        </div>
-
-        <div class="style-col-2">
-          <span>Color de icono:</span>
-          <input type="color" data-style-options="form.color" value="{{icon.color}}">
-        </div>
-      </div>
-
-      <!-- Common -->
-      <div data-common-icon class="group-row">
-
-        <div class="style-col-1">
-          <span>Offset:</span>
-          <input value="{{#get 0 icon.offset}}{{/get}}" type="number" data-target="form-offset"
-            data-style-options="form.offset">
-          <span class="empty">&nbsp;</span>
-          <input value="{{#get 1 icon.offset}}{{/get}}" type="number" data-id="form-offset" />
-        </div>
-
-        <div class="style-col-2">
-          <span>Opacidad:</span>
-          <input value="{{icon.opacity}}" type="number" step="0.1" min=0 max=1 data-style-options="form.opacity">
-        </div>
-      </div>
-
-      <div data-common-icon class="group-row">
-
-        <div class="style-col-1 input-reverse">
-          <span>Habilitar rotación con el mapa</span>
-          <input {{#if icon.rotate}}checked {{/if}} type="checkbox" data-style-options="form.rotate">
-        </div>
-
-        <div class="style-col-2">
-          <span>Rotación:</span>
-          <input value="{{icon.rotation}}" type="number" min=0 max=360 data-style-options="form.rotation">
-        </div>
-
-      </div>
-
-    </div>
-  </div>
-</div>
 </div>
